@@ -1,0 +1,112 @@
+{
+  "type": "workflow",
+  "name": "Send Reminder to Clients with Overdue Invoices",
+  "description": "Manages the communication process for reminding clients about overdue payments with optional escalation and personalization.",
+  "category": "Finance",
+  "fields": [
+    "invoice_id",
+    "client_id",
+    "due_date",
+    "overdue_days",
+    "reminder_level",
+    "preferred_language",
+    "reminder_template",
+    "reminder_sent_at",
+    "response_received",
+    "escalation_status",
+    "payment_status"
+  ],
+  "steps": [
+    {
+      "name": "Detect Overdue Invoices",
+      "action": "Automatically check for unpaid invoices past due date",
+      "group": "Detection",
+      "level": 0,
+      "optional": false,
+      "changeable": false,
+      "cancelable": false,
+      "input_fields": ["invoice_id", "due_date"],
+      "output_fields": ["overdue_days"]
+    },
+    {
+      "name": "Check Payment or Communication Blockers",
+      "action": "Validate if the invoice is under dispute, payment plan, or blocked",
+      "group": "Validation",
+      "level": 0,
+      "optional": true,
+      "changeable": true,
+      "cancelable": true,
+      "input_fields": ["invoice_id"],
+      "output_fields": ["payment_status"]
+    },
+    {
+      "name": "Determine Reminder Level",
+      "action": "Select which reminder (1st, 2nd, final, legal warning) should be sent",
+      "group": "Strategy",
+      "level": 1,
+      "optional": false,
+      "changeable": true,
+      "cancelable": false,
+      "input_fields": ["overdue_days"],
+      "output_fields": ["reminder_level"]
+    },
+    {
+      "name": "Generate Reminder Message",
+      "action": "Generate template based on client, language, and reminder level",
+      "group": "Communication",
+      "level": 2,
+      "optional": false,
+      "changeable": true,
+      "cancelable": false,
+      "input_fields": ["reminder_level", "preferred_language"],
+      "output_fields": ["reminder_template"]
+    },
+    {
+      "name": "Send Reminder (Email or SMS)",
+      "action": "Send reminder via client’s preferred channel",
+      "group": "Communication",
+      "level": 3,
+      "optional": false,
+      "changeable": true,
+      "cancelable": false,
+      "input_fields": ["reminder_template", "client_id"],
+      "output_fields": ["reminder_sent_at"]
+    },
+    {
+      "name": "Log Activity in CRM / Timeline",
+      "action": "Add note about reminder being sent for team visibility",
+      "group": "Internal",
+      "level": 3,
+      "optional": true,
+      "changeable": true,
+      "cancelable": true,
+      "input_fields": ["reminder_sent_at", "invoice_id"],
+      "output_fields": []
+    },
+    {
+      "name": "Wait for Response / Payment",
+      "action": "Pause for X days awaiting client action",
+      "group": "Waiting",
+      "level": 4,
+      "optional": false,
+      "changeable": true,
+      "cancelable": false,
+      "input_fields": ["reminder_sent_at"],
+      "output_fields": ["response_received"]
+    },
+    {
+      "name": "Send Escalation Notification (Optional)",
+      "action": "Trigger next-level reminder, legal warning, or handoff to collection",
+      "group": "Escalation",
+      "level": 5,
+      "optional": true,
+      "changeable": true,
+      "cancelable": true,
+      "input_fields": ["response_received", "reminder_level"],
+      "output_fields": ["escalation_status"]
+    }
+  ],
+  "need_project": false,
+  "need_client": true,
+  "need_payment": true
+}

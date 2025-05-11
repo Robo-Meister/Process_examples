@@ -1,0 +1,156 @@
+{
+  "type": "workflow",
+  "name": "Receive and Process Service Ticket",
+  "description": "A workflow to handle incoming service tickets, determine warranty status, calculate repair costs if applicable, and notify the client about the resolution process.",
+  "category": "Customer Support",
+  "fields": [
+    "ticket_id",
+    "client_details",
+    "product_id",
+    "service_description",
+    "warranty_status",
+    "estimated_cost",
+    "approval_status",
+    "final_cost",
+    "repair_status"
+  ],
+  "steps": [
+    {
+      "name": "Receive Service Ticket",
+      "action": "Submit Ticket",
+      "decorators": [],
+      "group": "Support Team",
+      "next": null,
+      "level": 0,
+      "optional": false,
+      "changeable": true,
+      "cancelable": false,
+      "input_fields": ["client_details", "product_id", "service_description"],
+      "output_fields": ["ticket_id"]
+    },
+    {
+      "name": "Verify Warranty Status",
+      "action": "Check Warranty",
+      "decorators": [],
+      "group": "Support Team",
+      "next": null,
+      "level": 1,
+      "optional": false,
+      "changeable": false,
+      "cancelable": false,
+      "input_fields": ["product_id", "client_details"],
+      "output_fields": ["warranty_status"]
+    },
+    {
+      "name": "Inspect and Diagnose",
+      "action": "Identify the issue with the product",
+      "decorators": [],
+      "group": "Repair Team",
+      "next": null,
+      "level": 2,
+      "optional": false,
+      "changeable": true,
+      "cancelable": false,
+      "input_fields": ["ticket_id", "service_description"],
+      "output_fields": ["diagnosis_report"]
+    },
+    {
+      "name": "Calculate Repair Cost",
+      "action": "Estimate cost",
+      "decorators": [
+        {
+          "name": "Run if warranty_status is null",
+          "type": "DecoratorIfFieldExists",
+          "options": {
+            "field": "warranty_status"
+          }
+        }
+      ],
+      "group": "Finance Team",
+      "next": null,
+      "level": 3,
+      "optional": false,
+      "changeable": true,
+      "cancelable": false,
+      "input_fields": ["diagnosis_report", "warranty_status"],
+      "output_fields": ["cost"]
+    },
+    {
+      "name": "Accept the Status",
+      "action": "Accept",
+      "decorators": [
+        {
+          "name": "Run if warranty_status is null",
+          "type": "DecoratorIfFieldDoesntExists",
+          "options": {
+            "field": "warranty_status"
+          }
+        }
+      ],
+      "group": "Finance Team",
+      "next": null,
+      "level": 3,
+      "optional": false,
+      "changeable": true,
+      "cancelable": false,
+      "report": true,
+      "input_fields": [],
+      "output_fields": []
+    },
+    {
+      "name": "Notify Client for Approval",
+      "action": "Send the cost estimate to the client for approval",
+      "decorators": [],
+      "group": "Support Team",
+      "next": null,
+      "level": 4,
+      "optional": false,
+      "changeable": false,
+      "cancelable": false,
+      "input_fields": ["ticket_id", "estimated_cost", "warranty_status"],
+      "output_fields": ["approval_status"]
+    },
+    {
+      "name": "Perform Repair",
+      "action": "Repair the Product",
+      "decorators": [],
+      "group": "Repair Team",
+      "next": null,
+      "level": 5,
+      "optional": false,
+      "changeable": true,
+      "cancelable": false,
+      "input_fields": ["diagnosis_report", "approval_status"],
+      "output_fields": ["repair_status"]
+    },
+    {
+      "name": "Update Final Cost",
+      "action": "Calculate the final cost if needed",
+      "decorators": [],
+      "group": "Finance Team",
+      "next": null,
+      "level": 6,
+      "optional": true,
+      "changeable": false,
+      "cancelable": false,
+      "input_fields": ["repair_status", "estimated_cost"],
+      "output_fields": ["final_cost"]
+    },
+    {
+      "name": "Notify Client of Completion",
+      "action": "Inform the client about the repair completion and final cost",
+      "decorators": [],
+      "group": "Support Team",
+      "next": null,
+      "level": 7,
+      "optional": false,
+      "changeable": true,
+      "cancelable": false,
+      "input_fields": ["ticket_id", "repair_status", "final_cost"],
+      "output_fields": ["notification_log"]
+    }
+  ],
+  "need_project": false,
+  "need_client": true,
+  "need_payment": false
+}

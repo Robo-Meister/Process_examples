@@ -1,0 +1,64 @@
+{
+  "type": "integration",
+  "name": "Confluence",
+  "scope": ["knowledge_base", "documentation"],
+  "support_url": "https://support.atlassian.com/confluence/",
+  "auth_url": "https://auth.atlassian.com/authorize",
+  "requirements": [
+    "API_KEY",
+    "SPACE_KEY",
+    "HOST"
+  ],
+  "front_requirements": ["API_KEY", "SPACE_KEY", "HOST"],
+  "custom_provider_key": null,
+  "auth_method": 2,
+  "ai": false,
+  "front": true,
+  "payment": false,
+  "need_oauth": true,
+  "description": "Integrate with Confluence to manage pages and collaborate on documentation.",
+  "hooks": [
+    {
+      "name": "Get Pages",
+      "description": "Retrieve a list of pages from a Confluence space.",
+      "method": "GET",
+      "testable": true,
+      "hook": "https://%%HOST%%/wiki/rest/api/space/%%SPACE_KEY%%/content",
+      "content": null,
+      "scope": [],
+      "mapper": [
+        {
+          "field": "list",
+          "parse": "results:title,id",
+          "type": 1
+        }
+      ],
+      "categories": ["Documentation", "Knowledge Base"],
+      "action": [
+        {
+          "field": null,
+          "action": "Fetch Documents",
+          "type": 2
+        }
+      ]
+    },
+    {
+      "name": "Create Page",
+      "description": "Create a new page in a Confluence space.",
+      "method": "POST",
+      "testable": true,
+      "hook": "https://%%HOST%%/wiki/rest/api/content",
+      "content": "{\"type\": \"page\", \"title\": \"%%title%%\", \"space\": {\"key\": \"%%SPACE_KEY%%\"}, \"body\": {\"storage\": {\"value\": \"%%content%%\", \"representation\": \"storage\"}}}",
+      "scope": [],
+      "mapper": [],
+      "categories": ["Documentation"],
+      "action": [
+        {
+          "field": null,
+          "action": "Create Document",
+          "type": 3
+        }
+      ]
+    }
+  ]
+}

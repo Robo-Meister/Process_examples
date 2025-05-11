@@ -1,0 +1,145 @@
+{
+  "type": "workflow",
+  "name": "R&D Product Launch",
+  "description": "Covers all stages of launching a new product from R&D, including research, prototyping, testing, iteration, and market readiness.",
+  "category": "R&D",
+  "fields": [
+    "initial_idea",
+    "market_research",
+    "user_feedback",
+    "early_prototype",
+    "design_doc",
+    "iteration_notes",
+    "test_results",
+    "compliance_check",
+    "launch_plan",
+    "promotion_materials",
+    "launch_date"
+  ],
+  "steps": [
+    {
+      "name": "Capture Initial Idea",
+      "action": "Define the core concept or innovation",
+      "group": "Concept",
+      "level": 0,
+      "optional": false,
+      "changeable": true,
+      "cancelable": true,
+      "input_fields": [],
+      "output_fields": ["initial_idea"]
+    },
+    {
+      "name": "Conduct Market Research",
+      "action": "Study target users and competitors",
+      "group": "Market Insight",
+      "level": 1,
+      "optional": false,
+      "changeable": true,
+      "cancelable": true,
+      "input_fields": ["initial_idea"],
+      "output_fields": ["market_research"]
+    },
+    {
+      "name": "Collect User Feedback (Early)",
+      "action": "Talk to users before building",
+      "group": "UX",
+      "level": 1,
+      "optional": true,
+      "changeable": true,
+      "cancelable": true,
+      "input_fields": ["market_research"],
+      "output_fields": ["user_feedback"]
+    },
+    {
+      "name": "Develop Early Prototype",
+      "action": "Create MVP or working demo",
+      "group": "Engineering",
+      "level": 2,
+      "optional": false,
+      "changeable": true,
+      "cancelable": true,
+      "input_fields": ["initial_idea"],
+      "output_fields": ["early_prototype"]
+    },
+    {
+      "name": "Prepare Design Documentation",
+      "action": "Document features, specs, user flows",
+      "group": "Product",
+      "level": 2,
+      "optional": false,
+      "changeable": true,
+      "cancelable": false,
+      "input_fields": ["early_prototype", "user_feedback"],
+      "output_fields": ["design_doc"]
+    },
+    {
+      "name": "Test and Validate Prototype",
+      "action": "Conduct performance and UX testing",
+      "group": "QA / Validation",
+      "level": 3,
+      "optional": true,
+      "changeable": true,
+      "cancelable": true,
+      "input_fields": ["early_prototype"],
+      "output_fields": ["test_results"]
+    },
+    {
+      "name": "Iterate Based on Feedback",
+      "action": "Make improvements from testing",
+      "group": "Engineering",
+      "level": 3,
+      "optional": true,
+      "changeable": true,
+      "cancelable": true,
+      "input_fields": ["test_results", "user_feedback"],
+      "output_fields": ["iteration_notes"]
+    },
+    {
+      "name": "Check Compliance and Regulations",
+      "action": "Ensure legal, safety, and industry compliance",
+      "group": "Legal",
+      "level": 4,
+      "optional": true,
+      "changeable": false,
+      "cancelable": true,
+      "input_fields": ["design_doc"],
+      "output_fields": ["compliance_check"]
+    },
+    {
+      "name": "Prepare Product Launch Plan",
+      "action": "Schedule and plan launch activities",
+      "group": "Go-to-Market",
+      "level": 5,
+      "optional": false,
+      "changeable": true,
+      "cancelable": false,
+      "input_fields": ["market_research", "design_doc", "iteration_notes"],
+      "output_fields": ["launch_plan"]
+    },
+    {
+      "name": "Create Promotion Materials",
+      "action": "Prepare assets for PR, ads, and sales",
+      "group": "Marketing",
+      "level": 5,
+      "optional": true,
+      "changeable": true,
+      "cancelable": true,
+      "input_fields": ["design_doc", "launch_plan"],
+      "output_fields": ["promotion_materials"]
+    },
+    {
+      "name": "Launch Product",
+      "action": "Execute Launch",
+      "group": "Go-to-Market",
+      "level": 6,
+      "optional": false,
+      "changeable": false,
+      "cancelable": false,
+      "input_fields": ["launch_plan", "promotion_materials", "launch_date"],
+      "output_fields": []
+    }
+  ],
+  "need_project": true,
+  "need_client": false,
+  "need_payment": false
+}

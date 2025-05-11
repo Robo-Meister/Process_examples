@@ -1,0 +1,48 @@
+{
+  "type": "workflow",
+  "name": "Unauthorized Access Alert",
+  "description": "Detects unauthorized access attempts and triggers response.",
+  "category": "Security",
+  "fields": ["area", "timestamp", "camera_id", "screenshot", "access_result", "alert_status"],
+  "steps": [
+    {
+      "name": "Detect Entry",
+      "action": "Motion Detection",
+      "group": "Camera System",
+      "level": 0,
+      "possible_ai": true,
+      "possible_service": true,
+      "input_fields": ["area"],
+      "output_fields": ["timestamp", "camera_id"]
+    },
+    {
+      "name": "Capture Snapshot",
+      "action": "Take Snapshot",
+      "group": "Camera System",
+      "level": 1,
+      "possible_robots": true,
+      "possible_service": true,
+      "input_fields": ["camera_id"],
+      "output_fields": ["screenshot"]
+    },
+    {
+      "name": "Validate Access",
+      "action": "AuthorizeAccessCommand",
+      "group": "Security",
+      "level": 2,
+      "input_fields": ["area"],
+      "output_fields": ["access_result"]
+    },
+    {
+      "name": "Trigger Alert",
+      "action": "Send Notification",
+      "group": "Security",
+      "level": 3,
+      "input_fields": ["access_result", "screenshot", "timestamp"],
+      "output_fields": ["alert_status"]
+    }
+  ],
+  "need_project": false,
+  "need_client": false,
+  "need_payment": false
+}

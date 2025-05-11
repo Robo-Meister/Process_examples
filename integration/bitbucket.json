@@ -1,0 +1,126 @@
+{
+  "type": "integration",
+  "name": "Bitbucket",
+  "scope": ["version_control", "repository_management"],
+  "support_url": "https://support.atlassian.com/bitbucket-cloud/",
+  "auth_url": "https://bitbucket.org/site/oauth2/authorize",
+  "requirements": [
+    "CLIENT_ID",
+    "CLIENT_SECRET",
+    "ACCESS_TOKEN",
+    "REFRESH_TOKEN",
+    "BASE_URL"
+  ],
+  "front_requirements": ["CLIENT_ID", "ACCESS_TOKEN", "BASE_URL"],
+  "custom_provider_key": null,
+  "auth_method": 2,
+  "ai": false,
+  "front": true,
+  "payment": false,
+  "need_oauth": true,
+  "description": "Manage repositories, commits, and pull requests with Bitbucket integration.",
+  "hooks": [
+    {
+      "name": "Get a List of Repositories",
+      "description": "Retrieve a list of repositories for the authenticated user.",
+      "method": "GET",
+      "testable": true,
+      "hook": "https://%%BASE_URL%%/2.0/repositories/%%USERNAME%%",
+      "content": null,
+      "scope": [],
+      "mapper": [
+        {
+          "field": "list",
+          "parse": "values",
+          "type": 1
+        }
+      ],
+      "categories": ["Repository Management"],
+      "action": [
+        {
+          "field": null,
+          "action": "Fetch Repositories",
+          "type": 6
+        }
+      ]
+    },
+    {
+      "name": "Get a List of Commits",
+      "description": "Retrieve commit history for a repository.",
+      "method": "GET",
+      "testable": true,
+      "hook": "https://%%BASE_URL%%/2.0/repositories/%%USERNAME%%/%%REPO_SLUG%%/commits",
+      "content": null,
+      "scope": [],
+      "mapper": [
+        {
+          "field": "list",
+          "parse": "values",
+          "type": 1
+        }
+      ],
+      "categories": ["Version Control"],
+      "action": [
+        {
+          "field": null,
+          "action": "Fetch Commits",
+          "type": 6
+        }
+      ]
+    },
+    {
+      "name": "Create a Pull Request",
+      "description": "Create a new pull request in a repository.",
+      "method": "POST",
+      "testable": true,
+      "hook": "https://%%BASE_URL%%/2.0/repositories/%%USERNAME%%/%%REPO_SLUG%%/pullrequests",
+      "content": {
+        "title": "%%PR_TITLE%%",
+        "source": {
+          "branch": {
+            "name": "%%SOURCE_BRANCH%%"
+          }
+        },
+        "destination": {
+          "branch": {
+            "name": "%%DEST_BRANCH%%"
+          }
+        },
+        "description": "%%PR_DESCRIPTION%%"
+      },
+      "scope": [],
+      "mapper": [],
+      "categories": ["Version Control"],
+      "action": [
+        {
+          "field": null,
+          "action": "Create Pull Request",
+          "type": 2
+        }
+      ]
+    },
+    {
+      "name": "Create a New Branch",
+      "description": "Create a new branch from a specified base branch.",
+      "method": "POST",
+      "testable": true,
+      "hook": "https://%%BASE_URL%%/2.0/repositories/%%USERNAME%%/%%REPO_SLUG%%/refs/branches",
+      "content": {
+        "name": "%%NEW_BRANCH%%",
+        "target": {
+          "hash": "%%BASE_BRANCH_SHA%%"
+        }
+      },
+      "scope": [],
+      "mapper": [],
+      "categories": ["Version Control"],
+      "action": [
+        {
+          "field": null,
+          "action": "Create Branch",
+          "type": 2
+        }
+      ]
+    }
+  ]
+}

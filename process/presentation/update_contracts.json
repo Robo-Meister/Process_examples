@@ -1,0 +1,110 @@
+{
+  "type": "workflow",
+  "name": "Update Contracts and Notify Legal",
+  "description": "Handles contract updates, includes optional approval or legal review, version control, and automatic notification to legal when a contract is changed.",
+  "category": "Legal",
+  "fields": [
+    "contract_id",
+    "contract_type",
+    "change_reason",
+    "previous_version_id",
+    "updated_by",
+    "legal_ack_status",
+    "change_scope",
+    "approval_status",
+    "effective_date"
+  ],
+  "steps": [
+    {
+      "name": "Locate Contract to Be Updated",
+      "action": "Search or select the contract that requires changes",
+      "group": "Preparation",
+      "level": 0,
+      "optional": false,
+      "changeable": true,
+      "cancelable": true,
+      "input_fields": [],
+      "output_fields": ["contract_id"]
+    },
+    {
+      "name": "Describe Reason and Scope of Change",
+      "action": "Input justification and expected areas of impact (financial, legal, technical)",
+      "group": "Preparation",
+      "level": 1,
+      "optional": false,
+      "changeable": true,
+      "cancelable": true,
+      "input_fields": ["contract_id"],
+      "output_fields": ["change_reason", "change_scope"]
+    },
+    {
+      "name": "Optional: Assign Reviewer or Owner",
+      "action": "Assign person/team responsible for the change",
+      "group": "Review",
+      "level": 1,
+      "optional": true,
+      "changeable": true,
+      "cancelable": true,
+      "input_fields": [],
+      "output_fields": ["updated_by"]
+    },
+    {
+      "name": "Update Contract Content",
+      "action": "Make the required updates in the contract text or clauses",
+      "group": "Edit",
+      "level": 2,
+      "optional": false,
+      "changeable": true,
+      "cancelable": true,
+      "input_fields": ["contract_id"],
+      "output_fields": ["previous_version_id"]
+    },
+    {
+      "name": "Optional: Internal Approval",
+      "action": "Send to team lead or department for internal approval",
+      "group": "Approval",
+      "level": 3,
+      "optional": true,
+      "changeable": true,
+      "cancelable": true,
+      "input_fields": ["updated_by"],
+      "output_fields": ["approval_status"]
+    },
+    {
+      "name": "Notify Legal Department",
+      "action": "Send notification with version diff or summary of changes",
+      "group": "Notification",
+      "level": 4,
+      "optional": false,
+      "changeable": true,
+      "cancelable": false,
+      "input_fields": ["contract_id", "change_reason", "change_scope", "updated_by"],
+      "output_fields": ["legal_ack_status"]
+    },
+    {
+      "name": "Optional: Request Legal Review",
+      "action": "Legal team may request review or approval for sensitive terms",
+      "group": "Legal Review",
+      "level": 5,
+      "optional": true,
+      "changeable": true,
+      "cancelable": true,
+      "input_fields": ["legal_ack_status"],
+      "output_fields": []
+    },
+    {
+      "name": "Set New Effective Date",
+      "action": "Determine when the updated contract version becomes effective",
+      "group": "Finalization",
+      "level": 6,
+      "optional": false,
+      "changeable": true,
+      "cancelable": true,
+      "input_fields": [],
+      "output_fields": ["effective_date"]
+    }
+  ],
+  "need_project": false,
+  "need_client": false,
+  "need_payment": false
+}

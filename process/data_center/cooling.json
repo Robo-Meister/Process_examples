@@ -1,0 +1,42 @@
+{
+  "type": "workflow",
+  "name": "Smart Cooling Adjustment",
+  "description": "Monitors temperature and adjusts HVAC settings as needed.",
+  "category": "Environmental",
+  "fields": ["sector", "current_temperature", "target_temperature", "adjustment_log"],
+  "steps": [
+    {
+      "name": "Check Temperature",
+      "action": "Read Sensor",
+      "decorators": [],
+      "group": "Environment Monitoring",
+      "level": 0,
+      "optional": false,
+      "changeable": false,
+      "cancelable": false,
+      "possible_ai": false,
+      "possible_service": true,
+      "possible_robots": false,
+      "input_fields": ["sector"],
+      "output_fields": ["current_temperature"]
+    },
+    {
+      "name": "Adjust HVAC Settings",
+      "action": "Adjust Temperature",
+      "decorators": [],
+      "group": "HVAC System",
+      "level": 1,
+      "optional": false,
+      "changeable": false,
+      "cancelable": true,
+      "possible_ai": true,
+      "possible_service": true,
+      "possible_robots": true,
+      "input_fields": ["sector", "target_temperature"],
+      "output_fields": ["adjustment_log"]
+    }
+  ],
+  "need_project": false,
+  "need_client": false,
+  "need_payment": false
+}

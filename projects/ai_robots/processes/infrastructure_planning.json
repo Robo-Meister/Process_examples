@@ -1,0 +1,85 @@
+{
+  "type": "workflow",
+  "name": "Infrastructure Planning",
+  "description": "This process enables automated or semi-automated planning of physical and digital infrastructure based on contextual needs, capacity analysis, and constraints.",
+  "category": "Infrastructure",
+  "fields": [
+    "planning_scope",
+    "current_infrastructure",
+    "capacity_analysis",
+    "future_demands",
+    "planning_constraints",
+    "proposed_plan",
+    "approval_status"
+  ],
+  "steps": [
+    {
+      "name": "Define Scope",
+      "action": "Input Scope",
+      "description": "Specify the type and area of infrastructure to plan (e.g., network nodes, production lines, power layout).",
+      "level": 0,
+      "input_fields": [],
+      "output_fields": ["planning_scope"],
+      "possible_frontend": true,
+      "required_manual": true,
+      "report": false
+    },
+    {
+      "name": "Analyze Current Infrastructure",
+      "action": "Perform Analysis",
+      "description": "Automatically gather and analyze the current state of infrastructure.",
+      "level": 1,
+      "input_fields": ["planning_scope"],
+      "output_fields": ["current_infrastructure", "capacity_analysis"],
+      "possible_ai": true,
+      "possible_service": true,
+      "required_manual": false,
+      "report": false
+    },
+    {
+      "name": "Estimate Future Demand",
+      "action": "Project Requirements",
+      "description": "Forecast resource usage, processing load, or physical space needed.",
+      "level": 2,
+      "input_fields": ["capacity_analysis"],
+      "output_fields": ["future_demands"],
+      "possible_ai": true,
+      "required_manual": false,
+      "report": false
+    },
+    {
+      "name": "Apply Constraints",
+      "action": "Constraint Filtering",
+      "description": "Apply financial, spatial, legal or environmental constraints to the plan.",
+      "level": 3,
+      "input_fields": ["future_demands"],
+      "output_fields": ["planning_constraints"],
+      "possible_ai": true,
+      "required_manual": false,
+      "report": false
+    },
+    {
+      "name": "Generate Infrastructure Plan",
+      "action": "Create Plan",
+      "description": "Propose optimal infrastructure plan based on all previous steps.",
+      "level": 4,
+      "input_fields": ["current_infrastructure", "planning_constraints"],
+      "output_fields": ["proposed_plan"],
+      "possible_ai": true,
+      "required_manual": false,
+      "report": true
+    },
+    {
+      "name": "Approval",
+      "action": "Manual Review",
+      "description": "Final manual or automated review of the proposed infrastructure changes.",
+      "level": 5,
+      "input_fields": ["proposed_plan"],
+      "output_fields": ["approval_status"],
+      "required_manual": true,
+      "possible_service": false,
+      "possible_ai": true,
+      "report": true
+    }
+  ]
+}

@@ -1,0 +1,70 @@
+{
+  "type": "integration",
+  "name": "Google Drive",
+  "scope": ["file_storage", "collaboration"],
+  "support_url": "https://support.google.com/drive",
+  "auth_url": "https://accounts.google.com/o/oauth2/auth",
+  "requirements": [
+    "CLIENT_ID",
+    "CLIENT_SECRET",
+    "ACCESS_TOKEN",
+    "REFRESH_TOKEN"
+  ],
+  "front_requirements": ["CLIENT_ID", "ACCESS_TOKEN"],
+  "custom_provider_key": null,
+  "auth_method": 2,
+  "ai": false,
+  "front": true,
+  "payment": false,
+  "need_oauth": true,
+  "description": "Integrate with Google Drive for file management and sharing.",
+  "hooks": [
+    {
+      "name": "List Files",
+      "description": "Retrieve a list of files from Google Drive.",
+      "method": "GET",
+      "testable": true,
+      "hook": "https://www.googleapis.com/drive/v3/files",
+      "content": null,
+      "scope": [],
+      "mapper": [
+        {
+          "field": "document_id",
+          "parse": "files.id",
+          "type": 1
+        },
+        {
+          "field": "document_name",
+          "parse": "files.name",
+          "type": 1
+        }
+      ],
+      "categories": ["File Management"],
+      "action": [
+        {
+          "field": null,
+          "action": "Fetch Documents",
+          "type": 6
+        }
+      ]
+    },
+    {
+      "name": "Upload File",
+      "description": "Upload a file to Google Drive.",
+      "method": "POST",
+      "testable": true,
+      "hook": "https://www.googleapis.com/upload/drive/v3/files?uploadType=media",
+      "content": "{\"name\": \"%%file_name%%\", \"data\": \"%%file_content%%\"}",
+      "scope": [],
+      "mapper": [],
+      "categories": ["File Management"],
+      "action": [
+        {
+          "field": null,
+          "action": "Upload File",
+          "type": 2
+        }
+      ]
+    }
+  ]
+}

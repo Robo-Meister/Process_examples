@@ -1,0 +1,48 @@
+{
+  "type": "workflow",
+  "name": "Advertiser Management & Approval",
+  "description": "Handle ad space bookings, approvals, and content management.",
+  "category": "Publishing",
+  "fields": [
+    "advertiser_id",
+    "company_name",
+    "ad_slot",
+    "ad_content",
+    "contract_details",
+    "payment_status",
+    "ad_approval",
+    "ad_revisions",
+    "final_ad_version",
+    "published_ad"
+  ],
+  "steps": [
+    {
+      "name": "Receive Ad Booking Request",
+      "action": "Collect Advertiser Details",
+      "group": "Sales Team",
+      "input_fields": ["advertiser_id", "company_name"],
+      "output_fields": ["ad_slot", "contract_details"]
+    },
+    {
+      "name": "Approve or Request Revisions",
+      "action": "Review Ad Content",
+      "group": "Advertising Team",
+      "input_fields": ["ad_content"],
+      "output_fields": ["ad_approval", "ad_revisions"]
+    },
+    {
+      "name": "Finalize Payment",
+      "action": "Confirm Payment",
+      "group": "Finance Team",
+      "input_fields": ["contract_details"],
+      "output_fields": ["payment_status"]
+    },
+    {
+      "name": "Publish Ad",
+      "action": "Add to Magazine Issue",
+      "group": "Publishing Team",
+      "input_fields": ["ad_approval"],
+      "output_fields": ["published_ad"]
+    }
+  ]
+}

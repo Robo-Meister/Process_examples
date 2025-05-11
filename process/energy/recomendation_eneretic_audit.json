@@ -1,0 +1,54 @@
+{
+  "type": "workflow",
+  "name": "Develop Recommendations and Cost Estimate",
+  "description": "The procedure involves analyzing audit findings, developing recommendations, and estimating implementation costs.",
+  "fields": ["audit_findings", "recommendations", "cost_estimate"],
+  "category": "Energy",
+  "steps": [
+    {
+      "name": "Analyze Audit Findings",
+      "action": "Review Findings",
+      "description": "Evaluate the audit results to identify key areas for improvement.",
+      "level": 0,
+      "input_fields": ["audit_report"],
+      "output_fields": ["audit_findings"],
+      "required_manual": true,
+      "possible_ai": true,
+      "possible_service": true,
+      "possible_manual": true,
+      "possible_robots": false,
+      "possible_frontend": false,
+      "report": false
+    },
+    {
+      "name": "Develop Recommendations",
+      "action": "Define Measures",
+      "description": "Propose energy-saving measures and improvements based on audit findings.",
+      "level": 1,
+      "input_fields": ["audit_findings"],
+      "output_fields": ["recommendations"],
+      "required_manual": true,
+      "possible_ai": true,
+      "possible_service": true,
+      "possible_manual": true,
+      "possible_robots": false,
+      "possible_frontend": true,
+      "report": false
+    },
+    {
+      "name": "Estimate Implementation Costs",
+      "action": "Calculate Costs",
+      "description": "Determine the estimated costs of implementing the recommended measures.",
+      "level": 2,
+      "input_fields": ["recommendations"],
+      "output_fields": ["cost_estimate"],
+      "required_manual": true,
+      "possible_ai": true,
+      "possible_service": true,
+      "possible_manual": true,
+      "possible_robots": false,
+      "possible_frontend": true,
+      "report": true
+    }
+  ]
+}

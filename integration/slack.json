@@ -1,0 +1,99 @@
+{
+  "type": "integration",
+  "name": "Slack",
+  "scope": ["team_communication", "collaboration"],
+  "support_url": "https://slack.com/help",
+  "auth_url": "https://slack.com/oauth/v2/authorize",
+  "requirements": [
+    "CLIENT_ID",
+    "CLIENT_SECRET",
+    "ACCESS_TOKEN",
+    "WORKSPACE"
+  ],
+  "front_requirements": ["CLIENT_ID", "ACCESS_TOKEN"],
+  "custom_provider_key": null,
+  "auth_method": 2,
+  "ai": false,
+  "front": true,
+  "payment": false,
+  "need_oauth": true,
+  "description": "Integrate with Slack for team communication and collaboration.",
+  "hooks": [
+    {
+      "name": "Send Message to Channel",
+      "description": "Send a message to a specific Slack channel.",
+      "method": "POST",
+      "testable": true,
+      "hook": "https://slack.com/api/chat.postMessage",
+      "content": "{\"channel\": \"%%channel_id%%\", \"text\": \"%%message%%\"}",
+      "scope": [],
+      "mapper": [],
+      "categories": ["Team Communication", "Collaboration"],
+      "action": [
+        {
+          "field": null,
+          "action": "Send Message",
+          "type": 2
+        }
+      ]
+    },
+    {
+      "name": "Get List of Channels",
+      "description": "Retrieve a list of channels in the workspace.",
+      "method": "GET",
+      "testable": true,
+      "hook": "https://slack.com/api/conversations.list",
+      "content": null,
+      "scope": [],
+      "mapper": [
+        {
+          "field": "channel_list",
+          "parse": "channels:id,name",
+          "type": 1
+        }
+      ],
+      "categories": ["Team Communication"],
+      "action": [
+        {
+          "field": null,
+          "action": "Fetch Channels",
+          "type": 6
+        }
+      ]
+    },
+    {
+      "name": "Get User Info",
+      "description": "Retrieve information about a specific user.",
+      "method": "GET",
+      "testable": true,
+      "hook": "https://slack.com/api/users.info?user=%%user_id%%",
+      "content": null,
+      "scope": [],
+      "mapper": [
+        {
+          "field": "user_email",
+          "parse": "user.email",
+          "type": 1
+        },
+        {
+          "field": "user_name",
+          "parse": "user.real_name",
+          "type": 1
+        },
+        {
+          "field": "user_id",
+          "parse": "user.id",
+          "type": 1
+        }
+      ],
+      "categories": ["Team Communication"],
+      "action": [
+        {
+          "field": null,
+          "action": "Fetch User Info",
+          "type": 6
+        }
+      ]
+    }
+  ]
+}

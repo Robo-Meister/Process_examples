@@ -1,0 +1,65 @@
+{
+  "type": "integration",
+  "name": "Twitter",
+  "scope": ["social_media", "marketing"],
+  "support_url": "https://help.twitter.com/",
+  "auth_url": "https://api.twitter.com/oauth2/authorize",
+  "requirements": [
+    "API_KEY",
+    "API_SECRET",
+    "ACCESS_TOKEN",
+    "ACCESS_TOKEN_SECRET"
+  ],
+  "front_requirements": ["API_KEY", "ACCESS_TOKEN"],
+  "custom_provider_key": null,
+  "auth_method": 2,
+  "ai": false,
+  "front": true,
+  "payment": false,
+  "need_oauth": true,
+  "description": "Integrate with Twitter to manage tweets and interactions.",
+  "hooks": [
+    {
+      "name": "Post Tweet",
+      "description": "Post a new tweet to the user's timeline.",
+      "method": "POST",
+      "testable": true,
+      "hook": "https://api.twitter.com/2/tweets",
+      "content": "{\"text\": \"%%tweet_content%%\"}",
+      "scope": [],
+      "mapper": [],
+      "categories": ["Social Media", "Marketing"],
+      "action": [
+        {
+          "field": null,
+          "action": "Send Message",
+          "type": 2
+        }
+      ]
+    },
+    {
+      "name": "Get User Tweets",
+      "description": "Retrieve the latest tweets from the user's timeline.",
+      "method": "GET",
+      "testable": true,
+      "hook": "https://api.twitter.com/2/users/%%user_id%%/tweets",
+      "content": null,
+      "scope": [],
+      "mapper": [
+        {
+          "field": "tweet_list",
+          "parse": "data:id,text,created_at",
+          "type": 1
+        }
+      ],
+      "categories": ["Social Media"],
+      "action": [
+        {
+          "field": null,
+          "action": "Fetch Messages",
+          "type": 6
+        }
+      ]
+    }
+  ]
+}

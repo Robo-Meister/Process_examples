@@ -1,0 +1,110 @@
+{
+  "type": "workflow",
+  "name": "Promote Social Media Channel",
+  "description": "A strategy to promote social media channels by interacting with similar content and increasing engagement.",
+  "category": "Marketing",
+  "fields": [
+    "platform",
+    "channel_tags",
+    "target_audience",
+    "engagement_type",
+    "content_type",
+    "frequency"
+  ],
+  "steps": [
+    {
+      "name": "Identify Similar Channels",
+      "action": "Search for channels with overlapping tags or themes",
+      "decorators": [],
+      "group": "Marketing Team",
+      "next": null,
+      "level": 0,
+      "optional": false,
+      "changeable": true,
+      "cancelable": false,
+      "input_fields": ["platform", "channel_tags"],
+      "output_fields": ["list_of_similar_channels"]
+    },
+    {
+      "name": "Analyze Popular Content",
+      "action": "Review trending content in the niche",
+      "decorators": [],
+      "group": "Marketing Team",
+      "next": null,
+      "level": 0,
+      "optional": true,
+      "changeable": true,
+      "cancelable": false,
+      "input_fields": ["platform", "content_type"],
+      "output_fields": ["engaging_content_insights"]
+    },
+    {
+      "name": "Subscribe to Similar Channels",
+      "action": "Subscribe to selected channels",
+      "decorators": [],
+      "group": "Marketing Team",
+      "next": null,
+      "level": 1,
+      "optional": true,
+      "changeable": false,
+      "cancelable": false,
+      "input_fields": ["list_of_similar_channels"],
+      "output_fields": ["updated_subscription_list"]
+    },
+    {
+      "name": "Comment on Relevant Content",
+      "action": "Write meaningful comments on content from similar channels",
+      "decorators": [],
+      "group": "Marketing Team",
+      "next": null,
+      "level": 1,
+      "optional": true,
+      "changeable": true,
+      "cancelable": false,
+      "input_fields": ["engaging_content_insights", "list_of_similar_channels"],
+      "output_fields": ["interaction_logs"]
+    },
+    {
+      "name": "Share Similar Content",
+      "action": "Share popular content on your channel or profile",
+      "decorators": [],
+      "group": "Marketing Team",
+      "next": null,
+      "level": 1,
+      "optional": true,
+      "changeable": true,
+      "cancelable": false,
+      "input_fields": ["engaging_content_insights"],
+      "output_fields": ["shared_content_visibility"]
+    },
+    {
+      "name": "Monitor Engagement Metrics",
+      "action": "Track likes, shares, and subscriber growth",
+      "decorators": [],
+      "group": "Marketing Team",
+      "next": null,
+      "level": 2,
+      "optional": false,
+      "changeable": false,
+      "cancelable": false,
+      "input_fields": ["interaction_logs", "platform"],
+      "output_fields": ["performance_report"]
+    },
+    {
+      "name": "Adjust Strategy",
+      "action": "Refine tags, target audience, or engagement frequency",
+      "decorators": [],
+      "group": "Marketing Team",
+      "next": null,
+      "level": 2,
+      "optional": true,
+      "changeable": true,
+      "cancelable": false,
+      "input_fields": ["performance_report"],
+      "output_fields": ["updated_engagement_plan"]
+    }
+  ],
+  "need_project": false,
+  "need_client": false,
+  "need_payment": false
+}

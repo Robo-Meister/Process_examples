@@ -1,0 +1,91 @@
+{
+  "type": "integration",
+  "name": "GitHub",
+  "scope": ["version_control", "code_management"],
+  "support_url": "https://docs.github.com/en/rest",
+  "auth_url": "https://github.com/login/oauth/authorize",
+  "requirements": [
+    "CLIENT_ID",
+    "CLIENT_SECRET",
+    "ACCESS_TOKEN",
+    "REFRESH_TOKEN",
+    "BASE_URL"
+  ],
+  "front_requirements": ["CLIENT_ID", "ACCESS_TOKEN", "BASE_URL"],
+  "custom_provider_key": null,
+  "auth_method": 2,
+  "ai": false,
+  "front": true,
+  "payment": false,
+  "need_oauth": true,
+  "description": "Manage repositories, branches, and pull requests with GitHub integration.",
+  "hooks": [
+    {
+      "name": "Create a New Branch",
+      "description": "Create a new branch from a specified base branch.",
+      "method": "POST",
+      "testable": true,
+      "hook": "https://%%BASE_URL%%/repos/%%OWNER%%/%%REPO%%/git/refs",
+      "content": {
+        "ref": "refs/heads/%%NEW_BRANCH%%",
+        "sha": "%%BASE_BRANCH_SHA%%"
+      },
+      "scope": [],
+      "mapper": [],
+      "categories": ["Version Control"],
+      "action": [
+        {
+          "field": null,
+          "action": "Create Branch",
+          "type": 2
+        }
+      ]
+    },
+    {
+      "name": "Modify Code",
+      "description": "Modify files in a repository with AI-generated changes.",
+      "method": "PUT",
+      "testable": true,
+      "hook": "https://%%BASE_URL%%/repos/%%OWNER%%/%%REPO%%/contents/%%FILE_PATH%%",
+      "content": {
+        "message": "%%COMMIT_MESSAGE%%",
+        "content": "%%FILE_CONTENT_BASE64%%",
+        "sha": "%%FILE_SHA%%",
+        "branch": "%%BRANCH%%"
+      },
+      "scope": [],
+      "mapper": [],
+      "categories": ["Code Management"],
+      "action": [
+        {
+          "field": null,
+          "action": "Modify File",
+          "type": 2
+        }
+      ]
+    },
+    {
+      "name": "Generate Review Notes",
+      "description": "Create a pull request with AI-generated review notes.",
+      "method": "POST",
+      "testable": true,
+      "hook": "https://%%BASE_URL%%/repos/%%OWNER%%/%%REPO%%/pulls",
+      "content": {
+        "title": "%%PR_TITLE%%",
+        "body": "%%PR_BODY%%",
+        "head": "%%BRANCH%%",
+        "base": "%%BASE_BRANCH%%"
+      },
+      "scope": [],
+      "mapper": [],
+      "categories": ["Version Control"],
+      "action": [
+        {
+          "field": null,
+          "action": "Create Pull Request",
+          "type": 2
+        }
+      ]
+    }
+  ]
+}

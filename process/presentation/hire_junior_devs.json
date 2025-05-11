@@ -1,0 +1,132 @@
+{
+  "type": "workflow",
+  "name": "Hire Junior Developer",
+  "description": "Guides the recruitment and onboarding process of a junior developer, with support for CV filtering, tests, multiple interview rounds, and onboarding.",
+  "category": "HR",
+  "fields": [
+    "job_posting_id",
+    "candidate_id",
+    "source_channel",
+    "cv_score",
+    "tech_test_score",
+    "interview_feedback",
+    "offer_status",
+    "start_date",
+    "onboarding_status"
+  ],
+  "steps": [
+    {
+      "name": "Define Job Requirements",
+      "action": "Specify skills, tools, responsibilities, and expectations",
+      "group": "Preparation",
+      "level": 0,
+      "optional": false,
+      "changeable": true,
+      "cancelable": true,
+      "input_fields": [],
+      "output_fields": ["job_posting_id"]
+    },
+    {
+      "name": "Publish Job Offer",
+      "action": "Post offer on job boards, social media, and referrals",
+      "group": "Sourcing",
+      "level": 1,
+      "optional": false,
+      "changeable": true,
+      "cancelable": true,
+      "input_fields": ["job_posting_id"],
+      "output_fields": ["source_channel"]
+    },
+    {
+      "name": "Receive and Filter CVs",
+      "action": "Automatically or manually score and filter resumes",
+      "group": "Screening",
+      "level": 2,
+      "optional": false,
+      "changeable": true,
+      "cancelable": true,
+      "input_fields": ["candidate_id"],
+      "output_fields": ["cv_score"]
+    },
+    {
+      "name": "Send Optional Pre-Screen Questions",
+      "action": "Send optional short form to check availability, interest, soft skills",
+      "group": "Pre-screen",
+      "level": 2,
+      "optional": true,
+      "changeable": true,
+      "cancelable": true,
+      "input_fields": ["candidate_id"],
+      "output_fields": []
+    },
+    {
+      "name": "Schedule Technical Test",
+      "action": "Send coding task or technical screening to candidate",
+      "group": "Assessment",
+      "level": 3,
+      "optional": true,
+      "changeable": true,
+      "cancelable": true,
+      "input_fields": ["candidate_id"],
+      "output_fields": ["tech_test_score"]
+    },
+    {
+      "name": "Conduct Interview(s)",
+      "action": "Conduct 1–2 rounds of interviews (tech, HR, culture fit)",
+      "group": "Interview",
+      "level": 4,
+      "optional": false,
+      "changeable": true,
+      "cancelable": true,
+      "input_fields": ["cv_score", "tech_test_score"],
+      "output_fields": ["interview_feedback"]
+    },
+    {
+      "name": "Optional Internal Discussion",
+      "action": "HR and team discuss if candidate fits",
+      "group": "Internal",
+      "level": 4,
+      "optional": true,
+      "changeable": true,
+      "cancelable": true,
+      "input_fields": ["interview_feedback"],
+      "output_fields": []
+    },
+    {
+      "name": "Send Offer Letter",
+      "action": "Send salary and start date offer to candidate",
+      "group": "Offer",
+      "level": 5,
+      "optional": false,
+      "changeable": true,
+      "cancelable": true,
+      "input_fields": ["interview_feedback"],
+      "output_fields": ["offer_status"]
+    },
+    {
+      "name": "Prepare Onboarding Plan",
+      "action": "Prepare tools, accesses, welcome materials, and mentor",
+      "group": "Onboarding",
+      "level": 6,
+      "optional": true,
+      "changeable": true,
+      "cancelable": true,
+      "input_fields": ["start_date"],
+      "output_fields": ["onboarding_status"]
+    },
+    {
+      "name": "Start Onboarding Process",
+      "action": "Begin day 1 activities, environment setup, introductions",
+      "group": "Onboarding",
+      "level": 7,
+      "optional": false,
+      "changeable": true,
+      "cancelable": true,
+      "input_fields": ["onboarding_status"],
+      "output_fields": []
+    }
+  ],
+  "need_project": false,
+  "need_client": false,
+  "need_payment": false
+}

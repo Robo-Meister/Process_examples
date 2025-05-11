@@ -1,0 +1,101 @@
+{
+  "type": "workflow",
+  "name": "Launch Project",
+  "description": "Main workflow for launching a new initiative, split into subprocesses.",
+  "fields": [
+    "project_name",
+    "project_description",
+    "product_name",
+    "budget"
+  ],
+  "steps": [
+    {
+      "name": "Define Project Scope",
+      "group": "initialization",
+      "input": ["project_name", "project_description", "objectives"],
+      "output": ["subprojects", "high_level_tasks"],
+      "level": 0,
+      "optional": false
+    },
+    {
+      "name": "Assign Teams and Deadlines",
+      "group": "planning",
+      "input": ["project_ids"],
+      "output": ["assignments", "deadlines"],
+      "level": 1,
+      "optional": false
+    },
+    {
+      "name": "run RnD",
+      "action": "Run new flow",
+      "input": ["name"],
+      "level": 1,
+      "optional": false,
+      "decorators": [
+        {
+          "name": "Welcome Template",
+          "isPreEvent": true,
+          "type": "Transfer Field between flows",
+          "options": {
+            "in": "%%name%% ",
+            "out": "R&D Product Launch"
+          }
+        }
+      ]
+    },
+    {
+      "name": "run Production Setup",
+      "action": "Run new flow",
+      "input": ["name"],
+      "level": 1,
+      "optional": false,
+      "decorators": [
+        {
+          "name": "Welcome Template",
+          "isPreEvent": true,
+          "type": "Transfer Field between flows",
+          "options": {
+            "in": "%%name%% ",
+            "out": "Production Setup for Product"
+          }
+        }
+      ]
+    },
+    {
+      "name": "run Marketing Campaign",
+      "action": "Run new flow",
+      "input": ["name"],
+      "level": 1,
+      "optional": false,
+      "decorators": [
+        {
+          "name": "Welcome Template",
+          "isPreEvent": true,
+          "type": "Transfer Field between flows",
+          "options": {
+            "in": "%%name%% ",
+            "out": "Prepare Marketing Campaign"
+          }
+        }
+      ]
+    },
+    {
+      "name": "run Sales Team Onboarding",
+      "action": "Run new flow",
+      "input": ["name"],
+      "level": 1,
+      "optional": false,
+      "decorators": [
+        {
+          "name": "Welcome Template",
+          "isPreEvent": true,
+          "type": "Transfer Field between flows",
+          "options": {
+            "in": "%%name%% ",
+            "out": "Sales Team Onboarding"
+          }
+        }
+      ]
+    }
+  ]
+}

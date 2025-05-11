@@ -1,0 +1,82 @@
+{
+  "type": "integration",
+  "name": "Firebase",
+  "scope": ["database", "realtime"],
+  "support_url": "https://firebase.google.com/support",
+  "auth_url": null,
+  "requirements": [
+    "API_KEY",
+    "DATABASE_URL",
+    "PROJECT_ID"
+  ],
+  "front_requirements": ["API_KEY", "DATABASE_URL"],
+  "custom_provider_key": null,
+  "auth_method": 1,
+  "ai": false,
+  "front": true,
+  "payment": false,
+  "need_oauth": false,
+  "description": "Integrate with Firebase for real-time database management.",
+  "hooks": [
+    {
+      "name": "Read Data",
+      "description": "Retrieve data from Firebase.",
+      "method": "GET",
+      "testable": true,
+      "hook": "https://%%DATABASE_URL%%/%%path%%.json?auth=%%API_KEY%%",
+      "content": null,
+      "scope": [],
+      "mapper": [
+        {
+          "field": "data",
+          "parse": "data",
+          "type": 1
+        }
+      ],
+      "categories": ["Database Management"],
+      "action": [
+        {
+          "field": null,
+          "action": "Read Data",
+          "type": 6
+        }
+      ]
+    },
+    {
+      "name": "Write Data",
+      "description": "Write data to Firebase.",
+      "method": "PUT",
+      "testable": true,
+      "hook": "https://%%DATABASE_URL%%/%%path%%.json?auth=%%API_KEY%%",
+      "content": "{\"data\": \"%%data%%\"}",
+      "scope": [],
+      "mapper": [],
+      "categories": ["Database Management"],
+      "action": [
+        {
+          "field": null,
+          "action": "Write Data",
+          "type": 2
+        }
+      ]
+    },
+    {
+      "name": "Push New Data",
+      "description": "Push a new entry into Firebase.",
+      "method": "POST",
+      "testable": true,
+      "hook": "https://%%DATABASE_URL%%/%%path%%.json?auth=%%API_KEY%%",
+      "content": "{\"data\": \"%%data%%\"}",
+      "scope": [],
+      "mapper": [],
+      "categories": ["Database Management"],
+      "action": [
+        {
+          "field": null,
+          "action": "Push New Data",
+          "type": 2
+        }
+      ]
+    }
+  ]
+}

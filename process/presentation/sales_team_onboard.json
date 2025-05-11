@@ -1,0 +1,123 @@
+{
+  "type": "workflow",
+  "name": "Sales Team Onboarding",
+  "description": "Covers the onboarding process of new sales team members, ensuring training, access, process understanding, and motivation.",
+  "category": "HR",
+  "fields": [
+    "sales_role",
+    "sales_region",
+    "assigned_mentor",
+    "training_completion",
+    "crm_access",
+    "scripts",
+    "offer_docs",
+    "shadowing_notes",
+    "first_pitch_feedback",
+    "targets",
+    "tools_setup"
+  ],
+  "steps": [
+    {
+      "name": "Define Sales Role and Region",
+      "action": "Assign role (e.g., SDR, AE) and region/segment",
+      "group": "Setup",
+      "level": 0,
+      "optional": false,
+      "changeable": true,
+      "cancelable": false,
+      "input_fields": [],
+      "output_fields": ["sales_role", "sales_region"]
+    },
+    {
+      "name": "Assign Mentor or Supervisor",
+      "action": "Assign someone responsible for training support",
+      "group": "People",
+      "level": 0,
+      "optional": true,
+      "changeable": true,
+      "cancelable": true,
+      "input_fields": ["sales_role"],
+      "output_fields": ["assigned_mentor"]
+    },
+    {
+      "name": "Grant CRM and Communication Tool Access",
+      "action": "Setup email, phone, CRM login, and chat tools",
+      "group": "IT / Tools",
+      "level": 1,
+      "optional": false,
+      "changeable": false,
+      "cancelable": false,
+      "input_fields": [],
+      "output_fields": ["crm_access", "tools_setup"]
+    },
+    {
+      "name": "Provide Sales Materials and Scripts",
+      "action": "Share pitch decks, value propositions, talk tracks",
+      "group": "Training",
+      "level": 1,
+      "optional": false,
+      "changeable": true,
+      "cancelable": false,
+      "input_fields": ["sales_role"],
+      "output_fields": ["scripts", "offer_docs"]
+    },
+    {
+      "name": "Run Product and Process Training",
+      "action": "Educate on product features, CRM usage, pipeline flow",
+      "group": "Training",
+      "level": 2,
+      "optional": false,
+      "changeable": false,
+      "cancelable": false,
+      "input_fields": ["scripts", "crm_access"],
+      "output_fields": ["training_completion"]
+    },
+    {
+      "name": "Shadow Senior Rep or Review Past Calls",
+      "action": "Observe real sales situations or recordings",
+      "group": "Experience",
+      "level": 2,
+      "optional": true,
+      "changeable": true,
+      "cancelable": true,
+      "input_fields": ["assigned_mentor"],
+      "output_fields": ["shadowing_notes"]
+    },
+    {
+      "name": "Set First-Week Goals and KPIs",
+      "action": "Define realistic outreach or meetings goals",
+      "group": "Performance",
+      "level": 2,
+      "optional": true,
+      "changeable": true,
+      "cancelable": false,
+      "input_fields": ["sales_role"],
+      "output_fields": ["targets"]
+    },
+    {
+      "name": "Perform First Pitch or Outreach",
+      "action": "Let rep try calls or demos with feedback",
+      "group": "Execution",
+      "level": 3,
+      "optional": false,
+      "changeable": true,
+      "cancelable": true,
+      "input_fields": ["training_completion"],
+      "output_fields": ["first_pitch_feedback"]
+    },
+    {
+      "name": "Conduct Check-in and Feedback Session",
+      "action": "Review progress, clarify doubts, update materials",
+      "group": "Follow-up",
+      "level": 4,
+      "optional": true,
+      "changeable": true,
+      "cancelable": true,
+      "input_fields": ["first_pitch_feedback", "shadowing_notes"],
+      "output_fields": []
+    }
+  ],
+  "need_project": false,
+  "need_client": false,
+  "need_payment": false
+}

@@ -1,0 +1,48 @@
+{
+  "type": "workflow",
+  "name": "Filter Important Message",
+  "description": "A procedure to receive, process, and store important messages based on specified criteria.",
+  "fields": ["received_message", "filter_match", "stored_message"],
+  "steps": [
+    {
+      "name": "Receive Message",
+      "action": "Log Message",
+      "description": "Capture the incoming message and log it into the system for processing.",
+      "level": 0,
+      "input_fields": ["raw_message"],
+      "output_fields": ["received_message"],
+      "required_manual": false,
+      "possible_ai": true,
+      "possible_service": true,
+      "possible_manual": true,
+      "report": false
+    },
+    {
+      "name": "Analyze Message",
+      "action": "Filter Message",
+      "description": "Apply filters to identify whether the message matches predefined criteria.",
+      "level": 1,
+      "input_fields": ["received_message", "filter_criteria"],
+      "output_fields": ["filter_match"],
+      "required_manual": false,
+      "possible_ai": true,
+      "cancelable": true,
+      "possible_service": true,
+      "possible_manual": false,
+      "report": true
+    },
+    {
+      "name": "Store in Database",
+      "action": "Save Message",
+      "description": "Store the filtered message in the database for future reference.",
+      "level": 2,
+      "input_fields": ["filter_match"],
+      "output_fields": ["stored_message"],
+      "required_manual": false,
+      "possible_ai": false,
+      "possible_service": true,
+      "possible_manual": true,
+      "report": false
+    }
+  ]
+}

@@ -1,0 +1,104 @@
+{
+  "type": "workflow",
+  "name": "Buy Ground for Office",
+  "description": "Handles all steps related to identifying, evaluating, and purchasing land for a new office, with legal, financial, and environmental checks.",
+  "category": "Operations / Expansion",
+  "fields": [
+    "target_location",
+    "land_size",
+    "budget_estimate",
+    "zoning_category",
+    "environmental_risk_flag",
+    "offer_price",
+    "seller_contact",
+    "lawyer_assigned",
+    "approval_status",
+    "purchase_contract_id"
+  ],
+  "steps": [
+    {
+      "name": "Define Office Needs and Budget",
+      "action": "Estimate future office requirements and allocate preliminary budget",
+      "group": "Preparation",
+      "level": 0,
+      "optional": false,
+      "input_fields": [],
+      "output_fields": ["land_size", "budget_estimate"]
+    },
+    {
+      "name": "Search and Shortlist Land Plots",
+      "action": "Use real estate networks or agencies to find matching land offers",
+      "group": "Scouting",
+      "level": 1,
+      "optional": false,
+      "input_fields": ["target_location", "land_size"],
+      "output_fields": ["seller_contact"]
+    },
+    {
+      "name": "Optional: Zoning and Urban Plan Check",
+      "action": "Confirm the land’s zoning aligns with office construction",
+      "group": "Due Diligence",
+      "level": 2,
+      "optional": true,
+      "input_fields": ["target_location"],
+      "output_fields": ["zoning_category"]
+    },
+    {
+      "name": "Optional: Environmental Risk Assessment",
+      "action": "Check for contamination, flooding, or ecological constraints",
+      "group": "Due Diligence",
+      "level": 2,
+      "optional": true,
+      "input_fields": ["target_location"],
+      "output_fields": ["environmental_risk_flag"]
+    },
+    {
+      "name": "Hire Real Estate Lawyer or Legal Advisor",
+      "action": "Assign someone to oversee contracts, title check, and compliance",
+      "group": "Legal",
+      "level": 2,
+      "optional": false,
+      "input_fields": [],
+      "output_fields": ["lawyer_assigned"]
+    },
+    {
+      "name": "Make Initial Offer to Seller",
+      "action": "Negotiate and present formal offer with conditions",
+      "group": "Negotiation",
+      "level": 3,
+      "optional": false,
+      "input_fields": ["budget_estimate"],
+      "output_fields": ["offer_price"]
+    },
+    {
+      "name": "Optional: Internal Approval",
+      "action": "Route proposal to board or expansion committee for approval",
+      "group": "Governance",
+      "level": 3,
+      "optional": true,
+      "input_fields": ["offer_price", "zoning_category", "environmental_risk_flag"],
+      "output_fields": ["approval_status"]
+    },
+    {
+      "name": "Review and Sign Purchase Agreement",
+      "action": "Lawyer validates documents and final signatures are collected",
+      "group": "Legal",
+      "level": 4,
+      "optional": false,
+      "input_fields": ["lawyer_assigned", "seller_contact"],
+      "output_fields": ["purchase_contract_id"]
+    },
+    {
+      "name": "Register Land Purchase and Notify Finance",
+      "action": "Ensure legal registration and internal documentation",
+      "group": "Finalization",
+      "level": 5,
+      "optional": false,
+      "input_fields": ["purchase_contract_id"],
+      "output_fields": []
+    }
+  ],
+  "need_project": false,
+  "need_client": false,
+  "need_payment": true
+}

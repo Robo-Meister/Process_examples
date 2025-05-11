@@ -1,0 +1,104 @@
+{
+  "type": "workflow",
+  "name": "AI-driven Code Preparation",
+  "description": "Process to analyze tasks, identify relevant files, modify code, and prepare it for review and testing.",
+  "category": "Software Development",
+  "fields": [
+    "task_id",
+    "repository_id",
+    "branch_name",
+    "technology_stack",
+    "project_description",
+    "keywords",
+    "relevant_files",
+    "modification_plan",
+    "modified_code",
+    "review_notes",
+    "test_results"
+  ],
+  "steps": [
+    {
+      "name": "Analyze Task Context",
+      "action": "Extract Relevant Information",
+      "group": "AI Processing",
+      "level": 0,
+      "optional": false,
+      "changeable": false,
+      "cancelable": true,
+      "possible_ai": true,
+      "possible_service": true,
+      "input_fields": ["task_id", "repository_id", "branch_name", "technology_stack", "project_description", "keywords"],
+      "output_fields": ["relevant_files", "modification_plan"]
+    },
+    {
+      "name": "Identify Code",
+      "action": "Apply Changes",
+      "group": "AI Processing",
+      "level": 1,
+      "optional": false,
+      "changeable": true,
+      "cancelable": true,
+      "possible_ai": true,
+      "possible_service": true,
+      "input_fields": ["relevant_files", "modification_plan"],
+      "output_fields": ["modified_code"]
+    },
+    {
+      "name": "Prepare Branch for Modification",
+      "action": "Create Branch",
+      "group": "AI Processing",
+      "level": 1,
+      "optional": false,
+      "changeable": true,
+      "cancelable": true,
+      "possible_ai": false,
+      "possible_service": true,
+      "input_fields": ["relevant_files", "modification_plan"],
+      "output_fields": ["modified_code"]
+    },
+    {
+      "name": "Modify Code",
+      "action": "Apply Changes",
+      "group": "AI Processing",
+      "level": 2,
+      "optional": false,
+      "changeable": true,
+      "cancelable": true,
+      "possible_ai": true,
+      "possible_service": true,
+      "input_fields": ["relevant_files", "modification_plan"],
+      "output_fields": ["modified_code"]
+    },
+    {
+      "name": "Prepare Code for Review",
+      "action": "Generate Review Notes",
+      "group": "Development Team",
+      "level": 3,
+      "optional": false,
+      "changeable": true,
+      "cancelable": true,
+      "possible_ai": true,
+      "possible_service": true,
+      "required_manual": true,
+      "input_fields": ["modified_code"],
+      "output_fields": ["review_notes"]
+    },
+    {
+      "name": "Run Automated Tests",
+      "action": "Execute Tests",
+      "group": "QA Team",
+      "level": 4,
+      "optional": true,
+      "changeable": false,
+      "cancelable": true,
+      "possible_ai": true,
+      "possible_service": true,
+      "input_fields": ["modified_code"],
+      "output_fields": ["test_results"]
+    }
+  ],
+  "need_project": true,
+  "need_client": false,
+  "need_payment": false
+}
+

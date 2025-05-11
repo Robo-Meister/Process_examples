@@ -1,0 +1,110 @@
+{
+  "type": "integration",
+  "name": "Trello",
+  "scope": ["task_management", "project_management"],
+  "support_url": "https://help.trello.com/",
+  "auth_url": "https://trello.com/1/authorize",
+  "requirements": [
+    "API_KEY",
+    "TOKEN"
+  ],
+  "front_requirements": ["API_KEY", "TOKEN"],
+  "custom_provider_key": null,
+  "auth_method": 0,
+  "ai": false,
+  "front": true,
+  "payment": false,
+  "need_oauth": false,
+  "description": "Manage boards, lists, and cards in Trello.",
+  "hooks": [
+    {
+      "name": "Get a List of Boards",
+      "description": "Retrieve all boards accessible to the authenticated user.",
+      "method": "GET",
+      "testable": true,
+      "hook": "https://api.trello.com/1/members/me/boards?key=%%API_KEY%%&token=%%TOKEN%%",
+      "content": null,
+      "scope": [],
+      "mapper": [
+        {
+          "field": "list",
+          "parse": "",
+          "type": 1
+        }
+      ],
+      "categories": ["Project Management"],
+      "action": [
+        {
+          "field": null,
+          "action": "Fetch Projects",
+          "type": 6
+        }
+      ]
+    },
+    {
+      "name": "Get a List of Cards in a List",
+      "description": "Retrieve all cards from a specified list.",
+      "method": "GET",
+      "testable": true,
+      "hook": "https://api.trello.com/1/lists/%%LIST_ID%%/cards?key=%%API_KEY%%&token=%%TOKEN%%",
+      "content": null,
+      "scope": [],
+      "mapper": [
+        {
+          "field": "list",
+          "parse": "",
+          "type": 1
+        }
+      ],
+      "categories": ["Task Management"],
+      "action": [
+        {
+          "field": null,
+          "action": "Fetch Tasks",
+          "type": 6
+        }
+      ]
+    },
+    {
+      "name": "Create Card",
+      "description": "Create a new card in a specific list.",
+      "method": "POST",
+      "testable": true,
+      "hook": "https://api.trello.com/1/cards?key=%%API_KEY%%&token=%%TOKEN%%",
+      "content": {
+        "name": "%%CARD_NAME%%",
+        "desc": "%%CARD_DESCRIPTION%%",
+        "idList": "%%LIST_ID%%",
+        "due": "%%DUE_DATE%%"
+      },
+      "scope": [],
+      "mapper": [],
+      "categories": ["Task Management"],
+      "action": [
+        {
+          "field": null,
+          "action": "Create Task",
+          "type": 2
+        }
+      ]
+    },
+    {
+      "name": "Move Card to Another List",
+      "description": "Move an existing card to another list.",
+      "method": "PUT",
+      "testable": true,
+      "hook": "https://api.trello.com/1/cards/%%CARD_ID%%?idList=%%NEW_LIST_ID%%&key=%%API_KEY%%&token=%%TOKEN%%",
+      "content": null,
+      "scope": [],
+      "mapper": [],
+      "categories": ["Task Management"],
+      "action": [
+        {
+          "field": null,
+          "action": "Update Task Status",
+          "type": 2
+        }
+      ]
+    }
+  ]
+}

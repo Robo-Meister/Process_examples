@@ -1,0 +1,50 @@
+{
+  "type": "workflow",
+  "name": "Implementation of corrective actions",
+  "description": "The procedure covers the implementation of corrective actions after an energy audit in order to improve energy efficiency.",
+  "fields": ["corrective_actions", "implementation_status", "verification_report"],
+  "category": "Energy",
+  "steps": [
+    {
+      "name": "Opracowanie planu działań",
+      "action": "Create schedule of implementations",
+      "description": "Sporządzenie szczegółowego planu wdrożenia działań naprawczych.",
+      "level": 0,
+      "input_fields": ["audit_recommendations"],
+      "output_fields": ["corrective_action_plan"],
+      "required_manual": true,
+      "possible_ai": false,
+      "possible_frontend": true,
+      "possible_service": false,
+      "possible_manual": true,
+      "report": false
+    },
+    {
+      "name": "Realizacja działań naprawczych",
+      "action": "Implement changes",
+      "description": "Wprowadzenie zalecanych zmian technicznych i organizacyjnych.",
+      "level": 1,
+      "input_fields": ["corrective_action_plan"],
+      "output_fields": ["implementation_status"],
+      "required_manual": true,
+      "possible_ai": false,
+      "possible_service": true,
+      "possible_manual": true,
+      "report": false
+    },
+    {
+      "name": "Weryfikacja efektów",
+      "action": "Evaluation",
+      "description": "Analiza skuteczności wdrożonych działań i ich wpływu na efektywność energetyczną.",
+      "level": 2,
+      "input_fields": ["implementation_status"],
+      "output_fields": ["verification_report"],
+      "required_manual": true,
+      "possible_ai": true,
+      "possible_service": false,
+      "possible_manual": true,
+      "possible_frontend": true,
+      "report": true
+    }
+  ]
+}

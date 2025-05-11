@@ -1,0 +1,96 @@
+{
+  "type": "workflow",
+  "name": "Create Landing Page",
+  "description": "A workflow for designing, developing, and launching a landing page.",
+  "fields": [
+    "landing_page_name",
+    "target_audience",
+    "design_requirements",
+    "content",
+    "seo_keywords",
+    "finalized_design",
+    "frontend_code",
+    "approval_status",
+    "launched_url"
+  ],
+  "steps": [
+    {
+      "name": "Define Requirements",
+      "action": "Gather Inputs",
+      "description": "Collect the landing page name, target audience, and design requirements.",
+      "level": 0,
+      "input_fields": ["landing_page_name", "target_audience", "design_requirements"],
+      "output_fields": ["landing_page_name", "target_audience", "design_requirements"],
+      "required_manual": true,
+      "possible_ai": false,
+      "possible_service": false,
+      "possible_manual": true,
+      "report": false
+    },
+    {
+      "name": "Create Content",
+      "action": "Generate Content",
+      "description": "Draft and review content for the landing page.",
+      "level": 1,
+      "input_fields": ["landing_page_name", "target_audience"],
+      "output_fields": ["content"],
+      "required_manual": true,
+      "possible_ai": true,
+      "possible_service": false,
+      "possible_manual": true,
+      "report": true
+    },
+    {
+      "name": "Design Layout",
+      "action": "Create Design",
+      "description": "Design the visual layout and structure of the landing page.",
+      "level": 1,
+      "input_fields": ["design_requirements", "content"],
+      "output_fields": ["finalized_design"],
+      "required_manual": true,
+      "possible_ai": true,
+      "possible_service": true,
+      "possible_manual": true,
+      "report": true
+    },
+    {
+      "name": "Develop Frontend",
+      "action": "Write Code",
+      "description": "Convert the design into frontend code.",
+      "level": 2,
+      "input_fields": ["finalized_design"],
+      "output_fields": ["frontend_code"],
+      "required_manual": false,
+      "possible_ai": false,
+      "possible_service": true,
+      "possible_manual": true,
+      "report": false
+    },
+    {
+      "name": "Approve Design and Functionality",
+      "action": "Review and Approve",
+      "description": "Ensure the design and functionality meet requirements before launch.",
+      "level": 3,
+      "input_fields": ["frontend_code"],
+      "output_fields": ["approval_status"],
+      "required_manual": true,
+      "possible_ai": false,
+      "possible_service": true,
+      "possible_manual": true,
+      "report": true
+    },
+    {
+      "name": "Launch Landing Page",
+      "action": "Deploy",
+      "description": "Publish the landing page and provide the live URL.",
+      "level": 4,
+      "input_fields": ["frontend_code", "approval_status"],
+      "output_fields": ["launched_url"],
+      "required_manual": false,
+      "possible_ai": false,
+      "possible_service": true,
+      "possible_manual": true,
+      "report": true
+    }
+  ]
+}

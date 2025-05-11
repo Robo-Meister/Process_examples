@@ -1,0 +1,115 @@
+{
+  "type": "workflow",
+  "process": "AI-driven Code Preparation",
+  "steps": [
+    {
+      "name": "Code Quality Analysis",
+      "optional": true,
+      "tests": [
+        {
+          "name": "Syntax & Linting",
+          "description": "Ensure code follows syntax rules and best practices.",
+          "tools": ["PHPStan", "ESLint"],
+          "type": "static",
+          "expected_result": "No syntax errors, follows best practices."
+        },
+        {
+          "name": "Code Complexity & Maintainability",
+          "description": "Analyze cyclomatic complexity and redundant code.",
+          "tools": ["PHPStan", "SonarQube"],
+          "type": "static",
+          "expected_result": "Low complexity, no redundant code."
+        },
+        {
+          "name": "Security Scan",
+          "description": "Detect security issues like SQL injection and XSS.",
+          "tools": ["PHP Security Checker", "SonarQube"],
+          "type": "static",
+          "expected_result": "No critical security vulnerabilities."
+        }
+      ]
+    },
+    {
+      "name": "Automated Testing",
+      "optional": true,
+      "tests": [
+        {
+          "name": "Unit Tests",
+          "description": "Run unit tests on modified components.",
+          "tools": ["PHPUnit", "Pest"],
+          "type": "dynamic",
+          "expected_result": "All unit tests pass."
+        },
+        {
+          "name": "Integration Tests",
+          "description": "Test API and database interactions.",
+          "tools": ["Postman", "PHPUnit"],
+          "type": "dynamic",
+          "expected_result": "No integration failures."
+        },
+        {
+          "name": "Performance Testing",
+          "description": "Measure response times and resource consumption.",
+          "tools": ["JMeter", "Locust"],
+          "type": "dynamic",
+          "expected_result": "Performance within acceptable limits."
+        }
+      ]
+    },
+    {
+      "name": "Manual Testing",
+      "optional": true,
+      "tests": [
+        {
+          "name": "Functional Testing",
+          "description": "Verify AI-modified code meets feature requirements.",
+          "type": "manual",
+          "expected_result": "All features function correctly."
+        },
+        {
+          "name": "UI/UX Testing",
+          "description": "Check visual consistency and responsiveness.",
+          "tools": ["BrowserStack", "Lighthouse"],
+          "type": "manual",
+          "expected_result": "No UI issues."
+        },
+        {
+          "name": "Exploratory Testing",
+          "description": "Identify unexpected behaviors manually.",
+          "type": "manual",
+          "expected_result": "No critical issues found."
+        }
+      ]
+    },
+    {
+      "name": "Regression Testing",
+      "optional": true,
+      "tests": [
+        {
+          "name": "Full Test Suite",
+          "description": "Ensure previous functionality remains unaffected.",
+          "type": "dynamic",
+          "expected_result": "No regression issues."
+        },
+        {
+          "name": "Database Consistency",
+          "description": "Verify schema integrity after modifications.",
+          "type": "dynamic",
+          "expected_result": "No unintended schema changes."
+        },
+        {
+          "name": "Rollback Testing",
+          "description": "Ensure modified code can be reverted safely.",
+          "type": "dynamic",
+          "expected_result": "Rollback functions as expected."
+        }
+      ]
+    }
+  ],
+  "reporting": {
+    "test_statuses": ["✅ Passed", "❌ Failed", "⚠️ Warnings"],
+    "logs_enabled": true,
+    "include_timestamps": true,
+    "ai_feedback_loop": true
+  }
+}

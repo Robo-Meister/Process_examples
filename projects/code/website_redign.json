@@ -1,0 +1,177 @@
+{
+  "type": "workflow",
+  "name": "Website Redesign Project",
+  "description": "End-to-end project plan for redesigning an existing company website, including strategy, design, development, testing, and relaunch.",
+  "category": "Marketing / IT / Strategy",
+  "fields": [
+    "name",
+    "current_website_url",
+    "new_goals",
+    "target_audience",
+    "branding_status",
+    "seo_keywords",
+    "cms_platform",
+    "redesign_budget",
+    "launch_date"
+  ],
+  "steps": [
+    {
+      "name": "Define Redesign Objectives",
+      "action": "Set measurable goals and purpose for redesign",
+      "group": "Planning",
+      "level": 0,
+      "optional": false,
+      "input_fields": [],
+      "output_fields": ["new_goals", "target_audience"]
+    },
+    {
+      "name": "Audit Current Website",
+      "action": "Evaluate structure, usability, performance, SEO, and analytics",
+      "group": "Research",
+      "level": 1,
+      "optional": false,
+      "input_fields": ["current_website_url"],
+      "output_fields": []
+    },
+    {
+      "name": "Benchmark Competitor Designs",
+      "action": "Research best practices and competitor sites",
+      "group": "Research",
+      "level": 1,
+      "optional": true,
+      "input_fields": [],
+      "output_fields": []
+    },
+    {
+      "name": "Run Content Audit Workflow",
+      "action": "Run new flow",
+      "group": "Research",
+      "level": 1,
+      "optional": true,
+      "input": ["name"],
+      "decorators": [
+        {
+          "name": "setup name for workflow",
+          "isPreEvent": true,
+          "type": "Transfer Field between flows",
+          "options": {
+            "in": "%%name%%",
+            "out": "Content Audit"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Revise Branding (if needed)",
+      "action": "Update logo, colors, tone, and messaging",
+      "group": "Planning",
+      "level": 2,
+      "optional": true,
+      "input_fields": [],
+      "output_fields": ["branding_status"]
+    },
+    {
+      "name": "Plan Information Architecture",
+      "action": "Create new site map and user flow",
+      "group": "UX",
+      "level": 3,
+      "optional": false,
+      "input_fields": [],
+      "output_fields": []
+    },
+    {
+      "name": "Design Wireframes and Prototypes",
+      "action": "Create initial low- and high-fidelity UI designs",
+      "group": "UX",
+      "level": 4,
+      "optional": false,
+      "input_fields": [],
+      "output_fields": []
+    },
+    {
+      "name": "Optional: Run Hire Designer Workflow",
+      "action": "Run new flow",
+      "group": "UX",
+      "level": 4,
+      "optional": true,
+      "input": ["name"],
+      "decorators": [
+        {
+          "name": "setup name for workflow",
+          "isPreEvent": true,
+          "type": "Transfer Field between flows",
+          "options": {
+            "in": "%%name%%",
+            "out": "Hire Designer"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Run Usability Test on Prototypes",
+      "action": "Validate UI with target users",
+      "group": "Testing",
+      "level": 5,
+      "optional": true,
+      "input_fields": [],
+      "output_fields": []
+    },
+    {
+      "name": "Develop Frontend and Backend",
+      "action": "Code the new website using chosen stack/CMS",
+      "group": "Development",
+      "level": 6,
+      "optional": false,
+      "input_fields": ["cms_platform"],
+      "output_fields": []
+    },
+    {
+      "name": "Run SEO Optimization",
+      "action": "Apply SEO best practices on-site",
+      "group": "Development",
+      "level": 6,
+      "optional": true,
+      "input_fields": ["seo_keywords"],
+      "output_fields": []
+    },
+    {
+      "name": "Prepare and Migrate Content",
+      "action": "Move updated or new content to redesigned layout",
+      "group": "Development",
+      "level": 6,
+      "optional": false,
+      "input_fields": [],
+      "output_fields": []
+    },
+    {
+      "name": "Conduct QA Testing (Functional + Performance)",
+      "action": "Check responsiveness, speed, errors, and integrations",
+      "group": "Testing",
+      "level": 7,
+      "optional": false,
+      "input_fields": [],
+      "output_fields": []
+    },
+    {
+      "name": "Launch New Website",
+      "action": "Switch to redesigned version and monitor performance",
+      "group": "Launch",
+      "level": 8,
+      "optional": false,
+      "input_fields": ["launch_date"],
+      "output_fields": []
+    },
+    {
+      "name": "Post-Launch Feedback Collection",
+      "action": "Collect analytics and user feedback",
+      "group": "Launch",
+      "level": 9,
+      "optional": true,
+      "input_fields": [],
+      "output_fields": []
+    }
+  ],
+  "need_project": true,
+  "need_client": false,
+  "need_payment": false
+}

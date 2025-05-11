@@ -1,0 +1,92 @@
+{
+  "type": "workflow",
+  "name": "Invoice Processing",
+  "description": "A process for managing invoices, from receiving and verifying them to generating payment instructions.",
+  "fields": [
+    "invoice_id",
+    "vendor_id",
+    "amount",
+    "due_date",
+    "payment_status",
+    "invoice_data",
+    "payment_instructions"
+  ],
+  "category": "Accounting",
+  "steps": [
+    {
+      "name": "Receive Invoice",
+      "action": "Invoice Reception",
+      "description": "Receive the invoice from the vendor, either electronically or manually.",
+      "level": 0,
+      "input_fields": ["invoice_id", "vendor_id"],
+      "output_fields": ["invoice_data"],
+      "required_manual": true,
+      "possible_ai": false,
+      "possible_service": true,
+      "possible_manual": true,
+      "possible_robots": false,
+      "possible_frontend": true,
+      "report": false
+    },
+    {
+      "name": "Verify Invoice",
+      "action": "Invoice Verification",
+      "description": "Verify the invoice against purchase orders and contracts, ensuring accuracy in amounts, vendor information, and due dates.",
+      "level": 1,
+      "input_fields": ["invoice_data"],
+      "output_fields": ["invoice_data"],
+      "required_manual": true,
+      "possible_ai": true,
+      "possible_service": true,
+      "possible_manual": true,
+      "possible_robots": false,
+      "possible_frontend": true,
+      "report": false
+    },
+    {
+      "name": "Create Payment Instructions",
+      "action": "Payment Instruction Creation",
+      "description": "Generate payment instructions based on the invoice data, determining the method of payment (bank transfer, cheque, etc.).",
+      "level": 2,
+      "input_fields": ["invoice_data"],
+      "output_fields": ["payment_instructions"],
+      "required_manual": false,
+      "possible_ai": true,
+      "possible_service": true,
+      "possible_manual": true,
+      "possible_robots": false,
+      "possible_frontend": true,
+      "report": false
+    },
+    {
+      "name": "Process Payment",
+      "action": "Payment Execution",
+      "description": "Execute the payment based on the instructions, either manually or via an automated system.",
+      "level": 3,
+      "input_fields": ["payment_instructions"],
+      "output_fields": ["payment_status"],
+      "required_manual": true,
+      "possible_ai": false,
+      "possible_service": true,
+      "possible_manual": true,
+      "possible_robots": false,
+      "possible_frontend": false,
+      "report": true
+    },
+    {
+      "name": "Confirm Payment Receipt",
+      "action": "Payment Confirmation",
+      "description": "Confirm receipt of payment by the vendor, and update the invoice status to 'Paid'.",
+      "level": 4,
+      "input_fields": ["payment_status"],
+      "output_fields": ["payment_status"],
+      "required_manual": true,
+      "possible_ai": false,
+      "possible_service": true,
+      "possible_manual": true,
+      "possible_robots": false,
+      "possible_frontend": false,
+      "report": true
+    }
+  ]
+}

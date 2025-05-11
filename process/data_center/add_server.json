@@ -1,0 +1,46 @@
+{
+  "type": "workflow",
+  "name": "Server Onboarding",
+  "description": "Automates the physical and logical deployment of a new server in the data center.",
+  "category": "Provisioning",
+  "fields": ["server_id", "rack_id", "image", "slot", "mounted", "network_config", "validation_report"],
+  "steps": [
+    {
+      "name": "Mount Server",
+      "action": "MountServerCommand",
+      "group": "Robotics Unit",
+      "level": 0,
+      "optional": false,
+      "possible_ai": false,
+      "possible_service": false,
+      "possible_robots": true,
+      "input_fields": ["server_id", "rack_id", "slot"],
+      "output_fields": ["mounted"]
+    },
+    {
+      "name": "Install Base Image",
+      "action": "PXE Boot & Deploy",
+      "group": "Deployment Service",
+      "level": 1,
+      "optional": false,
+      "possible_ai": false,
+      "possible_service": true,
+      "input_fields": ["server_id", "image"],
+      "output_fields": ["network_config"]
+    },
+    {
+      "name": "Run Initial Validation",
+      "action": "DiagnoseServerCommand",
+      "group": "Monitoring System",
+      "level": 2,
+      "optional": false,
+      "possible_ai": false,
+      "possible_service": true,
+      "input_fields": ["server_id"],
+      "output_fields": ["validation_report"]
+    }
+  ],
+  "need_project": false,
+  "need_client": false,
+  "need_payment": false
+}

@@ -1,0 +1,123 @@
+{
+  "type": "integration",
+  "name": "Jira",
+  "scope": ["project_management", "task_management"],
+  "support_url": "https://support.atlassian.com/jira-software/",
+  "auth_url": "https://auth.atlassian.com/authorize",
+  "requirements": [
+    "CLIENT_ID",
+    "CLIENT_SECRET",
+    "ACCESS_TOKEN",
+    "REFRESH_TOKEN",
+    "BASE_URL"
+  ],
+  "front_requirements": ["CLIENT_ID", "ACCESS_TOKEN", "BASE_URL"],
+  "custom_provider_key": null,
+  "auth_method": 2,
+  "ai": false,
+  "front": true,
+  "payment": false,
+  "need_oauth": true,
+  "description": "Manage projects, tasks, and statuses with Jira integration.",
+  "hooks": [
+    {
+      "name": "Get a List of Projects",
+      "description": "Retrieve a list of projects available in Jira.",
+      "method": "GET",
+      "testable": true,
+      "hook": "https://%%BASE_URL%%/rest/api/3/project",
+      "content": null,
+      "scope": [],
+      "mapper": [
+        {
+          "field": "list",
+          "parse": "projects",
+          "type": 1
+        }
+      ],
+      "categories": ["Project Management"],
+      "action": [
+        {
+          "field": null,
+          "action": "Fetch Projects",
+          "type": 6
+        }
+      ]
+    },
+    {
+      "name": "Get a List of Tasks",
+      "description": "Retrieve tasks for a specific project.",
+      "method": "GET",
+      "testable": true,
+      "hook": "https://%%BASE_URL%%/rest/api/3/search?jql=project=%%PROJECT_KEY%%",
+      "content": null,
+      "scope": [],
+      "mapper": [
+        {
+          "field": "list",
+          "parse": "issues",
+          "type": 1
+        }
+      ],
+      "categories": ["Task Management"],
+      "action": [
+        {
+          "field": null,
+          "action": "Fetch Tasks",
+          "type": 6
+        }
+      ]
+    },
+    {
+      "name": "Create Task",
+      "description": "Create a new task in a project.",
+      "method": "POST",
+      "testable": true,
+      "hook": "https://%%BASE_URL%%/rest/api/3/issue",
+      "content": {
+        "fields": {
+          "project": {
+            "key": "%%PROJECT_KEY%%"
+          },
+          "summary": "%%TASK_SUMMARY%%",
+          "description": "%%TASK_DESCRIPTION%%",
+          "issuetype": {
+            "name": "%%ISSUE_TYPE%%"
+          }
+        }
+      },
+      "scope": [],
+      "mapper": [],
+      "categories": ["Task Management"],
+      "action": [
+        {
+          "field": null,
+          "action": "Create Task",
+          "type": 2
+        }
+      ]
+    },
+    {
+      "name": "Change Task Status",
+      "description": "Update the status of a task.",
+      "method": "POST",
+      "testable": true,
+      "hook": "https://%%BASE_URL%%/rest/api/3/issue/%%ISSUE_KEY%%/transitions",
+      "content": {
+        "transition": {
+          "id": "%%TRANSITION_ID%%"
+        }
+      },
+      "scope": [],
+      "mapper": [],
+      "categories": ["Task Management"],
+      "action": [
+        {
+          "field": null,
+          "action": "Update Task Status",
+          "type": 2
+        }
+      ]
+    }
+  ]
+}

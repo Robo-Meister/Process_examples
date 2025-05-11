@@ -1,0 +1,78 @@
+{
+  "type": "integration",
+  "name": "Server Monitoring",
+  "scope": ["server_monitoring", "system_health"],
+  "support_url": "https://docs.monitoring.com",
+  "auth_url": null,
+  "requirements": ["SERVER_IP", "AUTH_METHOD", "USERNAME", "PASSWORD_OR_KEY"],
+  "front_requirements": ["SERVER_IP", "AUTH_METHOD"],
+  "custom_provider_key": null,
+  "auth_method": 3,
+  "ai": false,
+  "front": true,
+  "payment": false,
+  "need_oauth": false,
+  "description": "Monitor server health, CPU, memory, and logs remotely.",
+  "hooks": [
+    {
+      "name": "Fetch Server Details",
+      "description": "Retrieve system logs and general server information.",
+      "method": "GET",
+      "testable": true,
+      "hook": "https://%%SERVER_IP%%/api/system_info",
+      "content": null,
+      "scope": [],
+      "mapper": [{"field": "logs", "parse": "log_entries", "type": 1}],
+      "categories": ["Server Monitoring"],
+      "action": [{"field": null, "action": "Fetch Server Details", "type": 6}]
+    },
+    {
+      "name": "Monitor CPU",
+      "description": "Retrieve CPU utilization percentage.",
+      "method": "GET",
+      "testable": true,
+      "hook": "https://%%SERVER_IP%%/api/cpu",
+      "content": null,
+      "scope": [],
+      "mapper": [{"field": "cpu_utilization", "parse": "cpu_load", "type": 2}],
+      "categories": ["Server Monitoring"],
+      "action": [{"field": null, "action": "Monitor CPU", "type": 6}]
+    },
+    {
+      "name": "Analyze Disk Usage",
+      "description": "Check disk space utilization.",
+      "method": "GET",
+      "testable": true,
+      "hook": "https://%%SERVER_IP%%/api/disk",
+      "content": null,
+      "scope": [],
+      "mapper": [{"field": "disk_usage", "parse": "disk_space", "type": 2}],
+      "categories": ["Server Monitoring"],
+      "action": [{"field": null, "action": "Analyze Disk Usage", "type": 6}]
+    },
+    {
+      "name": "Analyze Memory",
+      "description": "Retrieve RAM usage statistics.",
+      "method": "GET",
+      "testable": true,
+      "hook": "https://%%SERVER_IP%%/api/memory",
+      "content": null,
+      "scope": [],
+      "mapper": [{"field": "memory_utilization", "parse": "memory_usage", "type": 2}],
+      "categories": ["Server Monitoring"],
+      "action": [{"field": null, "action": "Analyze Memory", "type": 6}]
+    },
+    {
+      "name": "Inspect Logs",
+      "description": "Retrieve and analyze error logs.",
+      "method": "GET",
+      "testable": true,
+      "hook": "https://%%SERVER_IP%%/api/logs",
+      "content": null,
+      "scope": [],
+      "mapper": [{"field": "error_logs", "parse": "error_entries", "type": 1}],
+      "categories": ["Server Monitoring"],
+      "action": [{"field": null, "action": "Inspect Logs", "type": 6}]
+    }
+  ]
+}

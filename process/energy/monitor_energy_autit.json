@@ -1,0 +1,50 @@
+{
+  "type": "workflow",
+  "name": "Monitoring the effects and the next audit",
+  "description": "The procedure includes monitoring the effects of the implemented actions and preparing for the next energy audit.",
+  "fields": ["monitoring_data", "efficiency_report", "next_audit_plan"],
+  "category": "Energy",
+  "steps": [
+    {
+      "name": "Zbieranie danych o zużyciu energii",
+      "action": "Monitoring usage",
+      "description": "Analiza danych o zużyciu energii po wdrożeniu rekomendacji audytu.",
+      "level": 0,
+      "input_fields": ["measurement_data"],
+      "output_fields": ["monitoring_data"],
+      "required_manual": false,
+      "possible_ai": true,
+      "possible_service": true,
+      "possible_robots": true,
+      "possible_manual": true,
+      "report": true
+    },
+    {
+      "name": "Ocena skuteczności działań",
+      "action": "Compare results",
+      "description": "Ocena efektów wdrożonych zmian i ich wpływu na efektywność energetyczną.",
+      "level": 1,
+      "input_fields": ["monitoring_data"],
+      "output_fields": ["efficiency_report"],
+      "required_manual": true,
+      "possible_ai": true,
+      "possible_service": false,
+      "possible_manual": true,
+      "possible_frontend": true,
+      "report": true
+    },
+    {
+      "name": "Planowanie kolejnego audytu",
+      "action": "Schedule Appointment",
+      "description": "Przygotowanie planu kolejnego audytu w celu dalszej optymalizacji zużycia energii.",
+      "level": 2,
+      "input_fields": ["efficiency_report"],
+      "output_fields": ["next_audit_plan"],
+      "required_manual": true,
+      "possible_ai": false,
+      "possible_service": false,
+      "possible_manual": true,
+      "report": false
+    }
+  ]
+}

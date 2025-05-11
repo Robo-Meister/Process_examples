@@ -1,0 +1,77 @@
+{
+  "type": "workflow",
+  "name": "Resource Distribution",
+  "description": "This process handles the analysis and distribution of available resources (e.g., energy, bandwidth, material supplies, robots) among tasks, machines, or areas to optimize efficiency.",
+  "category": "Infrastructure",
+  "fields": [
+    "resource_type",
+    "resource_pool",
+    "distribution_strategy",
+    "allocation_map",
+    "distribution_result",
+    "efficiency_report"
+  ],
+  "steps": [
+    {
+      "name": "Collect Resource Pool",
+      "action": "Scan Resources",
+      "description": "Gather data on current resource availability from all active sensors and systems.",
+      "level": 0,
+      "input_fields": ["resource_type"],
+      "output_fields": ["resource_pool"],
+      "possible_ai": true,
+      "possible_service": true,
+      "possible_manual": false,
+      "required_manual": false,
+      "report": false
+    },
+    {
+      "name": "Define Distribution Strategy",
+      "action": "Create Strategy",
+      "description": "Select or auto-generate the most appropriate resource distribution strategy based on current needs, tasks, and optimization goals.",
+      "level": 1,
+      "input_fields": ["resource_pool"],
+      "output_fields": ["distribution_strategy"],
+      "possible_ai": true,
+      "possible_service": true,
+      "required_manual": false,
+      "report": false
+    },
+    {
+      "name": "Map Resource Allocation",
+      "action": "Generate Allocation Map",
+      "description": "Prepare a detailed allocation plan assigning resource units to targets (machines, sectors, processes).",
+      "level": 2,
+      "input_fields": ["distribution_strategy"],
+      "output_fields": ["allocation_map"],
+      "possible_ai": true,
+      "required_manual": false,
+      "possible_service": true,
+      "report": false
+    },
+    {
+      "name": "Execute Distribution",
+      "action": "Distribute Resources",
+      "description": "Apply the resource allocation plan through command execution, devices, or task assignments.",
+      "level": 3,
+      "input_fields": ["allocation_map"],
+      "output_fields": ["distribution_result"],
+      "possible_ai": false,
+      "possible_robots": true,
+      "possible_service": true,
+      "required_manual": false,
+      "report": false
+    },
+    {
+      "name": "Evaluate Efficiency",
+      "action": "Generate Report",
+      "description": "Assess whether the distribution improved resource utilization and system performance.",
+      "level": 4,
+      "input_fields": ["distribution_result"],
+      "output_fields": ["efficiency_report"],
+      "possible_ai": true,
+      "required_manual": false,
+      "report": true
+    }
+  ]
+}

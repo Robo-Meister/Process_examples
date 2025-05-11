@@ -1,0 +1,80 @@
+{
+  "type": "workflow",
+  "name": "Preparing an energy audit",
+  "description": "Procedure for collecting data and planning an energy audit.",
+  "fields": [
+    "audit_request",
+    "energy_bills",
+    "technical_documentation",
+    "audit_scope",
+    "inspection_schedule"
+  ],
+  "category": "Energy",
+  "steps": [
+    {
+      "name": "Otrzymanie wniosku o audyt",
+      "action": "Log Request",
+      "description": "Rejestracja zgłoszenia audytu i weryfikacja podstawowych informacji.",
+      "level": 0,
+      "input_fields": ["audit_request"],
+      "output_fields": ["registered_audit_request"],
+      "required_manual": true,
+      "possible_ai": false,
+      "possible_service": true,
+      "possible_manual": true,
+      "report": false
+    },
+    {
+      "name": "Zebranie rachunków za energię",
+      "action": "Collect Bills",
+      "description": "Pozyskanie faktur i danych o zużyciu energii za ostatnie 12 miesięcy.",
+      "level": 1,
+      "input_fields": ["registered_audit_request"],
+      "output_fields": ["energy_bills"],
+      "required_manual": false,
+      "possible_ai": true,
+      "possible_service": true,
+      "possible_manual": true,
+      "report": false
+    },
+    {
+      "name": "Analiza dokumentacji technicznej",
+      "action": "Review Documentation",
+      "description": "Sprawdzenie dokumentacji budynku, systemów HVAC, instalacji elektrycznej i grzewczej.",
+      "level": 2,
+      "input_fields": ["energy_bills"],
+      "output_fields": ["technical_documentation"],
+      "required_manual": true,
+      "possible_ai": true,
+      "possible_service": false,
+      "possible_manual": true,
+      "report": false
+    },
+    {
+      "name": "Określenie zakresu audytu",
+      "action": "Define Scope",
+      "description": "Sprecyzowanie obszarów analizy oraz celów audytu.",
+      "level": 3,
+      "input_fields": ["technical_documentation"],
+      "output_fields": ["audit_scope"],
+      "required_manual": true,
+      "possible_ai": false,
+      "possible_service": false,
+      "possible_manual": true,
+      "report": false
+    },
+    {
+      "name": "Zaplanowanie wizji lokalnej",
+      "action": "Schedule Inspection",
+      "description": "Ustalenie terminu inspekcji obiektu i pomiarów.",
+      "level": 4,
+      "input_fields": ["audit_scope"],
+      "output_fields": ["inspection_schedule"],
+      "required_manual": true,
+      "possible_ai": false,
+      "possible_service": true,
+      "possible_manual": true,
+      "report": false
+    }
+  ]
+}

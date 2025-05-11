@@ -1,0 +1,44 @@
+{
+  "type": "workflow",
+  "name": "Subscription Management & Renewal",
+  "description": "Automate subscription tracking, renewal reminders, and cancellations.",
+  "category": "Publishing",
+  "fields": [
+    "subscriber_id",
+    "subscription_plan",
+    "payment_status",
+    "renewal_date",
+    "reminder_sent",
+    "subscription_status"
+  ],
+  "steps": [
+    {
+      "name": "Track Subscription Expiry",
+      "action": "Monitor Subscription Dates",
+      "group": "CRM System",
+      "input_fields": ["subscriber_id", "subscription_plan"],
+      "output_fields": ["renewal_date"]
+    },
+    {
+      "name": "Send Renewal Reminder",
+      "action": "Notify Subscriber",
+      "group": "Marketing Team",
+      "input_fields": ["renewal_date"],
+      "output_fields": ["reminder_sent"]
+    },
+    {
+      "name": "Process Renewal Payment",
+      "action": "Confirm Payment",
+      "group": "Finance Team",
+      "input_fields": ["reminder_sent"],
+      "output_fields": ["payment_status"]
+    },
+    {
+      "name": "Update Subscription Status",
+      "action": "Renew or Cancel Subscription",
+      "group": "Customer Support",
+      "input_fields": ["payment_status"],
+      "output_fields": ["subscription_status"]
+    }
+  ]
+}

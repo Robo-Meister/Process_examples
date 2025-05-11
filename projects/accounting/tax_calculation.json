@@ -1,0 +1,91 @@
+{
+  "type": "workflow",
+  "name": "Tax Calculation and Filing",
+  "description": "A process to calculate and file taxes for the company, ensuring compliance with relevant tax regulations.",
+  "fields": [
+    "tax_period",
+    "income_data",
+    "deductions",
+    "calculated_tax",
+    "tax_return",
+    "filing_status"
+  ],
+  "category": "Accounting",
+  "steps": [
+    {
+      "name": "Gather Income Data",
+      "action": "Income Data Collection",
+      "description": "Collect all income data for the specified tax period, including sales, investments, and other income sources.",
+      "level": 0,
+      "input_fields": ["tax_period"],
+      "output_fields": ["income_data"],
+      "required_manual": false,
+      "possible_ai": true,
+      "possible_service": true,
+      "possible_manual": true,
+      "possible_robots": false,
+      "possible_frontend": true,
+      "report": false
+    },
+    {
+      "name": "Identify Deductions",
+      "action": "Tax Deductions Identification",
+      "description": "Identify eligible tax deductions (e.g., business expenses, allowances, etc.) based on the collected data.",
+      "level": 1,
+      "input_fields": ["income_data"],
+      "output_fields": ["deductions"],
+      "required_manual": false,
+      "possible_ai": true,
+      "possible_service": true,
+      "possible_manual": true,
+      "possible_robots": false,
+      "possible_frontend": true,
+      "report": false
+    },
+    {
+      "name": "Calculate Tax",
+      "action": "Tax Calculation",
+      "description": "Calculate the tax owed based on income data and eligible deductions.",
+      "level": 2,
+      "input_fields": ["income_data", "deductions"],
+      "output_fields": ["calculated_tax"],
+      "required_manual": true,
+      "possible_ai": true,
+      "possible_service": true,
+      "possible_manual": true,
+      "possible_robots": false,
+      "possible_frontend": false,
+      "report": false
+    },
+    {
+      "name": "Generate Tax Return",
+      "action": "Tax Return Generation",
+      "description": "Generate the tax return document, summarizing the calculated tax and deductions.",
+      "level": 3,
+      "input_fields": ["calculated_tax"],
+      "output_fields": ["tax_return"],
+      "required_manual": true,
+      "possible_ai": true,
+      "possible_service": true,
+      "possible_manual": true,
+      "possible_robots": false,
+      "possible_frontend": true,
+      "report": false
+    },
+    {
+      "name": "File Tax Return",
+      "action": "Tax Return Filing",
+      "description": "Submit the tax return to the relevant tax authority, either manually or via an automated filing system.",
+      "level": 4,
+      "input_fields": ["tax_return"],
+      "output_fields": ["filing_status"],
+      "required_manual": true,
+      "possible_ai": false,
+      "possible_service": true,
+      "possible_manual": true,
+      "possible_robots": false,
+      "possible_frontend": false,
+      "report": true
+    }
+  ]
+}

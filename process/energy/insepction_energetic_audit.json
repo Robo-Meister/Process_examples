@@ -1,0 +1,64 @@
+{
+  "type": "workflow",
+  "name": "Object Inspection and Measurements",
+  "description": "The procedure includes conducting an inspection of the object and taking the necessary measurements as part of an energy audit.",
+  "fields": ["object_details", "measurement_data", "inspection_report"],
+  "category": "Energy",
+  "steps": [
+    {
+      "name": "Weryfikacja dokumentacji technicznej",
+      "action": "Documentation review",
+      "description": "Analiza dostępnych planów budowlanych, instalacyjnych oraz danych o zużyciu energii.",
+      "level": 0,
+      "input_fields": ["building_plans", "energy_consumption_data"],
+      "output_fields": ["verified_documents"],
+      "required_manual": true,
+      "possible_ai": false,
+      "possible_service": false,
+      "possible_manual": true,
+      "document_related": true,
+      "report": false
+    },
+    {
+      "name": "Wizyta na obiekcie",
+      "action": "Performing inspection",
+      "description": "Inspekcja systemów energetycznych, urządzeń oraz infrastruktury budynku.",
+      "level": 1,
+      "input_fields": ["verified_documents"],
+      "output_fields": ["inspection_findings"],
+      "required_manual": true,
+      "possible_ai": false,
+      "possible_service": false,
+      "possible_manual": true,
+      "report": true
+    },
+    {
+      "name": "Wykonanie pomiarów",
+      "action": "Collecting measurement data",
+      "description": "Przeprowadzenie pomiarów temperatury, wilgotności, oświetlenia, zużycia energii oraz innych parametrów.",
+      "level": 2,
+      "input_fields": ["inspection_findings"],
+      "output_fields": ["measurement_data"],
+      "required_manual": true,
+      "possible_ai": false,
+      "possible_service": false,
+      "possible_manual": true,
+      "report": false
+    },
+    {
+      "name": "Analiza wyników",
+      "action": "Energy state assessment of the facility",
+      "description": "Porównanie uzyskanych wyników pomiarów z normami i najlepszymi praktykami.",
+      "level": 3,
+      "input_fields": ["measurement_data"],
+      "output_fields": ["inspection_report"],
+      "required_manual": true,
+      "possible_ai": true,
+      "possible_service": true,
+      "possible_manual": true,
+      "possible_frontend": true,
+      "report": true
+    }
+  ]
+}
+

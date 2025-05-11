@@ -1,0 +1,70 @@
+{
+  "type": "workflow",
+  "name": "Editorial Planning & Content Production",
+  "description": "Plan, assign, and track content for upcoming magazine issues.",
+  "category": "Publishing",
+  "fields": [
+    "issue_id",
+    "publication_date",
+    "editorial_theme",
+    "article_title",
+    "author_id",
+    "assigned_writer",
+    "draft_submission",
+    "editor_feedback",
+    "final_version",
+    "image_assets",
+    "approved_for_publishing"
+  ],
+  "steps": [
+    {
+      "name": "Define Editorial Theme",
+      "action": "Set Theme",
+      "group": "Editorial Team",
+      "input_fields": ["issue_id"],
+      "output_fields": ["editorial_theme"]
+    },
+    {
+      "name": "Assign Writers",
+      "action": "Select & Assign Writers",
+      "group": "Editorial Team",
+      "input_fields": ["editorial_theme"],
+      "output_fields": ["author_id", "assigned_writer"]
+    },
+    {
+      "name": "Submit Drafts",
+      "action": "Upload Draft",
+      "group": "Writers",
+      "input_fields": ["article_title", "assigned_writer"],
+      "output_fields": ["draft_submission"]
+    },
+    {
+      "name": "Review & Provide Feedback",
+      "action": "Edit & Suggest Changes",
+      "group": "Editorial Team",
+      "input_fields": ["draft_submission"],
+      "output_fields": ["editor_feedback"]
+    },
+    {
+      "name": "Finalize & Approve Content",
+      "action": "Approve Final Version",
+      "group": "Editorial Team",
+      "input_fields": ["editor_feedback"],
+      "output_fields": ["final_version"]
+    },
+    {
+      "name": "Add Images & Design Layout",
+      "action": "Upload Images & Design",
+      "group": "Design Team",
+      "input_fields": ["final_version"],
+      "output_fields": ["image_assets"]
+    },
+    {
+      "name": "Publish & Archive",
+      "action": "Send to Print & Digital",
+      "group": "Publishing Team",
+      "input_fields": ["image_assets"],
+      "output_fields": ["approved_for_publishing"]
+    }
+  ]
+}

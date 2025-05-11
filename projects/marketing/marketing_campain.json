@@ -1,0 +1,138 @@
+{
+  "type": "workflow",
+  "name": "Marketing Campaign Launch",
+  "description": "Handles planning, asset creation, approvals, execution, and tracking for marketing campaigns with optional extensions.",
+  "category": "Marketing",
+  "fields": [
+    "campaign_id",
+    "campaign_goal",
+    "target_audience",
+    "platforms",
+    "content_brief",
+    "visual_assets",
+    "ad_copy",
+    "ab_test_variants",
+    "partner_list",
+    "influencers",
+    "launch_date",
+    "budget",
+    "final_approval",
+    "engagement_data",
+    "campaign_report"
+  ],
+  "steps": [
+    {
+      "name": "Define Campaign Goal",
+      "action": "Set Objectives and KPIs",
+      "group": "Marketing Strategy",
+      "level": 0,
+      "optional": false,
+      "changeable": true,
+      "cancelable": true,
+      "input_fields": ["campaign_goal", "target_audience", "platforms"],
+      "output_fields": ["campaign_id"]
+    },
+    {
+      "name": "Prepare Content Brief",
+      "action": "Draft Content Guidelines",
+      "group": "Marketing Content",
+      "level": 1,
+      "optional": false,
+      "changeable": true,
+      "cancelable": false,
+      "input_fields": ["campaign_id", "campaign_goal"],
+      "output_fields": ["content_brief"]
+    },
+    {
+      "name": "Design Visuals",
+      "action": "Create Visual Content",
+      "group": "Design Team",
+      "level": 2,
+      "optional": false,
+      "changeable": true,
+      "cancelable": false,
+      "input_fields": ["content_brief"],
+      "output_fields": ["visual_assets"]
+    },
+    {
+      "name": "Write Ad Copy",
+      "action": "Prepare Campaign Messaging",
+      "group": "Copywriting Team",
+      "level": 2,
+      "optional": false,
+      "changeable": true,
+      "cancelable": false,
+      "input_fields": ["content_brief"],
+      "output_fields": ["ad_copy"]
+    },
+    {
+      "name": "Optional A/B Variants",
+      "action": "Create Variants for Testing",
+      "group": "Marketing Content",
+      "level": 3,
+      "optional": true,
+      "changeable": true,
+      "cancelable": true,
+      "input_fields": ["visual_assets", "ad_copy"],
+      "output_fields": ["ab_test_variants"]
+    },
+    {
+      "name": "Partner Outreach",
+      "action": "Coordinate with Partners",
+      "group": "Partnership Team",
+      "level": 3,
+      "optional": true,
+      "changeable": true,
+      "cancelable": true,
+      "input_fields": ["campaign_id"],
+      "output_fields": ["partner_list"]
+    },
+    {
+      "name": "Influencer Coordination",
+      "action": "Setup Influencer Posts",
+      "group": "PR Team",
+      "level": 3,
+      "optional": true,
+      "changeable": true,
+      "cancelable": true,
+      "input_fields": ["campaign_goal", "platforms"],
+      "output_fields": ["influencers"]
+    },
+    {
+      "name": "Final Approval",
+      "action": "Review All Assets",
+      "group": "Marketing Strategy",
+      "level": 4,
+      "optional": false,
+      "changeable": false,
+      "cancelable": false,
+      "input_fields": ["visual_assets", "ad_copy", "ab_test_variants", "influencers"],
+      "output_fields": ["final_approval"]
+    },
+    {
+      "name": "Launch Campaign",
+      "action": "Go Live",
+      "group": "Marketing Ops",
+      "level": 5,
+      "optional": false,
+      "changeable": false,
+      "cancelable": false,
+      "input_fields": ["final_approval", "launch_date", "budget"],
+      "output_fields": ["engagement_data"]
+    },
+    {
+      "name": "Track Performance",
+      "action": "Monitor Results",
+      "group": "Analytics",
+      "level": 6,
+      "optional": false,
+      "changeable": true,
+      "cancelable": false,
+      "input_fields": ["engagement_data"],
+      "output_fields": ["campaign_report"]
+    }
+  ],
+  "need_project": true,
+  "need_client": false,
+  "need_payment": false
+}

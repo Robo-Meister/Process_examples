@@ -1,0 +1,130 @@
+{
+  "type": "workflow",
+  "name": "Build Office",
+  "description": "Oversees the full process of building a new office, from land acquisition through permits, construction, and final handover.",
+  "category": "Operations / Expansion",
+  "fields": [
+    "name",
+    "location",
+    "construction_budget",
+    "office_size",
+    "building_purpose",
+    "construction_company",
+    "permit_ids",
+    "handover_date"
+  ],
+  "steps": [
+    {
+      "name": "Define Office Construction Scope",
+      "action": "Set goals, budget, and building purpose",
+      "group": "Preparation",
+      "level": 0,
+      "optional": false,
+      "input_fields": [],
+      "output_fields": ["construction_budget", "office_size", "building_purpose"]
+    },
+    {
+      "name": "Run Buy Ground Workflow",
+      "action": "Run new flow",
+      "group": "Preparation",
+      "level": 1,
+      "optional": false,
+      "input": ["name"],
+      "decorators": [
+        {
+          "name": "setup name for workflow",
+          "isPreEvent": true,
+          "type": "Transfer Field between flows",
+          "options": {
+            "in": "%%name%%",
+            "out": "Buy Ground for Office"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Hire Architect and Structural Engineer",
+      "action": "Assign professional team to design the office",
+      "group": "Design",
+      "level": 2,
+      "optional": false,
+      "input_fields": ["office_size", "building_purpose"],
+      "output_fields": []
+    },
+    {
+      "name": "Prepare Office Building Design",
+      "action": "Create architectural and structural plans",
+      "group": "Design",
+      "level": 3,
+      "optional": false,
+      "input_fields": [],
+      "output_fields": []
+    },
+    {
+      "name": "Optional: Stakeholder Design Review",
+      "action": "Review draft plans with internal stakeholders",
+      "group": "Design",
+      "level": 3,
+      "optional": true,
+      "input_fields": [],
+      "output_fields": []
+    },
+    {
+      "name": "Apply for Construction Permits",
+      "action": "Submit documents to city/municipality for approval",
+      "group": "Compliance",
+      "level": 4,
+      "optional": false,
+      "input_fields": [],
+      "output_fields": ["permit_ids"]
+    },
+    {
+      "name": "Choose Construction Company",
+      "action": "Select contractors via tender or partner list",
+      "group": "Execution",
+      "level": 5,
+      "optional": false,
+      "input_fields": ["construction_budget"],
+      "output_fields": ["construction_company"]
+    },
+    {
+      "name": "Start Construction",
+      "action": "Begin work on site after permit clearance",
+      "group": "Execution",
+      "level": 6,
+      "optional": false,
+      "input_fields": ["construction_company", "permit_ids"],
+      "output_fields": []
+    },
+    {
+      "name": "Optional: Monthly Construction Status Reports",
+      "action": "Document progress and flag issues",
+      "group": "Monitoring",
+      "level": 6,
+      "optional": true,
+      "input_fields": [],
+      "output_fields": []
+    },
+    {
+      "name": "Final Inspection and Compliance Check",
+      "action": "Ensure quality and regulation compliance",
+      "group": "Completion",
+      "level": 7,
+      "optional": false,
+      "input_fields": [],
+      "output_fields": []
+    },
+    {
+      "name": "Handover and Internal Notification",
+      "action": "Formally receive building and notify internal teams",
+      "group": "Completion",
+      "level": 8,
+      "optional": false,
+      "input_fields": [],
+      "output_fields": ["handover_date"]
+    }
+  ],
+  "need_project": true,
+  "need_client": false,
+  "need_payment": true
+}

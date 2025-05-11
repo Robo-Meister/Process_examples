@@ -1,0 +1,165 @@
+{
+  "type": "integration",
+  "name": "ZenDesk",
+  "scope": ["support", "ticketing", "service"],
+  "support_url": "https://support.zendesk.com",
+  "auth_url": "https://subdomain.zendesk.com/oauth/authorizations/new",
+  "requirements": [
+    "CLIENT_ID",
+    "CLIENT_SECRET",
+    "ACCESS_TOKEN",
+    "REFRESH_TOKEN",
+    "SUBDOMAIN"
+  ],
+  "front_requirements": ["CLIENT_ID", "ACCESS_TOKEN", "SUBDOMAIN"],
+  "custom_provider_key": null,
+  "auth_method": 2,
+  "ai": false,
+  "front": true,
+  "payment": false,
+  "need_oauth": true,
+  "description": "Manage customer support, tickets, and service orders with ZenDesk integration.",
+  "hooks": [
+    {
+      "name": "Submit Ticket",
+      "description": "Submit a new support ticket on behalf of a client.",
+      "method": "POST",
+      "testable": true,
+      "hook": "https://%%SUBDOMAIN%%.zendesk.com/api/v2/tickets",
+      "content": {
+        "ticket": {
+          "subject": "%%subject%%",
+          "comment": { "body": "%%description%%" },
+          "priority": "%%priority%%",
+          "status": "%%status%%"
+        }
+      },
+      "scope": [],
+      "mapper": [],
+      "categories": ["Ticket Management"],
+      "action": [
+        {
+          "field": null,
+          "action": "Submit Ticket",
+          "type": 2
+        }
+      ]
+    },
+    {
+      "name": "Attach Documents/Photos",
+      "description": "Attach files to an existing ticket.",
+      "method": "POST",
+      "testable": true,
+      "hook": "https://%%SUBDOMAIN%%.zendesk.com/api/v2/uploads.json?filename=%%file_name%%",
+      "content": "%%file_content%%",
+      "scope": [],
+      "mapper": [
+        {
+          "field": "attachment_token",
+          "parse": "upload.token",
+          "type": 0
+        }
+      ],
+      "categories": ["Document Management"],
+      "action": [
+        {
+          "field": null,
+          "action": "Upload Attachment",
+          "type": 2
+        }
+      ]
+    },
+    {
+      "name": "Change Ticket Status",
+      "description": "Change the status of an existing ticket.",
+      "method": "PUT",
+      "testable": true,
+      "hook": "https://%%SUBDOMAIN%%.zendesk.com/api/v2/tickets/%%ticket_id%%",
+      "content": {
+        "ticket": {
+          "status": "%%status%%"
+        }
+      },
+      "scope": [],
+      "mapper": [],
+      "categories": ["Ticket Management"],
+      "action": [
+        {
+          "field": null,
+          "action": "Change Ticket Status",
+          "type": 2
+        }
+      ]
+    },
+    {
+      "name": "Schedule Appointment - ZenDesk",
+      "description": "Schedule an appointment with a client.",
+      "method": "POST",
+      "testable": true,
+      "hook": "https://%%SUBDOMAIN%%.zendesk.com/api/v2/appointments",
+      "content": {
+        "appointment": {
+          "client_id": "%%client_id%%",
+          "date": "%%appointment_date%%",
+          "description": "%%description%%"
+        }
+      },
+      "scope": [],
+      "mapper": [],
+      "categories": ["Service Management"],
+      "action": [
+        {
+          "field": null,
+          "action": "Schedule Appointment",
+          "type": 2
+        }
+      ]
+    },
+    {
+      "name": "Close Ticket - ZenDesk",
+      "description": "Close a ticket after resolution.",
+      "method": "PUT",
+      "testable": true,
+      "hook": "https://%%SUBDOMAIN%%.zendesk.com/api/v2/tickets/%%ticket_id%%",
+      "content": {
+        "ticket": {
+          "status": "closed"
+        }
+      },
+      "scope": [],
+      "mapper": [],
+      "categories": ["Ticket Management"],
+      "action": [
+        {
+          "field": null,
+          "action": "Close Ticket",
+          "type": 2
+        }
+      ]
+    },
+    {
+      "name": "Check Warranty - ZenDesk",
+      "description": "Validate warranty details for a client.",
+      "method": "GET",
+      "testable": true,
+      "hook": "https://%%SUBDOMAIN%%.zendesk.com/api/v2/warranties/%%client_id%%",
+      "content": null,
+      "scope": [],
+      "mapper": [
+        {
+          "field": "warranty_status",
+          "parse": "warranty.status",
+          "type": 0
+        }
+      ],
+      "categories": ["Warranty Management"],
+      "action": [
+        {
+          "field": null,
+          "action": "Check Warranty",
+          "type": 6
+        }
+      ]
+    }
+  ]
+}

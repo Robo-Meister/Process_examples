@@ -1,0 +1,166 @@
+{
+  "type": "workflow",
+  "name": "Production Setup for Product",
+  "description": "Covers all necessary steps to prepare a product for manufacturing, from definition to launch, with optional validations and compliance steps.",
+  "category": "Production",
+  "fields": [
+    "product_id",
+    "product_spec",
+    "bill_of_materials",
+    "routing_steps",
+    "workstation_layout",
+    "required_tools",
+    "supplier_data",
+    "quality_criteria",
+    "test_batch_results",
+    "automation_config",
+    "compliance_certificates",
+    "final_signoff",
+    "launch_date"
+  ],
+  "steps": [
+    {
+      "name": "Define Product Specification",
+      "action": "Enter Key Product Attributes",
+      "group": "Product Engineering",
+      "level": 0,
+      "optional": false,
+      "changeable": true,
+      "cancelable": true,
+      "input_fields": [],
+      "output_fields": ["product_id", "product_spec"]
+    },
+    {
+      "name": "Create Bill of Materials",
+      "action": "List Parts and Materials",
+      "group": "Product Engineering",
+      "level": 1,
+      "optional": false,
+      "changeable": true,
+      "cancelable": true,
+      "input_fields": ["product_spec"],
+      "output_fields": ["bill_of_materials"]
+    },
+    {
+      "name": "Define Routing Steps",
+      "action": "Describe Production Sequence",
+      "group": "Process Engineering",
+      "level": 2,
+      "optional": false,
+      "changeable": true,
+      "cancelable": false,
+      "input_fields": ["product_id", "bill_of_materials"],
+      "output_fields": ["routing_steps"]
+    },
+    {
+      "name": "Design Workstation Layout",
+      "action": "Setup Machine and Station Map",
+      "group": "Plant Layout",
+      "level": 2,
+      "optional": false,
+      "changeable": true,
+      "cancelable": false,
+      "input_fields": ["routing_steps"],
+      "output_fields": ["workstation_layout"]
+    },
+    {
+      "name": "List Required Tools",
+      "action": "Define Needed Tools and Equipment",
+      "group": "Tooling",
+      "level": 3,
+      "optional": false,
+      "changeable": true,
+      "cancelable": true,
+      "input_fields": ["routing_steps"],
+      "output_fields": ["required_tools"]
+    },
+    {
+      "name": "Procure Materials and Parts",
+      "action": "Connect with Suppliers",
+      "group": "Procurement",
+      "level": 3,
+      "optional": false,
+      "changeable": true,
+      "cancelable": true,
+      "input_fields": ["bill_of_materials"],
+      "output_fields": ["supplier_data"]
+    },
+    {
+      "name": "Define Quality Criteria",
+      "action": "Set Quality Benchmarks",
+      "group": "Quality Assurance",
+      "level": 3,
+      "optional": true,
+      "changeable": true,
+      "cancelable": true,
+      "input_fields": ["product_spec"],
+      "output_fields": ["quality_criteria"]
+    },
+    {
+      "name": "Run Test Batch",
+      "action": "Pilot Production Run",
+      "group": "Production",
+      "level": 4,
+      "optional": true,
+      "changeable": true,
+      "cancelable": true,
+      "input_fields": ["routing_steps", "workstation_layout"],
+      "output_fields": ["test_batch_results"]
+    },
+    {
+      "name": "Set Up Automation",
+      "action": "Configure Production Automation",
+      "group": "Automation",
+      "level": 4,
+      "optional": true,
+      "changeable": true,
+      "cancelable": true,
+      "input_fields": ["routing_steps", "required_tools"],
+      "output_fields": ["automation_config"]
+    },
+    {
+      "name": "Check Compliance and Safety",
+      "action": "Ensure Regulatory Readiness",
+      "group": "Regulatory",
+      "level": 5,
+      "optional": true,
+      "changeable": false,
+      "cancelable": true,
+      "input_fields": ["product_spec", "routing_steps"],
+      "output_fields": ["compliance_certificates"]
+    },
+    {
+      "name": "Final Approval and Sign-off",
+      "action": "Confirm Production Readiness",
+      "group": "Production Management",
+      "level": 6,
+      "optional": false,
+      "changeable": false,
+      "cancelable": false,
+      "input_fields": [
+        "routing_steps",
+        "workstation_layout",
+        "required_tools",
+        "supplier_data",
+        "test_batch_results",
+        "automation_config",
+        "compliance_certificates"
+      ],
+      "output_fields": ["final_signoff"]
+    },
+    {
+      "name": "Launch Production",
+      "action": "Start Manufacturing Process",
+      "group": "Production",
+      "level": 7,
+      "optional": false,
+      "changeable": false,
+      "cancelable": false,
+      "input_fields": ["final_signoff", "launch_date"],
+      "output_fields": []
+    }
+  ],
+  "need_project": true,
+  "need_client": false,
+  "need_payment": false
+}
