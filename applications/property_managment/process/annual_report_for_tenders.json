@@ -1,0 +1,64 @@
+{
+  "type": "workflow",
+  "name": "Prepare Annual Reports for Tenants",
+  "description": "Generate and distribute reports summarizing expenses, maintenance, and key activities for the year.",
+  "fields": [
+    "expense_reports",
+    "maintenance_summary",
+    "tenant_feedback"
+  ],
+  "steps": [
+    {
+      "name": "Compile Data",
+      "action": "Gather Data",
+      "description": "Collect data on expenses, maintenance activities, and tenant feedback.",
+      "level": 0,
+      "input_fields": [
+        "financial_records",
+        "maintenance_reports"
+      ],
+      "output_fields": [
+        "compiled_data"
+      ],
+      "required_manual": false,
+      "possible_ai": true,
+      "possible_service": true,
+      "possible_manual": true,
+      "report": false
+    },
+    {
+      "name": "Generate Report",
+      "action": "Create Report",
+      "description": "Generate an annual report based on the compiled data.",
+      "level": 1,
+      "input_fields": [
+        "compiled_data"
+      ],
+      "output_fields": [
+        "annual_report"
+      ],
+      "required_manual": false,
+      "possible_ai": true,
+      "possible_service": true,
+      "possible_manual": false,
+      "report": false
+    },
+    {
+      "name": "Distribute Report",
+      "action": "Send to Tenants",
+      "description": "Distribute the finalized report to all tenants.",
+      "level": 2,
+      "input_fields": [
+        "annual_report"
+      ],
+      "output_fields": [
+        "notifications"
+      ],
+      "required_manual": true,
+      "possible_ai": false,
+      "possible_service": true,
+      "possible_manual": true,
+      "report": false
+    }
+  ]
+}

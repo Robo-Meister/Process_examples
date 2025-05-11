@@ -1,0 +1,60 @@
+{
+  "type": "workflow",
+  "name": "Schedule Regular Maintenance",
+  "description": "Plan and execute regular maintenance tasks like cleaning, inspections, and equipment servicing.",
+  "fields": ["maintenance_tasks", "maintenance_schedule", "completion_reports"],
+  "steps": [
+    {
+      "name": "Identify Maintenance Needs",
+      "action": "Generate Task List",
+      "description": "Identify required maintenance tasks (e.g., HVAC servicing, plumbing checks).",
+      "level": 0,
+      "input_fields": ["previous_issues", "inspection_reports"],
+      "output_fields": ["maintenance_tasks"],
+      "required_manual": true,
+      "possible_ai": true,
+      "possible_service": true,
+      "possible_manual": true,
+      "report": false
+    },
+    {
+      "name": "Plan Maintenance Schedule",
+      "action": "Create Schedule",
+      "description": "Schedule tasks based on urgency, availability of staff, and tenant convenience.",
+      "level": 1,
+      "input_fields": ["maintenance_tasks"],
+      "output_fields": ["maintenance_schedule"],
+      "required_manual": false,
+      "possible_ai": true,
+      "possible_service": true,
+      "possible_manual": true,
+      "report": false
+    },
+    {
+      "name": "Execute Maintenance",
+      "action": "Perform Maintenance",
+      "description": "Carry out scheduled maintenance tasks.",
+      "level": 2,
+      "input_fields": ["maintenance_schedule"],
+      "output_fields": ["completion_reports"],
+      "required_manual": true,
+      "possible_ai": false,
+      "possible_service": false,
+      "possible_manual": true,
+      "report": false
+    },
+    {
+      "name": "Notify Tenants",
+      "action": "Send Notifications",
+      "description": "Inform tenants about completed maintenance or upcoming works.",
+      "level": 2,
+      "input_fields": ["maintenance_schedule", "completion_reports"],
+      "output_fields": ["notifications"],
+      "required_manual": false,
+      "possible_ai": true,
+      "possible_service": true,
+      "possible_manual": true,
+      "report": false
+    }
+  ]
+}

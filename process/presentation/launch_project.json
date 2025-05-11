@@ -33,7 +33,7 @@
       "optional": false,
       "decorators": [
         {
-          "name": "Welcome Template",
+          "name": "Subprocess",
           "isPreEvent": true,
           "type": "Transfer Field between flows",
           "options": {

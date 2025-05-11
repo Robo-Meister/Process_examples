@@ -1,0 +1,47 @@
+{
+  "type": "workflow",
+  "name": "Check Meters for Utilities",
+  "description": "Regularly check and log measurements from water, heat, and electricity meters for billing and compliance.",
+  "fields": ["meter_readings", "billing_records", "maintenance_issues"],
+  "steps": [
+    {
+      "name": "Collect Meter Readings",
+      "action": "Log Readings",
+      "description": "Visit each apartment or access the central system to log water, heat, and electricity usage.",
+      "level": 0,
+      "input_fields": ["apartment_list"],
+      "output_fields": ["meter_readings"],
+      "required_manual": true,
+      "possible_ai": false,
+      "possible_service": false,
+      "possible_manual": true,
+      "report": false
+    },
+    {
+      "name": "Check for Anomalies",
+      "action": "Analyze Readings",
+      "description": "Identify abnormal usage patterns or discrepancies in the readings.",
+      "level": 1,
+      "input_fields": ["meter_readings"],
+      "output_fields": ["anomaly_report"],
+      "required_manual": false,
+      "possible_ai": true,
+      "possible_service": false,
+      "possible_manual": true,
+      "report": true
+    },
+    {
+      "name": "Report Anomalies",
+      "action": "Generate Alert",
+      "description": "Notify tenants or maintenance staff about issues such as leaks or high energy consumption.",
+      "level": 2,
+      "input_fields": ["anomaly_report"],
+      "output_fields": ["notifications"],
+      "required_manual": true,
+      "possible_ai": false,
+      "possible_service": true,
+      "possible_manual": true,
+      "report": false
+    }
+  ]
+}

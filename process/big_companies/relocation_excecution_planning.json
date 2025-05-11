@@ -1,0 +1,65 @@
+{
+  "type": "workflow",
+  "name": "Relocation Execution Planning",
+  "description": "Detailed planning for the physical, digital, and personnel aspects of relocating a factory, including phase breakdown, transport logistics, and fallback strategies.",
+  "category": "Operations / Execution",
+  "fields": [
+    "dependency_report_id",
+    "main_coordinator",
+    "location_to",
+    "phase_plan_id",
+    "transport_plan_id",
+    "communication_matrix_id",
+    "fallback_procedures_id"
+  ],
+  "steps": [
+    {
+      "name": "Break Down Relocation into Phases",
+      "action": "Define equipment, systems, and teams to be moved in each phase",
+      "group": "Execution Planning",
+      "level": 0,
+      "optional": false,
+      "input_fields": ["dependency_report_id"],
+      "output_fields": ["phase_plan_id"]
+    },
+    {
+      "name": "Define Transport and Handling Plan",
+      "action": "Specify carriers, packaging, permits, and route strategies",
+      "group": "Execution Planning",
+      "level": 1,
+      "optional": false,
+      "input_fields": ["location_to"],
+      "output_fields": ["transport_plan_id"]
+    },
+    {
+      "name": "Establish Internal Communication Matrix",
+      "action": "List roles, responsibilities, and communication channels for execution",
+      "group": "Team Coordination",
+      "level": 2,
+      "optional": false,
+      "input_fields": ["main_coordinator"],
+      "output_fields": ["communication_matrix_id"]
+    },
+    {
+      "name": "Create Fallback and Escalation Procedures",
+      "action": "Plan for transport delays, equipment damage, or staff unavailability",
+      "group": "Risk Mitigation",
+      "level": 2,
+      "optional": false,
+      "input_fields": [],
+      "output_fields": ["fallback_procedures_id"]
+    },
+    {
+      "name": "Validate and Lock Execution Plan",
+      "action": "Review with stakeholders and mark plan as final",
+      "group": "Approval",
+      "level": 3,
+      "optional": false,
+      "input_fields": ["phase_plan_id", "transport_plan_id", "communication_matrix_id"],
+      "output_fields": []
+    }
+  ],
+  "need_project": true,
+  "need_client": false,
+  "need_payment": false
+}
