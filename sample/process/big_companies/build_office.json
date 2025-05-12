@@ -2,7 +2,7 @@
   "type": "workflow",
   "name": "Build Office",
   "description": "Oversees the full process of building a new office, from land acquisition through permits, construction, and final handover.",
-  "category": "Operations / Expansion",
+  "category": "Strategic Projects / Expansion",
   "fields": [
     "name",
     "location",

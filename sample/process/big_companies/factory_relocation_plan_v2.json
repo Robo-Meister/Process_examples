@@ -2,7 +2,8 @@
   "type": "workflow",
   "name": "Set Up Factory Relocation Plan",
   "description": "Plans and executes factory relocation with critical path dependencies, risk assessments, team coordination, and legal/regulatory compliance.",
-  "category": "Operations / Strategic Projects",
+  "version": 0.2,
+  "category": "Strategic Projects",
   "fields": [
     "location_from",
     "location_to",

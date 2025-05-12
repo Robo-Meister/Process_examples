@@ -2,7 +2,7 @@
   "type": "workflow",
   "name": "Relocation Execution Planning",
   "description": "Detailed planning for the physical, digital, and personnel aspects of relocating a factory, including phase breakdown, transport logistics, and fallback strategies.",
-  "category": "Operations / Execution",
+  "category": "Strategic Projects / Execution",
   "fields": [
     "dependency_report_id",
     "main_coordinator",

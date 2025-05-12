@@ -2,7 +2,8 @@
   "type": "workflow",
   "name": "M&A Process",
   "description": "Workflow for managing mergers and acquisitions including planning, negotiation, execution, and integration.",
-  "category": "Management",
+  "version": 0.1,
+  "category": "Strategic Projects / Expansion",
   "fields": [],
   "steps": [
     {

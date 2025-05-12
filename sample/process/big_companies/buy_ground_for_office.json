@@ -2,7 +2,7 @@
   "type": "workflow",
   "name": "Buy Ground for Office",
   "description": "Handles all steps related to identifying, evaluating, and purchasing land for a new office, with legal, financial, and environmental checks.",
-  "category": "Operations / Expansion",
+  "category": "Strategic Projects / Expansion",
   "fields": [
     "target_location",
     "land_size",
