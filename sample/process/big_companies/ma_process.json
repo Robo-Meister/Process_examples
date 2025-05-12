@@ -8,7 +8,7 @@
   "steps": [
     {
       "name": "Strategic Planning",
-      "action": null,
+      "action": "Analyze Context",
       "decorators": [],
       "group": "planning",
       "next": null,
@@ -68,7 +68,7 @@
     },
     {
       "name": "Due Diligence Review",
-      "action": null,
+      "action": "Accept",
       "decorators": [],
       "group": "evaluation",
       "next": null,
@@ -88,7 +88,7 @@
     },
     {
       "name": "Negotiation and Deal Structuring",
-      "action": null,
+      "action": "Negotiation",
       "decorators": [],
       "group": "negotiation",
       "next": null,

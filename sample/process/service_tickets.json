@@ -1,6 +1,9 @@
 {
   "type": "workflow",
   "name": "Receive and Process Service Ticket",
+  "default_event": "ticketCreated",
+  "default_event_category": "support",
+  "default_scheduler": null,
   "description": "A workflow to handle incoming service tickets, determine warranty status, calculate repair costs if applicable, and notify the client about the resolution process.",
   "category": "Customer Support",
   "fields": [
