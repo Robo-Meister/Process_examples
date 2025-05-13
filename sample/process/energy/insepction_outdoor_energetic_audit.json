@@ -13,7 +13,7 @@
     "final_report",
     "monitoring_setup"
   ],
-  "category": "Energy",
+  "category": "Energy Operations",
   "steps": [
     {
       "name": "Collect Energy Data",

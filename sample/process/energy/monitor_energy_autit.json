@@ -3,7 +3,7 @@
   "name": "Monitoring the effects and the next audit",
   "description": "The procedure includes monitoring the effects of the implemented actions and preparing for the next energy audit.",
   "fields": ["monitoring_data", "efficiency_report", "next_audit_plan"],
-  "category": "Energy",
+  "category": "Energy Operations",
   "steps": [
     {
       "name": "Zbieranie danych o zużyciu energii",

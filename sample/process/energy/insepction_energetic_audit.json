@@ -3,7 +3,7 @@
   "name": "Object Inspection and Measurements",
   "description": "The procedure includes conducting an inspection of the object and taking the necessary measurements as part of an energy audit.",
   "fields": ["object_details", "measurement_data", "inspection_report"],
-  "category": "Energy",
+  "category": "Energy Operations",
   "steps": [
     {
       "name": "Weryfikacja dokumentacji technicznej",

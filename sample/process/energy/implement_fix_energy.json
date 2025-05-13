@@ -3,7 +3,7 @@
   "name": "Implementation of corrective actions",
   "description": "The procedure covers the implementation of corrective actions after an energy audit in order to improve energy efficiency.",
   "fields": ["corrective_actions", "implementation_status", "verification_report"],
-  "category": "Energy",
+  "category": "Energy Operations",
   "steps": [
     {
       "name": "Opracowanie planu działań",

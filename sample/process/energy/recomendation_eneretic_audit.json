@@ -3,7 +3,7 @@
   "name": "Develop Recommendations and Cost Estimate",
   "description": "The procedure involves analyzing audit findings, developing recommendations, and estimating implementation costs.",
   "fields": ["audit_findings", "recommendations", "cost_estimate"],
-  "category": "Energy",
+  "category": "Energy Operations",
   "steps": [
     {
       "name": "Analyze Audit Findings",

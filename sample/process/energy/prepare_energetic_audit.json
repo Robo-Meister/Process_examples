@@ -9,7 +9,7 @@
     "audit_scope",
     "inspection_schedule"
   ],
-  "category": "Energy",
+  "category": "Energy Operations",
   "steps": [
     {
       "name": "Otrzymanie wniosku o audyt",
