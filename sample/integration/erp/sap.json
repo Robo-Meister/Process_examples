@@ -1,0 +1,103 @@
+{
+  "name": "SAP S/4HANA (Cloud)",
+  "code": "s4hana_cloud",
+  "type": "integration",
+  "scope": ["openid"],
+  "auth_method": 2,
+  "requirements": {
+    "client_id": "",
+    "client_secret": "",
+    "tenant_url": "",
+    "base_url": "/sap/opu/odata/sap/"
+  },
+  "profileRequirements": [
+    "API_DOCUMENT_SRV",
+    "API_BUSINESS_PARTNER",
+    "API_PURCHASEORDER_SRV"
+  ],
+  "hooks": [
+    {
+      "name": "Get Document Types",
+      "code": "document_types",
+      "method": "GET",
+      "url": "%%base_url%%%%API_DOCUMENT_SRV%%/DocumentTypes",
+      "test_url": "%%base_url%%%%API_DOCUMENT_SRV%%/DocumentTypes?$top=1",
+      "mapper": {
+        "type": 1,
+        "mapping": {
+          "name": "DocumentTypeName",
+          "value": "DocumentTypeCode"
+        }
+      },
+      "actions": [
+        {
+          "code": "document_type_list",
+          "name": "Get Document Types"
+        }
+      ]
+    },
+    {
+      "name": "List Business Partners",
+      "code": "business_partners",
+      "method": "GET",
+      "url": "%%base_url%%%%API_BUSINESS_PARTNER%%/A_BusinessPartner",
+      "test_url": "%%base_url%%%%API_BUSINESS_PARTNER%%/A_BusinessPartner?$top=1",
+      "mapper": {
+        "type": 1,
+        "mapping": {
+          "name": "BusinessPartnerName",
+          "value": "BusinessPartner"
+        }
+      },
+      "actions": [
+        {
+          "code": "business_partner_list",
+          "name": "List Business Partners"
+        }
+      ]
+    },
+    {
+      "name": "Get Purchase Orders",
+      "code": "purchase_orders",
+      "method": "GET",
+      "url": "%%base_url%%%%API_PURCHASEORDER_SRV%%/A_PurchaseOrder",
+      "test_url": "%%base_url%%%%API_PURCHASEORDER_SRV%%/A_PurchaseOrder?$top=1",
+      "mapper": {
+        "type": 1,
+        "mapping": {
+          "name": "PurchaseOrder",
+          "value": "PurchaseOrder"
+        }
+      },
+      "actions": [
+        {
+          "code": "purchase_order_list",
+          "name": "Get Purchase Orders"
+        }
+      ]
+    },
+    {
+      "name": "Create Purchase Order",
+      "code": "create_purchase_order",
+      "method": "POST",
+      "url": "%%base_url%%%%API_PURCHASEORDER_SRV%%/A_PurchaseOrder",
+      "body": {
+        "PurchaseOrderType": "NB",
+        "Supplier": "{{supplier_id}}",
+        "PurchasingOrganization": "{{org_id}}",
+        "PurchasingGroup": "{{group_id}}",
+        "CompanyCode": "{{company_code}}",
+        "DocumentCurrency": "{{currency}}"
+      },
+      "mapper": {
+        "type": 0
+      },
+      "actions": [
+        {
+          "code": "create_po",
+          "name": "Create Purchase Order"
+        }
+      ]
+    }
+  ]
+}

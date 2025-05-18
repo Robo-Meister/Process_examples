@@ -6,8 +6,10 @@
   "auth_url": "https://auth.atlassian.com/authorize",
   "requirements": [
     "API_KEY",
-    "SPACE_KEY",
     "HOST"
+  ],
+  "profileRequirements": [
+    "SPACE_KEY"
   ],
   "front_requirements": ["API_KEY", "SPACE_KEY", "HOST"],
   "custom_provider_key": null,

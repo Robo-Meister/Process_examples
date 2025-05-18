@@ -8,6 +8,8 @@
     "CLIENT_ID",
     "CLIENT_SECRET",
     "ACCESS_TOKEN",
+  ],
+  "profileRequirements": [
     "WORKSPACE"
   ],
   "front_requirements": ["CLIENT_ID", "ACCESS_TOKEN"],

@@ -1,0 +1,98 @@
+{
+  "name": "Microsoft Dynamics 365",
+  "code": "dynamics_365",
+  "type": "integration",
+  "scope": ["https://graph.microsoft.com/.default"],
+  "auth_method": 2,
+  "requirements": {
+    "client_id": "",
+    "client_secret": "",
+    "tenant_url": "",
+    "base_url": "https://your-org.api.crm.dynamics.com/api/data/v9.2/"
+  },
+  "profileRequirements": [
+    "accounts",
+    "purchaseorders",
+    "invoices"
+  ],
+  "hooks": [
+    {
+      "name": "List Business Partners",
+      "code": "business_partners",
+      "method": "GET",
+      "url": "%%base_url%%accounts",
+      "test_url": "%%base_url%%accounts?$top=1",
+      "mapper": {
+        "type": 1,
+        "mapping": {
+          "name": "name",
+          "value": "accountid"
+        }
+      },
+      "actions": [
+        {
+          "code": "business_partner_list",
+          "name": "List Business Partners"
+        }
+      ]
+    },
+    {
+      "name": "Get Purchase Orders",
+      "code": "purchase_orders",
+      "method": "GET",
+      "url": "%%base_url%%purchaseorders",
+      "test_url": "%%base_url%%purchaseorders?$top=1",
+      "mapper": {
+        "type": 1,
+        "mapping": {
+          "name": "name",
+          "value": "purchaseorderid"
+        }
+      },
+      "actions": [
+        {
+          "code": "purchase_order_list",
+          "name": "Get Purchase Orders"
+        }
+      ]
+    },
+    {
+      "name": "Create Invoice",
+      "code": "create_invoice",
+      "method": "POST",
+      "url": "%%base_url%%invoices",
+      "content": {
+        "name": "%%invoice_name%%",
+        "customerid_account@odata.bind": "/accounts(%%account_id%%)",
+        "totalamount": "%%amount%%",
+        "statuscode": 1
+      },
+      "actions": [
+        {
+          "code": "create_invoice",
+          "name": "Create Invoice"
+        }
+      ]
+    },
+    {
+      "name": "Get Invoices",
+      "code": "list_invoices",
+      "method": "GET",
+      "url": "%%base_url%%invoices",
+      "test_url": "%%base_url%%invoices?$top=1",
+      "mapper": {
+        "type": 1,
+        "mapping": {
+          "name": "name",
+          "value": "invoiceid"
+        }
+      },
+      "actions": [
+        {
+          "code": "invoice_list",
+          "name": "Get Invoices"
+        }
+      ]
+    }
+  ]
+}
