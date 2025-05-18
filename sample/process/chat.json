@@ -5,11 +5,12 @@
   "default_event_category": null,
   "default_scheduler": null,
   "category": "Organisation",
-  "fields": [
-    "description",
-    "topic",
-    "message"
-  ],
+  "fields": {
+    "description": "Chat with support",
+    "topic": "general",
+    "message": "",
+    "timeout": 500
+  },
   "field_details": [
     {
       "name": "description",
