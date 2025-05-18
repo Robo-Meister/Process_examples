@@ -9,6 +9,7 @@
     "description": "Chat with support",
     "topic": "general",
     "message": "",
+    "history": "",
     "timeout": 500
   },
   "field_details": [
