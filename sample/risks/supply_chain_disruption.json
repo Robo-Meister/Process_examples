@@ -21,5 +21,22 @@
       "weight": 0.2,
       "required": false
     }
+  ],
+  "certificates": [
+    {
+      "name": "Qualified Electronic Signature",
+      "required": true,
+      "usage": "Document validation and approvals related to supply chain contracts"
+    },
+    {
+      "name": "Company Seal",
+      "required": false,
+      "usage": "Optional for validating organizational identity in communications"
+    },
+    {
+      "name": "Encryption Certificate",
+      "required": true,
+      "usage": "Encrypting data exchange with suppliers"
+    }
   ]
 }
