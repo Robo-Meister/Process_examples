@@ -1,0 +1,25 @@
+{
+  "type": "risk",
+  "name": "Supply Chain Disruption Assessment",
+  "description": "Assess supplier-related delays using weighted indicators.",
+  "category": "Operational Risk",
+  "riskType": "Supply Chain Delay",
+  "scoringMethod": "weighted-average",
+  "factors": [
+    {
+      "name": "Delivery Reliability",
+      "weight": 0.5,
+      "required": true
+    },
+    {
+      "name": "Transportation Complexity",
+      "weight": 0.3,
+      "required": false
+    },
+    {
+      "name": "Geopolitical Risk",
+      "weight": 0.2,
+      "required": false
+    }
+  ]
+}
