@@ -1,0 +1,16 @@
+{
+  "templateId": "qa_cert_food_01",
+  "type": "certificate",
+  "title": "Food Batch Quality Certificate",
+  "autofillRules": {
+    "product.type": "food",
+    "process.category": "batch",
+    "user.department": "quality_control"
+  },
+  "fields": [
+    {"name": "production_date", "source": "document.metadata.date"},
+    {"name": "batch_id", "source": "document.batchId"},
+    {"name": "temperature_avg", "source": "metrics.avg_temperature"},
+    {"name": "qa_supervisor", "source": "user.full_name"}
+  ]
+}
