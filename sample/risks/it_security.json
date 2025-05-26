@@ -1,0 +1,74 @@
+{
+  "type": "risk",
+  "name": "IT Security Vulnerability Assessment",
+  "description": "Evaluate vulnerabilities in IT infrastructure and their potential impact.",
+  "category": "Security Risk",
+  "riskType": "Vulnerability",
+  "scoringMethod": "max",
+  "factors": [
+    {
+      "name": "Number of Critical Vulnerabilities",
+      "weight": 0.7,
+      "required": true
+    },
+    {
+      "name": "Patch Management Effectiveness",
+      "weight": 0.3,
+      "required": true
+    }
+  ],
+  "certificates": [
+    {
+      "name": "ISO 27001 Certification",
+      "required": true,
+      "usage": "Information security management compliance"
+    },
+    {
+      "name": "SOC 2 Report",
+      "required": false,
+      "usage": "Service organization controls attestation"
+    }
+  ],
+  "riskTriggers": [
+    {
+      "name": "New Critical Vulnerability Detected",
+      "triggerType": "event",
+      "metric": "Critical Vulnerability Count",
+      "operator": ">",
+      "threshold": 0,
+      "scoreDelta": 25,
+      "notify": true,
+      "escalate": true,
+      "messageTemplate": "A new critical vulnerability has been detected in the system."
+    },
+    {
+      "name": "Patch Delay Alert",
+      "triggerType": "threshold",
+      "metric": "Days Since Last Patch",
+      "operator": ">",
+      "threshold": 7,
+      "scoreDelta": 15,
+      "notify": true,
+      "escalate": false,
+      "messageTemplate": "System patching has been delayed for more than 7 days."
+    }
+  ],
+  "riskAssessmentTemplate": {
+    "name": "IT Security Vulnerability Assessment Template",
+    "description": "Template for regular IT security risk assessments",
+    "factorsDefinition": [
+      {
+        "name": "Number of Critical Vulnerabilities",
+        "scale": "0-100",
+        "description": "Count of critical vulnerabilities detected in scans",
+        "required": true
+      },
+      {
+        "name": "Patch Management Effectiveness",
+        "scale": "0-10",
+        "description": "Effectiveness rating of patch management processes",
+        "required": true
+      }
+    ]
+  }
+}

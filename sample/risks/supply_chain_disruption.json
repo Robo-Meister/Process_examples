@@ -38,5 +38,53 @@
       "required": true,
       "usage": "Encrypting data exchange with suppliers"
     }
-  ]
+  ],
+  "riskTriggers": [
+    {
+      "name": "Late Delivery Alert",
+      "triggerType": "threshold",
+      "metric": "Delivery Delay Days",
+      "operator": ">",
+      "threshold": 5,
+      "scoreDelta": 10,
+      "notify": true,
+      "escalate": true,
+      "messageTemplate": "Delivery delay exceeded 5 days for supplier {{supplierName}}"
+    },
+    {
+      "name": "Supplier Rating Drop",
+      "triggerType": "change",
+      "metric": "Supplier Rating",
+      "operator": "<",
+      "threshold": 3,
+      "scoreDelta": 15,
+      "notify": true,
+      "escalate": false,
+      "messageTemplate": "Supplier rating dropped below 3"
+    }
+  ],
+  "riskAssessmentTemplate": {
+    "name": "Standard Supply Chain Risk Assessment",
+    "description": "Template for evaluating supply chain risks",
+    "factorsDefinition": [
+      {
+        "name": "Delivery Reliability",
+        "scale": "0-10",
+        "description": "Reliability score based on timely deliveries",
+        "required": true
+      },
+      {
+        "name": "Transportation Complexity",
+        "scale": "0-5",
+        "description": "Complexity rating of transportation logistics",
+        "required": false
+      },
+      {
+        "name": "Geopolitical Risk",
+        "scale": "0-10",
+        "description": "Impact of geopolitical factors",
+        "required": false
+      }
+    ]
+  }
 }

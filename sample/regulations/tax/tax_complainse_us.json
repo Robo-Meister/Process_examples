@@ -1,0 +1,56 @@
+{
+  "id": "us-tax-compliance",
+  "title": "US Federal Tax Compliance",
+  "description": "Ensure all tax filings and records comply with US federal laws.",
+  "applicable_to": {
+    "jurisdictions": ["US"]
+  },
+  "risks": [
+    {
+      "id": "tax_filing_late",
+      "type": "legal",
+      "severity": "critical",
+      "description": "Late tax filing can result in penalties and interest.",
+      "auto_block": false,
+      "mitigation_steps": [
+        "Set automated tax filing reminders",
+        "Assign responsible tax accountant"
+      ]
+    },
+    {
+      "id": "incorrect_tax_reporting",
+      "type": "legal",
+      "severity": "high",
+      "description": "Incorrect tax data can lead to audits and fines.",
+      "auto_block": false,
+      "mitigation_steps": [
+        "Implement automated data validation rules",
+        "Schedule internal tax review"
+      ]
+    }
+  ],
+  "tasks": [
+    {
+      "task_id": "setup_tax_reminders",
+      "title": "Configure Tax Filing Reminders",
+      "status": "completed",
+      "assigned_to": "tax_department",
+      "dependencies": [],
+      "due_date": "2025-01-01",
+      "linked_risk": "tax_filing_late"
+    },
+    {
+      "task_id": "internal_tax_review",
+      "title": "Conduct Internal Tax Reporting Review",
+      "status": "pending",
+      "assigned_to": "tax_audit_team",
+      "dependencies": ["setup_tax_reminders"],
+      "due_date": "2025-03-31",
+      "linked_risk": "incorrect_tax_reporting"
+    }
+  ],
+  "audit_trail": {
+    "enabled": true,
+    "records": []
+  }
+}

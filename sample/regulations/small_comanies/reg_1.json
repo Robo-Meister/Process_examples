@@ -1,0 +1,74 @@
+{
+  "company_size": "small",
+  "compliance_mode": "simplified",
+  "regulations": [
+    {
+      "id": "vat_filing_basic",
+      "title": "VAT Filing",
+      "description": "Basic VAT filing requirements.",
+      "risks": [
+        {
+          "id": "vat_deadline_missed",
+          "type": "legal",
+          "severity": "high",
+          "description": "Missing VAT filing deadline can cause fines.",
+          "mitigation": ["Enable simple VAT reminder email"],
+          "auto_block": false
+        }
+      ],
+      "tasks": [
+        {
+          "task_id": "vat_file_prepare",
+          "title": "Prepare VAT filing",
+          "status": "pending",
+          "risk_linked": "vat_deadline_missed"
+        },
+        {
+          "task_id": "vat_file_submit",
+          "title": "Submit VAT filing",
+          "status": "pending",
+          "risk_linked": "vat_deadline_missed"
+        }
+      ],
+      "manual_override": {
+        "enabled": true,
+        "override_checkbox": {
+          "label": "Ignore VAT filing reminder (I will handle it manually)",
+          "default": false,
+          "requires_comment": true
+        }
+      }
+    },
+    {
+      "id": "invoice_minimum_fields",
+      "title": "Invoice Basic Compliance",
+      "description": "Ensure invoice has minimum required fields.",
+      "risks": [
+        {
+          "id": "invoice_missing_fields",
+          "type": "legal",
+          "severity": "medium",
+          "description": "Invoices missing required fields may be rejected.",
+          "mitigation": ["Use simple invoice template with required fields"],
+          "auto_block": false
+        }
+      ],
+      "tasks": [
+        {
+          "task_id": "check_invoice_fields",
+          "title": "Verify invoice fields",
+          "status": "automated",
+          "risk_linked": "invoice_missing_fields"
+        }
+      ]
+    }
+  ],
+  "ai_hints": [
+    {
+      "hint_id": "vat_deadline_warning",
+      "condition": "date_within_7_days_of_vat_deadline",
+      "message": "VAT filing deadline is approaching soon. Need help preparing?",
+      "suggest_automation": true
+    }
+  ]
+}

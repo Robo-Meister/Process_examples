@@ -1,0 +1,43 @@
+{
+  "regulation_id": "tax-eu-2025",
+  "title": "EU Digital Tax Directive",
+  "context_rules": {
+    "jurisdiction_match": ["EU"],
+    "sector_match": ["eCommerce", "SaaS"],
+    "product_type_in": ["B2C"],
+    "company_size": "any"
+  },
+  "ai_adaptive_fields": [
+    {
+      "field": "vat_rate",
+      "dynamic_source": "jurisdiction_rules_engine",
+      "fallback": 0.23
+    },
+    {
+      "field": "invoice_template",
+      "dynamic_suggestion": "AI_TEMPLATE_MATCHER",
+      "context_dependencies": ["jurisdiction", "language", "currency"]
+    }
+  ],
+  "intelligent_flows": [
+    {
+      "event": "invoice_created",
+      "conditions": ["country=EU", "customer.type=B2C"],
+      "actions": [
+        "assign_vat_rate",
+        "select_template",
+        "apply_reverse_charge_if_needed",
+        "trigger_vat_report"
+      ]
+    }
+  ],
+  "recommended_tasks": [
+    {
+      "task_id": "apply_tax_rule_eu",
+      "auto_assign": "tax_bot",
+      "flow": "invoice_validation",
+      "status": "automated",
+      "comments": ["Auto-applied via AI trigger"]
+    }
+  ]
+}

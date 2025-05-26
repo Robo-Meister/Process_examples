@@ -1,0 +1,87 @@
+{
+  "regulation_id": "audit-2025-001",
+  "title": "Audit and Compliance Logging Regulation",
+  "description": "Requires immutable audit logs of all document and workflow changes, with periodic review tasks.",
+  "effective_date": "2025-06-01T00:00:00Z",
+  "version": "1.0",
+  "scope": {
+    "sectors": ["finance", "healthcare", "manufacturing"],
+    "product_categories": ["ERP System", "Document Management", "AI Platform"],
+    "jurisdictions": [
+      { "country": "Poland", "region": "EU" },
+      { "country": "USA", "region": "California" }
+    ]
+  },
+  "audit_rules": {
+    "log_all_document_changes": true,
+    "log_all_workflow_step_changes": true,
+    "log_user_access": true,
+    "log_retention_period_days": 3650,
+    "audit_review_frequency_days": 90,
+    "encryption_required": true,
+    "access_control": {
+      "role_restrictions": ["auditor", "admin"],
+      "multi_factor_authentication": true
+    }
+  },
+  "affected_components": [
+    { "component": "document_templates", "impact": "full_change_tracking" },
+    { "component": "workflow_steps", "impact": "full_change_tracking" },
+    { "component": "audit_logs", "impact": "storage_and_encryption" },
+    { "component": "user_access_control", "impact": "restriction_and_mfa" }
+  ],
+  "tasks": [
+    {
+      "task_id": "audit-task-01",
+      "description": "Implement immutable audit logging for document changes",
+      "status": "completed",
+      "assigned_to": "dev_team",
+      "priority": "high",
+      "deadline": "2025-06-15T23:59:59Z",
+      "dependencies": [],
+      "comments": [
+        {
+          "author": "team_lead",
+          "date": "2025-05-20T10:00:00Z",
+          "text": "Logging module updated with append-only mode."
+        }
+      ]
+    },
+    {
+      "task_id": "audit-task-02",
+      "description": "Enable encrypted storage for audit logs",
+      "status": "in_progress",
+      "assigned_to": "security_team",
+      "priority": "high",
+      "deadline": "2025-06-25T23:59:59Z",
+      "dependencies": ["audit-task-01"]
+    },
+    {
+      "task_id": "audit-task-03",
+      "description": "Configure role-based access with MFA for audit log viewers",
+      "status": "pending",
+      "assigned_to": "it_admin",
+      "priority": "medium",
+      "deadline": "2025-07-05T23:59:59Z",
+      "dependencies": ["audit-task-02"]
+    },
+    {
+      "task_id": "audit-task-04",
+      "description": "Schedule quarterly audit log review process",
+      "status": "pending",
+      "assigned_to": "compliance_officer",
+      "priority": "medium",
+      "deadline": "2025-07-10T23:59:59Z",
+      "dependencies": ["audit-task-03"]
+    }
+  ],
+  "custom_flow": {
+    "start_task": "audit-task-01",
+    "flow_steps": [
+      { "task_id": "audit-task-01", "next_tasks": ["audit-task-02"] },
+      { "task_id": "audit-task-02", "next_tasks": ["audit-task-03"] },
+      { "task_id": "audit-task-03", "next_tasks": ["audit-task-04"] },
+      { "task_id": "audit-task-04", "next_tasks": [] }
+    ]
+  }
+}

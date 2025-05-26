@@ -1,0 +1,162 @@
+{
+  "company_size": "enterprise",
+  "compliance_mode": "advanced",
+  "jurisdictions": ["EU", "US", "CA"],
+  "sector": "manufacturing",
+  "product_categories": ["electronics", "medical_devices"],
+  "regulations": [
+    {
+      "id": "eu-product-safety",
+      "title": "EU Product Safety Directive",
+      "description": "Compliance with EU product safety requirements including CE marking.",
+      "applicable_to": {
+        "jurisdictions": ["EU"],
+        "product_categories": ["electronics", "medical_devices"]
+      },
+      "risks": [
+        {
+          "id": "ce_certificate_missing",
+          "type": "legal",
+          "severity": "critical",
+          "description": "CE Certificate missing or expired - product cannot be sold in EU.",
+          "auto_block": true,
+          "mitigation_steps": [
+            "Upload valid CE certificate",
+            "Perform product safety audit"
+          ]
+        },
+        {
+          "id": "non_compliant_labeling",
+          "type": "operational",
+          "severity": "high",
+          "description": "Incorrect or missing product safety labels may cause fines and recalls.",
+          "auto_block": false,
+          "mitigation_steps": [
+            "Correct product labeling according to EU norms",
+            "Schedule labeling QC inspections"
+          ]
+        }
+      ],
+      "tasks": [
+        {
+          "task_id": "upload_ce_certificate",
+          "title": "Upload CE Compliance Certificate",
+          "status": "pending",
+          "assigned_to": "quality_manager",
+          "dependencies": [],
+          "due_date": "2025-06-30",
+          "linked_risk": "ce_certificate_missing"
+        },
+        {
+          "task_id": "perform_safety_audit",
+          "title": "Conduct Product Safety Audit",
+          "status": "pending",
+          "assigned_to": "qa_team",
+          "dependencies": ["upload_ce_certificate"],
+          "due_date": "2025-07-15",
+          "linked_risk": "ce_certificate_missing"
+        },
+        {
+          "task_id": "labeling_qc_inspection",
+          "title": "Labeling Quality Control Inspection",
+          "status": "pending",
+          "assigned_to": "production_manager",
+          "dependencies": [],
+          "due_date": "2025-06-15",
+          "linked_risk": "non_compliant_labeling"
+        }
+      ],
+      "audit_trail": {
+        "enabled": true,
+        "records": []
+      },
+      "manual_override": {
+        "enabled": true,
+        "override_checkbox": {
+          "label": "Bypass CE certificate validation (for internal testing only)",
+          "default": false,
+          "requires_comment": true
+        }
+      }
+    },
+    {
+      "id": "us-tax-compliance",
+      "title": "US Federal Tax Compliance",
+      "description": "Ensure all tax filings and records comply with US federal laws.",
+      "applicable_to": {
+        "jurisdictions": ["US"]
+      },
+      "risks": [
+        {
+          "id": "tax_filing_late",
+          "type": "legal",
+          "severity": "critical",
+          "description": "Late tax filing can result in penalties and interest.",
+          "auto_block": false,
+          "mitigation_steps": [
+            "Set automated tax filing reminders",
+            "Assign responsible tax accountant"
+          ]
+        },
+        {
+          "id": "incorrect_tax_reporting",
+          "type": "legal",
+          "severity": "high",
+          "description": "Incorrect tax data can lead to audits and fines.",
+          "auto_block": false,
+          "mitigation_steps": [
+            "Implement automated data validation rules",
+            "Schedule internal tax review"
+          ]
+        }
+      ],
+      "tasks": [
+        {
+          "task_id": "setup_tax_reminders",
+          "title": "Configure Tax Filing Reminders",
+          "status": "completed",
+          "assigned_to": "tax_department",
+          "dependencies": [],
+          "due_date": "2025-01-01",
+          "linked_risk": "tax_filing_late"
+        },
+        {
+          "task_id": "internal_tax_review",
+          "title": "Conduct Internal Tax Reporting Review",
+          "status": "pending",
+          "assigned_to": "tax_audit_team",
+          "dependencies": ["setup_tax_reminders"],
+          "due_date": "2025-03-31",
+          "linked_risk": "incorrect_tax_reporting"
+        }
+      ],
+      "audit_trail": {
+        "enabled": true,
+        "records": []
+      }
+    }
+  ],
+  "ai_assist": {
+    "enabled": true,
+    "functions": [
+      {
+        "name": "risk_prediction",
+        "description": "Predicts emerging compliance risks based on document changes and workflow status.",
+        "trigger_points": ["workflow_step_completed", "document_uploaded"]
+      },
+      {
+        "name": "auto_task_suggestion",
+        "description": "Suggests next best compliance tasks based on context and historical data.",
+        "trigger_points": ["task_completed"]
+      }
+    ]
+  },
+  "certificate_management": {
+    "required_certificates": [
+      "CE Compliance Certificate",
+      "FDA Approval Certificate"
+    ],
+    "certificate_expiry_check_interval_days": 30,
+    "auto_block_on_expired": true
+  }
+}

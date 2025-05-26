@@ -1,0 +1,13 @@
+{
+  "regulation_id": "reg-002",
+  "title": "Tax Compliance and Reporting Standards",
+  "description": "Updates tax calculation rules, accounting assignments, and mandates quarterly reports in a new format.",
+  "effective_date": "2025-07-01T00:00:00Z",
+  "affected_components": [
+    {"component": "tax_rules", "impact": "formula_update"},
+    {"component": "accounting_assignment_rules", "impact": "mapping_update"},
+    {"component": "reports_to_institution", "impact": "format_change"},
+    {"component": "scheduler", "impact": "trigger_frequency_update"}
+  ],
+  "version": "2.0"
+}

@@ -1,0 +1,69 @@
+{
+  "type": "risk",
+  "name": "Workplace Safety Assessment",
+  "description": "Assess workplace safety incidents and compliance.",
+  "category": "Health & Safety",
+  "riskType": "Safety Incident",
+  "scoringMethod": "sum",
+  "factors": [
+    {
+      "name": "Number of Incidents",
+      "weight": 0.6,
+      "required": true
+    },
+    {
+      "name": "Compliance with Safety Training",
+      "weight": 0.4,
+      "required": true
+    }
+  ],
+  "certificates": [
+    {
+      "name": "OSHA Compliance Certificate",
+      "required": true,
+      "usage": "Proof of compliance with safety standards"
+    }
+  ],
+  "riskTriggers": [
+    {
+      "name": "Incident Frequency Spike",
+      "triggerType": "threshold",
+      "metric": "Incident Count (last 30 days)",
+      "operator": ">",
+      "threshold": 3,
+      "scoreDelta": 20,
+      "notify": true,
+      "escalate": true,
+      "messageTemplate": "Incident count in the last 30 days exceeded 3."
+    },
+    {
+      "name": "Expired Safety Training",
+      "triggerType": "event",
+      "metric": "Safety Training Expiry",
+      "operator": "==",
+      "threshold": "expired",
+      "scoreDelta": 10,
+      "notify": true,
+      "escalate": false,
+      "messageTemplate": "Employee safety training has expired."
+    }
+  ],
+  "riskAssessmentTemplate": {
+    "name": "Workplace Safety Assessment Template",
+    "description": "Template for assessing workplace safety risks and compliance",
+    "factorsDefinition": [
+      {
+        "name": "Number of Incidents",
+        "scale": "0-10",
+        "description": "Count of safety incidents in the reporting period",
+        "required": true
+      },
+      {
+        "name": "Compliance with Safety Training",
+        "scale": "0-5",
+        "description": "Compliance level with mandatory safety training",
+        "required": true
+      }
+    ]
+  }
+}
