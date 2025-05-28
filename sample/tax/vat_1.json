@@ -1,0 +1,68 @@
+{
+  "type": "tax_module",
+  "name": "VAT and Sales Tax Rules",
+  "version": "2025.05",
+  "description": "Tax rates and rules for Poland and USA with related jurisdictions and actions.",
+  "tax_rates": [
+    {
+      "id": "vat_standard_pl",
+      "name": "Standard VAT Poland",
+      "rate": 0.23,
+      "type": "percentage",
+      "effective_date": "2023-01-01",
+      "jurisdiction": {
+        "country": "Poland",
+        "region": "EU"
+      }
+    },
+    {
+      "id": "sales_tax_ca",
+      "name": "California Sales Tax",
+      "rate": 0.075,
+      "type": "percentage",
+      "effective_date": "2025-01-01",
+      "jurisdiction": {
+        "country": "USA",
+        "region": "California"
+      }
+    }
+  ],
+  "tax_rules": [
+    {
+      "id": "rule_1",
+      "tax_rate_id": "vat_standard_pl",
+      "applicable_to": ["goods", "services"],
+      "conditions": {
+        "customer_type": ["business", "individual"],
+        "transaction_type": ["sale", "import"]
+      },
+      "actions": [
+        {
+          "name": "apply_tax",
+          "parameters": {
+            "rounding": "up",
+            "decimal_places": 2
+          }
+        }
+      ]
+    }
+  ],
+  "jurisdictions": [
+    {
+      "country": "Poland",
+      "region": "EU",
+      "currency": "PLN"
+    },
+    {
+      "country": "USA",
+      "region": "California",
+      "currency": "USD"
+    }
+  ],
+  "actions": [
+    {
+      "name": "apply_tax",
+      "description": "Calculate and add tax to transaction total"
+    }
+  ]
+}
