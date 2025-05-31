@@ -1,0 +1,31 @@
+{
+  "id": "workflow_archive_document",
+  "name": "Archive Document",
+  "group": "Document",
+  "description": "Manually archives a document to remove it from active view. Can be restored later.",
+  "trigger": "manual",
+  "steps": [
+    {
+      "level": 0,
+      "name": "Set archived flag",
+      "type": "update",
+      "target": "document",
+      "fields": {
+        "archived": true,
+        "archivedAt": "{{ now }}",
+        "archivedBy": "{{ current_user.id }}"
+      }
+    },
+    {
+      "level": 1,
+      "name": "Log archival event",
+      "type": "log",
+      "target": "document_audit_log",
+      "fields": {
+        "eventType": "manual_archive",
+        "message": "Document archived manually by {{ current_user.name }}",
+        "user": "{{ current_user.id }}"
+      }
+    }
+  ]
+}

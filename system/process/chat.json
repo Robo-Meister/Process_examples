@@ -1,0 +1,365 @@
+{
+  "name": "consult with chat",
+  "description": "consult with chat",
+  "default_event": null,
+  "default_event_category": null,
+  "default_scheduler": null,
+  "category": "Organisation",
+  "fields": {
+    "description": "Chat with support",
+    "topic": "general",
+    "message": "",
+    "history": "",
+    "timeout": 500
+  },
+  "field_details": [
+    {
+      "name": "description",
+      "type": "text",
+      "direction": "IN/OUT",
+      "default": null,
+      "aggregation": "string"
+    },
+    {
+      "name": "topic",
+      "type": "string",
+      "direction": "IN/OUT",
+      "default": null,
+      "aggregation": "string"
+    },
+    {
+      "name": "message",
+      "type": "text",
+      "direction": "IN/OUT",
+      "default": null,
+      "aggregation": "string"
+    }
+  ],
+  "steps": [
+    {
+      "id": "01950e42-6014-79e5-9ebf-6b8174cde834",
+      "type": "workflow",
+      "name": "Update Chat",
+      "action": "Update Chat",
+      "decorators": [],
+      "group": null,
+      "next": null,
+      "roads": [
+        {
+          "to": null,
+          "type": "parallel",
+          "changeable": false,
+          "optional": false,
+          "cancelable": false
+        }
+      ],
+      "level": 1,
+      "optional": false,
+      "changeable": false,
+      "cancelable": false,
+      "required_manual": false,
+      "possible_ai": false,
+      "possible_frontend": false,
+      "possible_robots": false,
+      "possible_service": true,
+      "report": true,
+      "all_needed": true,
+      "use_all": false,
+      "tolerance": 1,
+      "actor": {
+        "group": null
+      },
+      "interaction": {
+        "mode": "automated",
+        "channels": [
+          "system"
+        ],
+        "handled_by": [
+          "service"
+        ],
+        "report_required": true
+      },
+      "fields": [
+        "message",
+        "id"
+      ],
+      "field_details": [
+        {
+          "name": "message",
+          "type": "text",
+          "direction": "IN/OUT",
+          "default": null,
+          "aggregation": "string"
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "direction": "IN/OUT",
+          "default": null,
+          "aggregation": "string"
+        },
+        {
+          "name": "history",
+          "type": "string",
+          "direction": "IN/OUT",
+          "default": null,
+          "aggregation": "string"
+        }
+      ]
+    },
+    {
+      "id": "01950e42-6018-73c0-b38e-ef39ee717c1c",
+      "type": "workflow",
+      "name": "Check the commands",
+      "action": "Execute Command",
+      "decorators": [
+        {
+          "name": "ai commands",
+          "type": "Make changes depends of the list of decisions and keywords",
+          "options": "{\"field\":\"list\",\"list\":{\"END\":\"exit\",\"GROUP\":\"group\",\"AI\":\"ai\",\"MANUAL\":\"manual\"}}"
+        }
+      ],
+      "group": null,
+      "next": null,
+      "roads": [
+        {
+          "to": null,
+          "type": "parallel",
+          "changeable": false,
+          "optional": false,
+          "cancelable": true
+        }
+      ],
+      "level": 2,
+      "optional": false,
+      "changeable": false,
+      "cancelable": true,
+      "required_manual": false,
+      "possible_ai": true,
+      "possible_frontend": false,
+      "possible_robots": false,
+      "possible_service": true,
+      "report": false,
+      "all_needed": true,
+      "use_all": false,
+      "tolerance": 1,
+      "actor": {
+        "group": null
+      },
+      "interaction": {
+        "mode": "automated",
+        "channels": [],
+        "handled_by": [
+          "ai",
+          "service"
+        ],
+        "report_required": false
+      },
+      "fields": [
+        "message"
+      ],
+      "field_details": [
+        {
+          "name": "message",
+          "type": "text",
+          "direction": "IN/OUT",
+          "default": null,
+          "aggregation": "string"
+        }
+      ]
+    },
+    {
+      "id": "01950e42-64d8-78f5-9d2c-0f96620a0778",
+      "type": "workflow",
+      "name": "Save History (Answer) 2",
+      "action": "Save History",
+      "decorators": [],
+      "group": null,
+      "next": "Update Chat",
+      "roads": [
+        {
+          "to": "Update Chat",
+          "type": "exclusive",
+          "changeable": false,
+          "optional": false,
+          "cancelable": false
+        }
+      ],
+      "level": 4,
+      "optional": false,
+      "changeable": false,
+      "cancelable": false,
+      "required_manual": false,
+      "possible_ai": false,
+      "possible_frontend": false,
+      "possible_robots": false,
+      "possible_service": true,
+      "report": false,
+      "all_needed": false,
+      "use_all": false,
+      "tolerance": 1,
+      "actor": {
+        "group": null
+      },
+      "interaction": {
+        "mode": "automated",
+        "channels": [],
+        "handled_by": [
+          "service"
+        ],
+        "report_required": false
+      },
+      "fields": [
+        "history",
+        "message"
+      ],
+      "field_details": [
+        {
+          "name": "history",
+          "type": "string",
+          "direction": "IN/OUT",
+          "default": null,
+          "aggregation": "string"
+        },
+        {
+          "name": "message",
+          "type": "text",
+          "direction": "IN/OUT",
+          "default": null,
+          "aggregation": "string"
+        }
+      ]
+    },
+    {
+      "id": "01950e42-64db-72c9-8fd6-4673c6f49512",
+      "type": "workflow",
+      "name": "Chat",
+      "action": "Begin Chat",
+      "decorators": [],
+      "group": null,
+      "next": "Update Chat",
+      "roads": [
+        {
+          "to": "Update Chat",
+          "type": "exclusive",
+          "changeable": false,
+          "optional": false,
+          "cancelable": false
+        }
+      ],
+      "level": 0,
+      "optional": false,
+      "changeable": false,
+      "cancelable": false,
+      "required_manual": false,
+      "possible_ai": false,
+      "possible_frontend": false,
+      "possible_robots": false,
+      "possible_service": true,
+      "report": false,
+      "all_needed": true,
+      "use_all": false,
+      "tolerance": 1,
+      "actor": {
+        "group": null
+      },
+      "interaction": {
+        "mode": "automated",
+        "channels": [],
+        "handled_by": [
+          "service"
+        ],
+        "report_required": false
+      },
+      "fields": [
+        "topic",
+        "description",
+        "id"
+      ],
+      "field_details": [
+        {
+          "name": "topic",
+          "type": "string",
+          "direction": "IN/OUT",
+          "default": null,
+          "aggregation": "string"
+        },
+        {
+          "name": "description",
+          "type": "text",
+          "direction": "IN/OUT",
+          "default": null,
+          "aggregation": "string"
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "direction": "IN/OUT",
+          "default": null,
+          "aggregation": "string"
+        }
+      ]
+    },
+    {
+      "id": "01950e42-73d0-7ede-999f-6535667b8942",
+      "type": "workflow",
+      "name": "Answer - consult with chat",
+      "action": "Answer Chat",
+      "group": "Client Service Team",
+      "next": "Save History (Answer) 2",
+      "roads": [
+        {
+          "to": "Save History (Answer) 2",
+          "type": "exclusive",
+          "changeable": true,
+          "optional": false,
+          "cancelable": true
+        }
+      ],
+      "decorators": [
+        {
+          "name": "timeout",
+          "type": "trigger",
+          "options": {"timeoutSeconds": 600, "onTimeout": "Send fallback or close chat"}
+        },
+        {
+          "name": "businessHoursCheck",
+          "type": "condition",
+          "options": {"hours": "08:00-18:00", "timezone": "Europe/Warsaw", "onOutsideHours": "Send after-hours message"}
+        }
+      ],
+      "level": 3,
+      "optional": false,
+      "changeable": true,
+      "cancelable": true,
+      "required_manual": false,
+      "possible_ai": true,
+      "possible_frontend": false,
+      "possible_robots": false,
+      "possible_service": true,
+      "report": true,
+      "all_needed": false,
+      "use_all": false,
+      "tolerance": 1,
+      "actor": {
+        "group": "Client Service Team"
+      },
+      "interaction": {
+        "mode": "automated",
+        "channels": [
+          "system"
+        ],
+        "handled_by": [
+          "ai",
+          "service"
+        ],
+        "report_required": true
+      },
+      "fields": [],
+      "field_details": []
+    }
+  ],
+  "need_project": false,
+  "need_client": false,
+  "need_payment": false
+}

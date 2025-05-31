@@ -1,0 +1,53 @@
+{
+  "id": "workflow_auto_clean_document",
+  "name": "Auto Clean Document",
+  "group": "Document",
+  "description": "Automatically archives or deletes documents based on expiration from regulation rules.",
+  "trigger": "system",
+  "steps": [
+    {
+      "level": 0,
+      "name": "Evaluate archival condition",
+      "type": "condition",
+      "conditions": [
+        {
+          "if": "{{ document.expirationDate <= now and document.autoArchivable == true }}",
+          "then": "archive_step"
+        },
+        {
+          "if": "{{ document.expirationDate <= now and document.autoArchivable == true and document.purgeAfterExpiration == true }}",
+          "then": "delete_step"
+        }
+      ]
+    },
+    {
+      "level": 1,
+      "name": "Auto Archive",
+      "type": "update",
+      "target": "document",
+      "fields": {
+        "archived": true,
+        "archivedAt": "{{ now }}",
+        "archivedBy": "system"
+      }
+    },
+    {
+      "level": 2,
+      "name": "Auto Delete",
+      "type": "delete",
+      "target": "document"
+    },
+    {
+      "level": 3,
+      "name": "Log system archival",
+      "type": "log",
+      "target": "document_audit_log",
+      "fields": {
+        "eventType": "{{ step == 'archive_step' ? 'auto_archive' : 'auto_delete' }}",
+        "message": "System {{ step == 'archive_step' ? 'archived' : 'deleted' }} document due to expiration policy.",
+        "regulationIds": "{{ document.regulations|map(attribute='id') }}",
+        "timestamp": "{{ now }}"
+      }
+    }
+  ]
+}
