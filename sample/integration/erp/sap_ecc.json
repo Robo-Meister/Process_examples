@@ -1,0 +1,183 @@
+{
+  "name": "SAP ECC",
+  "code": "sap_ecc",
+  "type": "integration",
+  "scope": [],
+  "auth_method": 3,
+  "requirements": {
+    "username": "",
+    "password": "",
+    "ecc_host": ""
+  },
+  "profileRequirements": [
+    "ZAPI_BUSINESS_PARTNER",
+    "ZAPI_PURCHASEORDER"
+  ],
+  "hooks": [
+    {
+      "name": "List Business Partners",
+      "code": "business_partners",
+      "method": "GET",
+      "url": "%%ecc_host%%/sap/opu/odata/sap/ZAPI_BUSINESS_PARTNER/A_BusinessPartner",
+      "test_url": "%%ecc_host%%/sap/opu/odata/sap/ZAPI_BUSINESS_PARTNER/A_BusinessPartner?$top=1",
+      "mapper": {
+        "type": 1,
+        "mapping": {
+          "name": "Name1",
+          "value": "Partner"
+        }
+      },
+      "actions": [
+        {
+          "code": "business_partner_list",
+          "name": "List Business Partners"
+        }
+      ]
+    },
+    {
+      "name": "List Purchase Orders",
+      "code": "purchase_orders",
+      "method": "GET",
+      "url": "%%ecc_host%%/sap/opu/odata/sap/ZAPI_PURCHASEORDER/A_PurchaseOrder",
+      "test_url": "%%ecc_host%%/sap/opu/odata/sap/ZAPI_PURCHASEORDER/A_PurchaseOrder?$top=1",
+      "mapper": {
+        "type": 1,
+        "mapping": {
+          "name": "PurchaseOrderText",
+          "value": "PurchaseOrderNumber"
+        }
+      },
+      "actions": [
+        {
+          "code": "purchase_order_list",
+          "name": "Get Purchase Orders"
+        }
+      ]
+    },
+    {
+      "name": "Create Purchase Order",
+      "code": "create_purchase_order",
+      "method": "POST",
+      "url": "%%ecc_host%%/sap/opu/odata/sap/ZAPI_PURCHASEORDER/A_PurchaseOrder",
+      "body": {
+        "PurchaseOrderType": "NB",
+        "Vendor": "{{supplier_id}}",
+        "PurchasingOrg": "{{org_id}}",
+        "PurchasingGroup": "{{group_id}}",
+        "CompanyCode": "{{company_code}}",
+        "Currency": "{{currency}}"
+      },
+      "mapper": {
+        "type": 0
+      },
+      "actions": [
+        {
+          "code": "create_po",
+          "name": "Create Purchase Order"
+        }
+      ]
+    },
+    {
+      "name": "Material Stock Check",
+      "code": "material_stock_check",
+      "method": "GET",
+      "url": "%%ecc_host%%/sap/opu/odata/sap/ZAPI_STOCK/A_MaterialStock?$filter=Material eq '{{material_id}}'",
+      "test_url": "%%ecc_host%%/sap/opu/odata/sap/ZAPI_STOCK/A_MaterialStock?$top=1",
+      "mapper": {
+        "type": 1,
+        "mapping": {
+          "name": "Plant",
+          "value": "AvailableQuantity"
+        }
+      },
+      "actions": [
+        {
+          "code": "check_stock",
+          "name": "Check Material Stock"
+        }
+      ]
+    },
+    {
+      "name": "Create Sales Order",
+      "code": "create_sales_order",
+      "method": "POST",
+      "url": "%%ecc_host%%/sap/opu/odata/sap/ZAPI_SALESORDER/A_SalesOrder",
+      "body": {
+        "SalesOrganization": "{{sales_org}}",
+        "DistributionChannel": "{{dist_channel}}",
+        "Division": "{{division}}",
+        "SoldToParty": "{{sold_to}}",
+        "DocumentDate": "{{document_date}}"
+      },
+      "mapper": {
+        "type": 0
+      },
+      "actions": [
+        {
+          "code": "create_so",
+          "name": "Create Sales Order"
+        }
+      ]
+    },
+    {
+      "name": "Get Sales Orders",
+      "code": "sales_orders",
+      "method": "GET",
+      "url": "%%ecc_host%%/sap/opu/odata/sap/ZAPI_SALESORDER/A_SalesOrder",
+      "test_url": "%%ecc_host%%/sap/opu/odata/sap/ZAPI_SALESORDER/A_SalesOrder?$top=1",
+      "mapper": {
+        "type": 1,
+        "mapping": {
+          "name": "SalesOrderText",
+          "value": "SalesOrder"
+        }
+      },
+      "actions": [
+        {
+          "code": "sales_order_list",
+          "name": "Get Sales Orders"
+        }
+      ]
+    },
+    {
+      "name": "Get Materials",
+      "code": "material_list",
+      "method": "GET",
+      "url": "%%ecc_host%%/sap/opu/odata/sap/ZAPI_MATERIAL/A_Material",
+      "test_url": "%%ecc_host%%/sap/opu/odata/sap/ZAPI_MATERIAL/A_Material?$top=1",
+      "mapper": {
+        "type": 1,
+        "mapping": {
+          "name": "MaterialDescription",
+          "value": "Material"
+        }
+      },
+      "actions": [
+        {
+          "code": "material_list",
+          "name": "Get Materials"
+        }
+      ]
+    },
+    {
+      "name": "List Vendors",
+      "code": "vendor_list",
+      "method": "GET",
+      "url": "%%ecc_host%%/sap/opu/odata/sap/ZAPI_VENDOR/A_Vendor",
+      "test_url": "%%ecc_host%%/sap/opu/odata/sap/ZAPI_VENDOR/A_Vendor?$top=1",
+      "mapper": {
+        "type": 1,
+        "mapping": {
+          "name": "Name1",
+          "value": "Vendor"
+        }
+      },
+      "actions": [
+        {
+          "code": "supplier_list",
+          "name": "Get Vendors"
+        }
+      ]
+    }
+  ]
+}
