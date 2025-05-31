@@ -1,0 +1,46 @@
+{
+  "code": "VAT_PL_23",
+  "name": "Standard VAT Poland",
+  "country": "PL",
+  "rate": 0.23,
+  "type": "VAT",
+  "category": "standard",
+  "valid_from": "2024-01-01",
+  "valid_to": null,
+  "tax_rules": [
+    {
+      "description": "Applies to domestic services",
+      "conditions": {
+        "sector": ["services"],
+        "amount_gt": 100
+      }
+    }
+  ],
+  "jurisdictions": [
+    {
+      "country": "Poland",
+      "region": "EU",
+      "currency": "PLN"
+    }
+  ],
+  "actions": [
+    {
+      "name": "apply_tax",
+      "description": "Calculate and add tax to transaction total"
+    }
+  ],
+  "tax_rates": [
+    {
+      "id": "vat_standard_pl",
+      "name": "Standard VAT Poland",
+      "rate": 0.23,
+      "type": "percentage",
+      "effective_date": "2023-01-01",
+      "jurisdiction": {
+        "country": "Poland",
+        "region": "EU"
+      }
+    }
+  ],
+  "linked_accounts": ["2201", "2202"]
+}

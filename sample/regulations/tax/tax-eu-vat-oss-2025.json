@@ -1,0 +1,103 @@
+{
+  "type": "regulations",
+  "regulation_id": "tax-eu-vat-oss-2025",
+  "title": "EU VAT and OSS Regulation 2025",
+  "context_rules": {
+    "jurisdiction_match": ["EU"],
+    "sector_match": ["eCommerce", "SaaS", "Retail"],
+    "product_type_in": ["B2B", "B2C"],
+    "company_size": "any"
+  },
+  "ai_adaptive_fields": [
+    {
+      "field": "vat_rate",
+      "dynamic_source": "jurisdiction_rules_engine",
+      "fallback": 0.20,
+      "description": "VAT rate based on customer country and OSS activation"
+    },
+    {
+      "field": "customer_vat_id",
+      "required_if": ["transaction_type=B2B", "customer_country!=company_country"],
+      "validation": "vies_check",
+      "description": "VAT ID validated for intra-EU B2B sales"
+    },
+    {
+      "field": "customer_country",
+      "required": true,
+      "description": "Determines VAT rate and reporting obligations"
+    },
+    {
+      "field": "oss_registered",
+      "type": "checkbox",
+      "description": "Indicates if the company is registered for OSS"
+    },
+    {
+      "field": "billing_address_country",
+      "required_if": ["oss_registered=true", "transaction_type=B2C"],
+      "description": "One of the evidences for OSS location"
+    }
+  ],
+  "intelligent_flows": [
+    {
+      "event": "invoice_created",
+      "conditions": [
+        "jurisdiction=EU",
+        "transaction_type=B2B",
+        "customer_country!=company_country"
+      ],
+      "actions": [
+        "require_customer_vat_id",
+        "validate_customer_vat_id_vies",
+        "apply_reverse_charge_mechanism",
+        "select_invoice_template_vat_ue",
+        "schedule_ec_sales_list_report"
+      ]
+    },
+    {
+      "event": "invoice_created",
+      "conditions": [
+        "jurisdiction=EU",
+        "transaction_type=B2C",
+        "oss_registered=true",
+        "customer_country!=company_country"
+      ],
+      "actions": [
+        "determine_vat_rate_by_customer_country",
+        "require_two_location_evidences",
+        "apply_customer_country_vat_rate",
+        "select_invoice_template_oss",
+        "schedule_oss_quarterly_report"
+      ]
+    }
+  ],
+  "recommended_tasks": [
+    {
+      "task_id": "validate_vat_ue_transaction",
+      "auto_assign": "tax_bot",
+      "flow": "invoice_validation",
+      "status": "automated",
+      "comments": ["Validates VAT ID and applies reverse charge for intra-EU B2B sales"]
+    },
+    {
+      "task_id": "generate_ec_sales_list",
+      "auto_assign": "reporting_bot",
+      "flow": "report_generation",
+      "status": "scheduled",
+      "comments": ["Generates EC Sales List monthly/quarterly"]
+    },
+    {
+      "task_id": "validate_oss_transaction",
+      "auto_assign": "tax_bot",
+      "flow": "invoice_validation",
+      "status": "automated",
+      "comments": ["Checks OSS registration and location evidences for B2C sales"]
+    },
+    {
+      "task_id": "generate_oss_report",
+      "auto_assign": "reporting_bot",
+      "flow": "report_generation",
+      "status": "scheduled",
+      "comments": ["Generates OSS VAT quarterly report"]
+    }
+  ]
+}
