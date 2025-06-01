@@ -1,0 +1,36 @@
+{
+  "name": "GUS (Poland) – REGON Search",
+  "code": "gus_regon",
+  "type": "integration",
+  "scope": [],
+  "auth_method": 5,
+  "requirements": {
+    "gus_api_key": ""
+  },
+  "profileRequirements": [],
+  "hooks": [
+    {
+      "name": "Search For Company",
+      "code": "search_company",
+      "method": "POST",
+      "url": "https://wyszukiwarkaregontest.stat.gov.pl/wsBIR/wsBIR.asmx",
+      "test_url": "https://wyszukiwarkaregontest.stat.gov.pl/wsBIR/wsBIR.asmx",
+      "mapper": {
+        "type": 1,
+        "mapping": {
+          "company_name": "root.d:Data.d:Nazwa",
+          "tin_id": "root.d:Data.d:NIP",
+          "city": "root.d:Data.d:Miejscowosc",
+          "postal_code": "root.d:Data.d:KodPocztowy",
+          "street": "root.d:Data.d:Ulica"
+        }
+      },
+      "actions": [
+        {
+          "code": "search_company",
+          "name": "Search Polish Company (REGON)"
+        }
+      ]
+    }
+  ]
+}

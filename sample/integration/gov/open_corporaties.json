@@ -1,0 +1,36 @@
+{
+  "name": "OpenCorporates",
+  "code": "open_corporates",
+  "type": "integration",
+  "scope": [],
+  "auth_method": 5,
+  "requirements": {
+    "api_token": ""
+  },
+  "profileRequirements": [],
+  "hooks": [
+    {
+      "name": "Search Company",
+      "code": "search_company",
+      "method": "GET",
+      "url": "https://api.opencorporates.com/v0.4/companies/search?q={{company_name}}&jurisdiction_code={{country_code}}&api_token={{api_token}}",
+      "test_url": "https://api.opencorporates.com/v0.4/companies/search?q=apple&jurisdiction_code=us_ca",
+      "mapper": {
+        "type": 1,
+        "mapping": {
+          "company_name": "results.companies.0.company.name",
+          "tin_id": "results.companies.0.company.company_number",
+          "country_code": "results.companies.0.company.jurisdiction_code",
+          "street": "results.companies.0.company.registered_address_in_full",
+          "status": "results.companies.0.company.current_status"
+        }
+      },
+      "actions": [
+        {
+          "code": "search_company",
+          "name": "Search Company"
+        }
+      ]
+    }
+  ]
+}

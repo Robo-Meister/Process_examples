@@ -1,6 +1,6 @@
 {
-  "type": "workflow",
   "code": "transition_to_euro",
+  "type": "workflow",
   "name": "Transition to Euro",
   "description": "Step-by-step workflow to help companies migrate accounting and reporting from PLN to EUR.",
   "version": "1.0",
@@ -11,7 +11,6 @@
       "description": "Analyze existing accounts, currencies, and data sources.",
       "optional": false,
       "type": "manual",
-      "level": 0,
       "outputs": ["current_account_map.json"],
       "next_steps": ["create_euro_chart_accounts"]
     },
@@ -21,7 +20,6 @@
       "description": "Generate mirror accounts in EUR based on existing PLN accounts.",
       "optional": false,
       "type": "automated",
-      "level": 1,
       "inputs": ["current_account_map.json"],
       "outputs": ["euro_account_map.json"],
       "next_steps": ["set_transition_date"]
@@ -32,7 +30,6 @@
       "description": "Define the effective date from which EUR accounts become active.",
       "optional": false,
       "type": "manual",
-      "level": 2,
       "outputs": ["transition_date.txt"],
       "next_steps": ["perform_currency_conversion"]
     },
@@ -42,10 +39,9 @@
       "description": "Transfer PLN account balances to EUR accounts based on official exchange rates (NBP/ECB).",
       "optional": false,
       "type": "automated",
-      "level": 3,
       "inputs": ["euro_account_map.json", "transition_date.txt"],
       "outputs": ["conversion_journal_entries.json"],
-      "next_steps": ["migrate_integrations", "update_reporting_templates"]
+      "next_steps": ["migrate_integrations"]
     },
     {
       "step_id": "migrate_integrations",
@@ -53,10 +49,9 @@
       "description": "Update account aliases and mappings in connected ERP or document management systems if necessary.",
       "optional": true,
       "type": "automated",
-      "level": 4,
       "inputs": ["conversion_journal_entries.json"],
       "outputs": ["integration_migration_report.json"],
-      "next_steps": ["update_pricing_and_contracts"]
+      "next_steps": ["update_reporting_templates"]
     },
     {
       "step_id": "update_reporting_templates",
@@ -64,8 +59,7 @@
       "description": "Adjust financial reports (balance sheet, P&L, cash flow) to EUR currency from the transition date.",
       "optional": false,
       "type": "automated",
-      "level": 4,
-      "inputs": ["conversion_journal_entries.json", "transition_date.txt"],
+      "inputs": ["integration_migration_report.json", "transition_date.txt"],
       "outputs": ["updated_reports_templates.json"],
       "next_steps": ["update_pricing_and_contracts"]
     },
@@ -75,7 +69,6 @@
       "description": "Revise pricing lists and contract currency denominations where applicable.",
       "optional": true,
       "type": "manual",
-      "level": 5,
       "outputs": ["updated_contracts_summary.txt"],
       "next_steps": ["submit_audit_documents"]
     },
@@ -85,7 +78,6 @@
       "description": "Provide updated accounting plans and reports to auditors for compliance confirmation.",
       "optional": true,
       "type": "manual",
-      "level": 6,
       "outputs": ["audit_submission_receipt.txt"],
       "next_steps": ["go_live"]
     },
@@ -95,7 +87,6 @@
       "description": "Begin recording all new transactions in EUR from the transition date onward.",
       "optional": false,
       "type": "automated",
-      "level": 7,
       "inputs": ["transition_date.txt"],
       "outputs": ["euro_operations_log.json"],
       "next_steps": []
