@@ -55,8 +55,8 @@
           "isPreEvent": true,
           "type": "Transfer Field between flows",
           "options": {
-            "in": "%%name%%",
-            "out": "Content Audit"
+            "out": "%%name%%",
+            "in": "Content Audit"
           }
         }
       ]
@@ -101,8 +101,8 @@
           "isPreEvent": true,
           "type": "Transfer Field between flows",
           "options": {
-            "in": "%%name%%",
-            "out": "Hire Designer"
+            "out": "%%name%%",
+            "in": "Hire Designer"
           }
         }
       ]

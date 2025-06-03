@@ -36,8 +36,8 @@
           "isPreEvent": true,
           "type": "Transfer Field between flows",
           "options": {
-            "in": "%%name%%",
-            "out": "Buy Ground for Office"
+            "out": "%%name%%",
+            "in": "Buy Ground for Office"
           }
         }
       ]

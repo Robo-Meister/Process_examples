@@ -37,8 +37,8 @@
           "isPreEvent": true,
           "type": "Transfer Field between flows",
           "options": {
-            "in": "%%name%% ",
-            "out": "R&D Product Launch"
+            "out": "%%name%% ",
+            "in": "R&D Product Launch"
           }
         }
       ]
@@ -55,8 +55,8 @@
           "isPreEvent": true,
           "type": "Transfer Field between flows",
           "options": {
-            "in": "%%name%% ",
-            "out": "Production Setup for Product"
+            "out": "%%name%% ",
+            "in": "Production Setup for Product"
           }
         }
       ]
@@ -73,8 +73,8 @@
           "isPreEvent": true,
           "type": "Transfer Field between flows",
           "options": {
-            "in": "%%name%% ",
-            "out": "Prepare Marketing Campaign"
+            "out": "%%name%% ",
+            "in": "Prepare Marketing Campaign"
           }
         }
       ]
@@ -91,8 +91,8 @@
           "isPreEvent": true,
           "type": "Transfer Field between flows",
           "options": {
-            "in": "%%name%% ",
-            "out": "Sales Team Onboarding"
+            "out": "%%name%% ",
+            "in": "Sales Team Onboarding"
           }
         }
       ]

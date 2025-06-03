@@ -103,8 +103,8 @@
           "isPreEvent": true,
           "type": "Transfer Field between flows",
           "options": {
-            "in": "%%dependency_report_id%%",
-            "out": "Relocation Execution Planning"
+            "out": "%%dependency_report_id%%",
+            "in": "Relocation Execution Planning"
           }
         }
       ]
