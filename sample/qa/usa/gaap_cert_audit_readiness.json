@@ -1,0 +1,18 @@
+{
+  "templateId": "gaap_cert_audit_readiness",
+  "type": "certificate",
+  "title": "GAAP Audit Readiness Certificate (Annual)",
+  "autofillRules": {
+    "event.trigger": "annual_audit_preparation",
+    "user.department": "accounting",
+    "audit.standard": "GAAP"
+  },
+  "fields": [
+    { "name": "fiscal_year", "source": "document.metadata.fiscal_year" },
+    { "name": "prepared_by", "source": "user.full_name" },
+    { "name": "prepared_on", "source": "system.date_now" },
+    { "name": "gaap_framework_used", "source": "document.framework_version" },
+    { "name": "all_material_accounts_reconciled", "source": "audit.checklist.accounts_reconciled" },
+    { "name": "supporting_docs_attached", "source": "document.attachment_list" }
+  ]
+}

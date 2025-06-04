@@ -1,0 +1,35 @@
+{
+  "templateId": "reg_gaap_us_01",
+  "type": "regulation",
+  "title": "US GAAP Compliance",
+  "jurisdiction": "US",
+  "industry": "all",
+  "autofillRules": {
+    "user.department": "finance",
+    "process.category": "accounting"
+  },
+  "requirements": [
+    {
+      "id": "req_gaap_reporting_consistency",
+      "description": "Ensure consistent use of accounting principles across periods.",
+      "check": "reporting.method_consistency",
+      "frequency": "per_period"
+    },
+    {
+      "id": "req_gaap_disclosure_notes",
+      "description": "Attach required disclosure notes to financial statements.",
+      "check": "document.attachments.includes_disclosures",
+      "frequency": "per_submission"
+    },
+    {
+      "id": "req_gaap_reconciliation",
+      "description": "Complete account reconciliation before statement approval.",
+      "check": "audit.accounts_reconciled == true",
+      "frequency": "monthly"
+    }
+  ],
+  "linkedCertificates": [
+    "gaap_cert_compliance_periodic",
+    "gaap_cert_audit_readiness"
+  ]
+}

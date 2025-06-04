@@ -1,0 +1,103 @@
+{
+  "type": "regulations",
+  "regulation_id": "ccpa-cpra-2025",
+  "title": "California Consumer Privacy Act (CCPA) & California Privacy Rights Act (CPRA)",
+  "context_rules": {
+    "jurisdiction_match": ["US-CA"],
+    "sector_match": ["eCommerce", "SaaS", "Healthcare", "Finance", "Retail"],
+    "product_type_in": ["B2C", "B2B"],
+    "company_size": "any"
+  },
+  "ai_adaptive_fields": [
+    {
+      "field": "privacy_policy_url",
+      "required": true,
+      "description": "Publicly accessible link to the company's privacy policy."
+    },
+    {
+      "field": "do_not_sell_or_share_link",
+      "required_if": ["sells_personal_information=true"],
+      "description": "Link enabling consumers to opt-out of the sale or sharing of their personal information."
+    },
+    {
+      "field": "data_subject_request_portal",
+      "required": true,
+      "description": "Portal or contact method for consumers to submit data subject requests."
+    },
+    {
+      "field": "data_retention_schedule",
+      "dynamic_suggestion": "AI_POLICY_GENERATOR",
+      "context_dependencies": ["data_category", "legal_requirements"]
+    },
+    {
+      "field": "sensitive_personal_information_handling",
+      "dynamic_suggestion": "AI_POLICY_GENERATOR",
+      "context_dependencies": ["data_category"]
+    }
+  ],
+  "intelligent_flows": [
+    {
+      "event": "data_subject_request_received",
+      "conditions": ["jurisdiction=US-CA"],
+      "actions": [
+        "validate_request",
+        "identify_data_subject",
+        "retrieve_personal_data",
+        "respond_within_45_days",
+        "log_request_and_response"
+      ]
+    },
+    {
+      "event": "sale_or_sharing_of_personal_information",
+      "conditions": ["jurisdiction=US-CA", "consumer_opted_out=false"],
+      "actions": [
+        "check_opt_out_status",
+        "honor_global_privacy_control",
+        "log_data_processing_activity"
+      ]
+    }
+  ],
+  "recommended_tasks": [
+    {
+      "task_id": "update_privacy_policy",
+      "auto_assign": "legal_team",
+      "flow": "policy_review",
+      "status": "pending",
+      "comments": ["Ensure privacy policy reflects current data practices and consumer rights."]
+    },
+    {
+      "task_id": "implement_opt_out_mechanism",
+      "auto_assign": "web_development_team",
+      "flow": "website_update",
+      "status": "pending",
+      "comments": ["Add 'Do Not Sell or Share My Personal Information' link as required."]
+    },
+    {
+      "task_id": "setup_data_subject_request_process",
+      "auto_assign": "compliance_team",
+      "flow": "process_implementation",
+      "status": "pending",
+      "comments": ["Establish procedures to handle consumer data requests within mandated timeframes."]
+    }
+  ],
+  "certificate_management": {
+    "required_certificates": [
+      "Data Protection Impact Assessment",
+      "Third-Party Data Processing Agreements"
+    ],
+    "certificate_expiry_check_interval_days": 365,
+    "auto_block_on_expired": false
+  },
+  "audit_trail": {
+    "enabled": true,
+    "records": []
+  },
+  "manual_override": {
+    "enabled": true,
+    "override_checkbox": {
+      "label": "Bypass standard data request processing (for internal testing only)",
+      "default": false,
+      "requires_comment": true
+    }
+  }
+}

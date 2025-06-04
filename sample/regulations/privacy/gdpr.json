@@ -1,0 +1,65 @@
+{
+  "type": "regulations",
+  "regulation_id": "gdpr-eu-2025",
+  "title": "General Data Protection Regulation (GDPR)",
+  "context_rules": {
+    "jurisdiction_match": ["EU"],
+    "sector_match": ["SaaS", "Healthcare", "Finance"],
+    "product_type_in": ["B2B", "B2C"],
+    "company_size": "any"
+  },
+  "ai_adaptive_fields": [
+    {
+      "field": "dpo_contact",
+      "required": true,
+      "description": "Data Protection Officer contact info"
+    },
+    {
+      "field": "data_retention_policy",
+      "dynamic_suggestion": "AI_POLICY_GENERATOR",
+      "context_dependencies": ["sector", "data_type"]
+    },
+    {
+      "field": "privacy_policy_doc",
+      "template_source": "gdpr_standard_template",
+      "editable": true
+    }
+  ],
+  "intelligent_flows": [
+    {
+      "event": "user_data_request_received",
+      "conditions": ["jurisdiction=EU"],
+      "actions": [
+        "validate_user_identity",
+        "fetch_personal_data",
+        "log_data_request",
+        "generate_data_portability_report",
+        "schedule_deletion_if_requested"
+      ]
+    },
+    {
+      "event": "user_account_deleted",
+      "conditions": ["jurisdiction=EU"],
+      "actions": [
+        "remove_personal_data_from_all_systems",
+        "log_gdpr_action",
+        "notify_dpo"
+      ]
+    }
+  ],
+  "recommended_tasks": [
+    {
+      "task_id": "upload_privacy_policy",
+      "auto_assign": "compliance_team",
+      "flow": "policy_management",
+      "status": "pending",
+      "comments": ["Based on AI-generated draft"]
+    },
+    {
+      "task_id": "review_data_retention_policy",
+      "auto_assign": "legal_bot",
+      "flow": "policy_review",
+      "status": "automated"
+    }
+  ]
+}

@@ -1,0 +1,71 @@
+{
+  "type": "regulations",
+  "regulation_id": "e-invoicing-global-2025",
+  "title": "Cross-Border E-Invoicing Compliance",
+  "context_rules": {
+    "jurisdiction_match": ["EU", "US", "MX", "BR", "SG"],
+    "sector_match": ["eCommerce", "B2B Services"],
+    "product_type_in": ["B2B"],
+    "company_size": "any"
+  },
+  "ai_adaptive_fields": [
+    {
+      "field": "invoice_format",
+      "dynamic_suggestion": "AI_TEMPLATE_MATCHER",
+      "context_dependencies": ["jurisdiction", "customer_type"]
+    },
+    {
+      "field": "digital_signature_required",
+      "dynamic_source": "jurisdiction_rules_engine",
+      "fallback": false
+    },
+    {
+      "field": "einvoice_submission_method",
+      "dynamic_source": "integration_mapper",
+      "context_dependencies": ["jurisdiction"]
+    }
+  ],
+  "intelligent_flows": [
+    {
+      "event": "invoice_ready",
+      "conditions": ["jurisdiction=MX"],
+      "actions": [
+        "apply_cfdi_structure",
+        "sign_invoice_digitally",
+        "submit_to_sat",
+        "log_sat_response"
+      ]
+    },
+    {
+      "event": "invoice_ready",
+      "conditions": ["jurisdiction=EU"],
+      "actions": [
+        "apply_peppol_format",
+        "route_through_access_point",
+        "validate_response"
+      ]
+    }
+  ],
+  "recommended_tasks": [
+    {
+      "task_id": "configure_peppol_access",
+      "auto_assign": "integration_team",
+      "flow": "einvoice_setup",
+      "status": "pending"
+    },
+    {
+      "task_id": "verify_digital_certificate",
+      "auto_assign": "it_security_team",
+      "flow": "certificate_validation",
+      "status": "pending"
+    }
+  ],
+  "certificate_management": {
+    "required_certificates": [
+      "Digital Signature Certificate",
+      "Tax Authority Approval Token"
+    ],
+    "certificate_expiry_check_interval_days": 90,
+    "auto_block_on_expired": true
+  }
+}

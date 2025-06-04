@@ -1,0 +1,17 @@
+{
+  "templateId": "gaap_cert_compliance_periodic",
+  "type": "certificate",
+  "title": "GAAP Compliance Certificate (Periodic)",
+  "autofillRules": {
+    "process.category": "accounting",
+    "event.trigger": ["monthly_close", "quarterly_close"],
+    "user.department": "finance"
+  },
+  "fields": [
+    { "name": "reporting_period", "source": "document.metadata.period" },
+    { "name": "accounting_lead", "source": "user.full_name" },
+    { "name": "compliance_statement", "source": "templates.gaap_compliance_text" },
+    { "name": "review_date", "source": "system.date_now" },
+    { "name": "exceptions_noted", "source": "audit.findings_summary" }
+  ]
+}

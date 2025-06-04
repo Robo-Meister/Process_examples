@@ -1,0 +1,43 @@
+{
+  "templateId": "reg_ada_us_01",
+  "type": "regulation",
+  "title": "Americans with Disabilities Act (ADA) Compliance",
+  "jurisdiction": "US",
+  "industry": "all",
+  "autofillRules": {
+    "user.department": "compliance",
+    "process.category": "web_accessibility"
+  },
+  "requirements": [
+    {
+      "id": "req_ada_wcag_level_aa",
+      "description": "Ensure digital content meets WCAG 2.1 Level AA accessibility standards.",
+      "check": "audit.accessibility_score >= 90",
+      "frequency": "quarterly"
+    },
+    {
+      "id": "req_ada_accessible_policy",
+      "description": "Publish and maintain an accessibility statement and grievance procedure.",
+      "check": "document.exists('accessibility_policy')",
+      "frequency": "annual"
+    },
+    {
+      "id": "req_ada_training",
+      "description": "Conduct accessibility training for design and development teams.",
+      "check": "training.log.includes('ADA')",
+      "frequency": "annual"
+    },
+    {
+      "id": "req_ada_alt_text_images",
+      "description": "All images must include meaningful alternative text for screen readers.",
+      "check": "audit.images.missing_alt_text == 0",
+      "frequency": "continuous"
+    }
+  ],
+  "linkedCertificates": [
+    "cert_ada_compliance_audit",
+    "cert_accessibility_policy"
+  ],
+  "effective_from": "1990-07-26",
+  "updated_on": "2022-10-01"
+}

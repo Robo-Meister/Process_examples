@@ -1,0 +1,18 @@
+{
+  "templateId": "sox_cert_404_internal_controls",
+  "type": "certificate",
+  "title": "SOX Section 404 Annual Internal Control Report",
+  "autofillRules": {
+    "company.status": "public",
+    "event.trigger": "annual_audit_preparation",
+    "user.department": "internal_audit"
+  },
+  "fields": [
+    { "name": "fiscal_year", "source": "document.metadata.fiscal_year" },
+    { "name": "report_preparer", "source": "user.full_name" },
+    { "name": "assessment_summary", "source": "controls.assessment_result" },
+    { "name": "material_weaknesses", "source": "controls.material_weakness_log" },
+    { "name": "control_framework", "source": "document.internal_controls_framework" },
+    { "name": "report_date", "source": "system.date_now" }
+  ]
+}

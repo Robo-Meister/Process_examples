@@ -1,0 +1,18 @@
+{
+  "templateId": "sox_cert_302_ceo_cfo",
+  "type": "certificate",
+  "title": "SOX Section 302 CEO/CFO Quarterly Certification",
+  "autofillRules": {
+    "company.status": "public",
+    "event.trigger": "quarterly_financial_closure",
+    "user.role": ["CEO", "CFO"]
+  },
+  "fields": [
+    { "name": "reporting_period", "source": "document.metadata.period" },
+    { "name": "ceo_name", "source": "user.full_name", "conditions": { "user.role": "CEO" } },
+    { "name": "cfo_name", "source": "user.full_name", "conditions": { "user.role": "CFO" } },
+    { "name": "certification_date", "source": "system.date_now" },
+    { "name": "controls_reviewed", "source": "controls.status_summary" },
+    { "name": "disclosure_controls_effective", "source": "controls.disclosure_controls" }
+  ]
+}

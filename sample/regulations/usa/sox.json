@@ -1,0 +1,105 @@
+{
+  "type": "regulations",
+  "regulation_id": "sox-2025",
+  "title": "Sarbanes-Oxley Act (SOX)",
+  "context_rules": {
+    "jurisdiction_match": ["US"],
+    "sector_match": ["Finance", "Public", "Technology", "Energy", "Manufacturing"],
+    "product_type_in": ["B2B"],
+    "company_status": ["public", "pre-ipo"]
+  },
+  "ai_adaptive_fields": [
+    {
+      "field": "internal_controls_framework",
+      "required": true,
+      "options": ["COSO", "COBIT"],
+      "description": "Framework adopted for internal controls over financial reporting."
+    },
+    {
+      "field": "audit_committee_contacts",
+      "required": true,
+      "description": "List of designated audit committee members and their contact details."
+    },
+    {
+      "field": "financial_reporting_calendar",
+      "required": true,
+      "description": "Schedule of quarterly and annual financial report submissions."
+    },
+    {
+      "field": "whistleblower_mechanism",
+      "required": true,
+      "description": "Anonymous reporting channel for financial or ethical concerns."
+    },
+    {
+      "field": "material_weakness_disclosure_policy",
+      "dynamic_suggestion": "AI_POLICY_GENERATOR",
+      "context_dependencies": ["past_audit_findings", "control_test_results"]
+    }
+  ],
+  "intelligent_flows": [
+    {
+      "event": "quarterly_financial_closure",
+      "conditions": ["company_status=public"],
+      "actions": [
+        "validate_internal_controls",
+        "prepare_financial_statements",
+        "submit_to_audit_committee",
+        "archive_supporting_documents",
+        "trigger_section_302_certification"
+      ]
+    },
+    {
+      "event": "annual_audit_preparation",
+      "conditions": ["company_status=public"],
+      "actions": [
+        "gather_evidence_of_controls",
+        "perform_self_assessment",
+        "engage_external_auditors",
+        "complete_section_404_report"
+      ]
+    }
+  ],
+  "recommended_tasks": [
+    {
+      "task_id": "update_internal_controls_register",
+      "auto_assign": "internal_audit_team",
+      "flow": "control_maintenance",
+      "status": "pending",
+      "comments": ["Update documentation and testing results of key SOX controls."]
+    },
+    {
+      "task_id": "setup_whistleblower_channel",
+      "auto_assign": "compliance_team",
+      "flow": "governance",
+      "status": "pending",
+      "comments": ["Establish anonymous reporting mechanism to comply with SOX Section 301."]
+    },
+    {
+      "task_id": "conduct_sox_training",
+      "auto_assign": "hr_compliance",
+      "flow": "employee_training",
+      "status": "pending",
+      "comments": ["Annual training for key personnel on SOX requirements."]
+    }
+  ],
+  "certificate_management": {
+    "required_certificates": [
+      "Section 302 CEO/CFO Certification",
+      "Section 404 Internal Control Report"
+    ],
+    "certificate_expiry_check_interval_days": 180,
+    "auto_block_on_expired": false
+  },
+  "audit_trail": {
+    "enabled": true,
+    "records": []
+  },
+  "manual_override": {
+    "enabled": true,
+    "override_checkbox": {
+      "label": "Override SOX flow for exceptional audit case",
+      "default": false,
+      "requires_comment": true
+    }
+  }
+}

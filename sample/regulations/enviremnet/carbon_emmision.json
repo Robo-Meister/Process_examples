@@ -1,0 +1,67 @@
+{
+  "type": "regulations",
+  "regulation_id": "carbon-reporting-2025",
+  "title": "Corporate Carbon Reporting & Emission Tracking",
+  "context_rules": {
+    "jurisdiction_match": ["EU", "US"],
+    "sector_match": ["Manufacturing", "Logistics", "Energy"],
+    "product_type_in": ["any"],
+    "company_size": "medium_or_larger"
+  },
+  "ai_adaptive_fields": [
+    {
+      "field": "carbon_emission_scope_1",
+      "required": true,
+      "description": "Direct emissions from owned sources"
+    },
+    {
+      "field": "carbon_emission_scope_2",
+      "required": true,
+      "description": "Indirect emissions from purchased electricity"
+    },
+    {
+      "field": "carbon_emission_scope_3",
+      "optional": true,
+      "description": "All other indirect emissions (e.g., supply chain)"
+    },
+    {
+      "field": "reporting_template",
+      "template_source": "ghg_protocol_template",
+      "editable": true
+    }
+  ],
+  "intelligent_flows": [
+    {
+      "event": "reporting_cycle_start",
+      "conditions": ["jurisdiction in [EU, US]"],
+      "actions": [
+        "gather_emissions_data",
+        "validate_sources",
+        "generate_annual_report",
+        "schedule_submission",
+        "notify_environmental_officer"
+      ]
+    }
+  ],
+  "recommended_tasks": [
+    {
+      "task_id": "collect_emission_data",
+      "auto_assign": "iot_bot",
+      "flow": "data_ingestion",
+      "status": "automated"
+    },
+    {
+      "task_id": "review_annual_emission_report",
+      "auto_assign": "sustainability_team",
+      "flow": "report_approval",
+      "status": "pending"
+    }
+  ],
+  "document_templates": {
+    "ghg_protocol_template": {
+      "format": "xlsx",
+      "fields": ["scope_1", "scope_2", "scope_3", "unit=tons_CO2e"],
+      "version": "2025.1"
+    }
+  }
+}
