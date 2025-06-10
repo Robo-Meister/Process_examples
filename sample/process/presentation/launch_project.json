@@ -28,7 +28,7 @@
     {
       "name": "run RnD",
       "action": "Run new flow",
-      "input": ["name"],
+      "input": ["run_rnd_template"],
       "level": 1,
       "optional": false,
       "decorators": [
@@ -37,7 +37,7 @@
           "isPreEvent": true,
           "type": "Transfer Field between flows",
           "options": {
-            "out": "%%name%% ",
+            "out": "%%run_rnd_template%% ",
             "in": "R&D Product Launch"
           }
         }
@@ -46,7 +46,7 @@
     {
       "name": "run Production Setup",
       "action": "Run new flow",
-      "input": ["name"],
+      "input": ["run_production_template"],
       "level": 1,
       "optional": false,
       "decorators": [
@@ -55,7 +55,7 @@
           "isPreEvent": true,
           "type": "Transfer Field between flows",
           "options": {
-            "out": "%%name%% ",
+            "out": "%%run_production_template%% ",
             "in": "Production Setup for Product"
           }
         }
@@ -64,7 +64,7 @@
     {
       "name": "run Marketing Campaign",
       "action": "Run new flow",
-      "input": ["name"],
+      "input": ["run_marketing_template"],
       "level": 1,
       "optional": false,
       "decorators": [
@@ -73,7 +73,7 @@
           "isPreEvent": true,
           "type": "Transfer Field between flows",
           "options": {
-            "out": "%%name%% ",
+            "out": "%%run_marketing_template%% ",
             "in": "Prepare Marketing Campaign"
           }
         }
@@ -82,7 +82,7 @@
     {
       "name": "run Sales Team Onboarding",
       "action": "Run new flow",
-      "input": ["name"],
+      "input": ["run_sales_template"],
       "level": 1,
       "optional": false,
       "decorators": [
@@ -91,7 +91,7 @@
           "isPreEvent": true,
           "type": "Transfer Field between flows",
           "options": {
-            "out": "%%name%% ",
+            "out": "%%run_sales_template%% ",
             "in": "Sales Team Onboarding"
           }
         }

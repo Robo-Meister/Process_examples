@@ -1,0 +1,282 @@
+{
+  "type": "workflow",
+  "name": "Code Solution Generation Workflow",
+  "description": "Step-by-step workflow for preparing and delivering a code solution based on a given task, supporting both AI and manual modes.",
+  "category": "Software Development",
+  "fields": [
+    "task_id",
+    "task_description",
+    "project_id",
+    "repository_id",
+    "branch_name",
+    "technology_stack",
+    "user_context",
+    "requirements",
+    "constraints",
+    "relevant_files",
+    "modification_plan",
+    "modified_code",
+    "review_notes",
+    "test_results",
+    "feedback",
+    "final_code"
+  ],
+  "steps": [
+    {
+      "name": "Clarify Task & Intent",
+      "action": "Analyze and clarify user request",
+      "group": "AI/Manual",
+      "level": 0,
+      "optional": false,
+      "changeable": false,
+      "cancelable": true,
+      "possible_ai": true,
+      "possible_manual": true,
+      "good_practice_note": "Ask clarifying questions if the task is ambiguous.",
+      "input_fields": ["task_id", "task_description", "user_context"],
+      "output_fields": ["requirements", "constraints"],
+      "linked_regulations": [
+        { "code": "GDPR-Art5", "description": "Personal data must be processed lawfully, fairly, and transparently." },
+        { "code": "ISO-9001-7.2", "description": "Competence and clarity in requirements." }
+      ],
+      "linked_risks": [
+        { "id": "unclear_requirements", "description": "Requirements not fully specified, leading to misimplementation." },
+        { "id": "privacy_violation", "description": "Request may include personal data without consent." }
+      ],
+      "certificates": [
+        { "name": "ISO 9001", "description": "Quality management systems certification." }
+      ]
+    },
+    {
+      "name": "Retrieve Context & Files",
+      "action": "Identify relevant code/files and context",
+      "group": "AI/Manual",
+      "level": 1,
+      "optional": false,
+      "changeable": true,
+      "cancelable": true,
+      "possible_ai": true,
+      "possible_manual": true,
+      "good_practice_note": "Only access the minimum files necessary.",
+      "input_fields": ["requirements", "project_id", "repository_id", "branch_name"],
+      "output_fields": ["relevant_files"],
+      "linked_regulations": [
+        { "code": "ISO-27001-9.1", "description": "Access control and information security." },
+        { "code": "GDPR-Art32", "description": "Security of processing personal data." }
+      ],
+      "linked_risks": [
+        { "id": "data_leak", "description": "Sensitive information could be exposed." },
+        { "id": "unauthorized_access", "description": "Files accessed without appropriate permissions." },
+        { "id": "stale_context", "description": "Old or incorrect files used for context." }
+      ],
+      "certificates": [
+        { "name": "ISO 27001", "description": "Information security management certification." }
+      ]
+    },
+    {
+      "name": "Safety and Validation Check",
+      "action": "Review for unsafe actions, side-effects, or risks",
+      "group": "AI/Manual",
+      "level": 2,
+      "optional": false,
+      "changeable": true,
+      "cancelable": true,
+      "possible_ai": true,
+      "possible_manual": true,
+      "good_practice_note": "Flag potential security or destructive operations before proceeding.",
+      "input_fields": ["relevant_files", "modification_plan"],
+      "output_fields": ["approved_modification_plan"],
+      "linked_regulations": [
+        { "code": "SOX-404", "description": "Internal controls and auditability." },
+        { "code": "ISO-27001-12.1", "description": "Operational procedures and responsibilities." }
+      ],
+      "linked_risks": [
+        { "id": "unsafe_change", "description": "Risk of unsafe or destructive operations." },
+        { "id": "non_compliance", "description": "Actions may not comply with legal or company policy." }
+      ],
+      "certificates": [
+        { "name": "SOX Compliance", "description": "Sarbanes-Oxley compliance for internal controls." }
+      ]
+    },
+    {
+      "name": "Prepare Modification Plan",
+      "action": "Generate step-by-step plan for code change",
+      "group": "AI/Manual",
+      "level": 3,
+      "optional": false,
+      "changeable": true,
+      "cancelable": true,
+      "possible_ai": true,
+      "possible_manual": true,
+      "good_practice_note": "Break changes into atomic, reviewable steps.",
+      "input_fields": ["approved_modification_plan"],
+      "output_fields": ["modification_plan"],
+      "linked_regulations": [
+        { "code": "ISO-9001-8.3", "description": "Design and development of products and services." }
+      ],
+      "linked_risks": [
+        { "id": "incomplete_plan", "description": "Important dependencies or steps are missed." }
+      ],
+      "certificates": [
+        { "name": "ISO 9001", "description": "Quality management systems certification." }
+      ]
+    },
+    {
+      "name": "Create/Checkout Branch",
+      "action": "Prepare isolated branch for changes",
+      "group": "Service/DevOps",
+      "level": 4,
+      "optional": false,
+      "changeable": false,
+      "cancelable": true,
+      "possible_ai": false,
+      "possible_service": true,
+      "possible_manual": true,
+      "good_practice_note": "Never commit directly to main/master.",
+      "input_fields": ["repository_id", "branch_name"],
+      "output_fields": ["branch_ready"],
+      "linked_regulations": [
+        { "code": "SOX-404", "description": "Traceability and auditability of changes." },
+        { "code": "ITIL-Change", "description": "Best practices for change management." }
+      ],
+      "linked_risks": [
+        { "id": "commit_main", "description": "Changes may be pushed to main branch by mistake." },
+        { "id": "traceability_loss", "description": "Inability to trace changes to individual tasks." }
+      ],
+      "certificates": [
+        { "name": "SOX Compliance", "description": "Sarbanes-Oxley compliance." }
+      ]
+    },
+    {
+      "name": "Apply Code Changes",
+      "action": "Modify code as per plan",
+      "group": "AI/Manual",
+      "level": 5,
+      "optional": false,
+      "changeable": true,
+      "cancelable": true,
+      "possible_ai": true,
+      "possible_manual": true,
+      "good_practice_note": "Make incremental commits; explain each change.",
+      "input_fields": ["relevant_files", "modification_plan"],
+      "output_fields": ["modified_code"],
+      "linked_regulations": [
+        { "code": "OWASP-SC", "description": "Follow secure coding practices." },
+        { "code": "ISO-9001-8.5", "description": "Production and service provision; quality control." }
+      ],
+      "linked_risks": [
+        { "id": "code_vulnerabilities", "description": "Risk of introducing security vulnerabilities." },
+        { "id": "dependency_break", "description": "Changes may break existing dependencies." }
+      ],
+      "certificates": [
+        { "name": "ISO 9001", "description": "Quality management certification." }
+      ]
+    },
+    {
+      "name": "Self-Review & Generate Review Notes",
+      "action": "Review own changes, generate explanations",
+      "group": "AI/Manual",
+      "level": 6,
+      "optional": false,
+      "changeable": true,
+      "cancelable": true,
+      "possible_ai": true,
+      "possible_manual": true,
+      "good_practice_note": "Summarize what changed and why; highlight risks or open questions.",
+      "input_fields": ["modified_code"],
+      "output_fields": ["review_notes"],
+      "linked_regulations": [
+        { "code": "ISO-9001-9.1", "description": "Monitoring, measurement, analysis, and evaluation." }
+      ],
+      "linked_risks": [
+        { "id": "missed_errors", "description": "Errors or issues missed during self-review." },
+        { "id": "incomplete_documentation", "description": "Review notes insufficient for future reference." }
+      ],
+      "certificates": [
+        { "name": "ISO 9001", "description": "Quality management certification." }
+      ]
+    },
+    {
+      "name": "Automated and Manual Testing",
+      "action": "Run tests, validate correctness",
+      "group": "QA/CI",
+      "level": 7,
+      "optional": true,
+      "changeable": true,
+      "cancelable": true,
+      "possible_ai": true,
+      "possible_service": true,
+      "possible_manual": true,
+      "good_practice_note": "Always run unit and integration tests. For manual, describe test cases.",
+      "input_fields": ["modified_code"],
+      "output_fields": ["test_results"],
+      "linked_regulations": [
+        { "code": "ISO-9001-8.6", "description": "Release of products and services; testing and validation." },
+        { "code": "FDA-21CFR820", "description": "Software validation for regulated software (e.g., medical devices)." }
+      ],
+      "linked_risks": [
+        { "id": "test_coverage_gaps", "description": "Insufficient test coverage; possible undetected bugs." },
+        { "id": "false_pass", "description": "Tests may pass even when issues remain." }
+      ],
+      "certificates": [
+        { "name": "ISO 9001", "description": "Quality management." },
+        { "name": "FDA Software Validation", "description": "Required for regulated medical software." }
+      ]
+    },
+    {
+      "name": "Feedback and Correction Loop",
+      "action": "Process reviewer or user feedback; make corrections",
+      "group": "AI/Manual",
+      "level": 8,
+      "optional": true,
+      "changeable": true,
+      "cancelable": true,
+      "possible_ai": true,
+      "possible_manual": true,
+      "good_practice_note": "Iterate until acceptance; explain why feedback is accepted or rejected.",
+      "input_fields": ["test_results", "review_notes", "feedback"],
+      "output_fields": ["final_code"],
+      "linked_regulations": [
+        { "code": "ISO-9001-10.2", "description": "Nonconformity and corrective action." },
+        { "code": "Agile-Best-Practices", "description": "Agile and DevOps feedback loops." }
+      ],
+      "linked_risks": [
+        { "id": "feedback_ignored", "description": "Important feedback may be missed or ignored." },
+        { "id": "regression", "description": "Fixes may break previously working features." }
+      ],
+      "certificates": [
+        { "name": "ISO 9001", "description": "Quality management." }
+      ]
+    },
+    {
+      "name": "Finalize Solution",
+      "action": "Merge, deliver code and close task",
+      "group": "DevOps",
+      "level": 9,
+      "optional": false,
+      "changeable": false,
+      "cancelable": true,
+      "possible_ai": false,
+      "possible_service": true,
+      "possible_manual": true,
+      "good_practice_note": "Merge only after all checks pass; update documentation if needed.",
+      "input_fields": ["final_code"],
+      "output_fields": [],
+      "linked_regulations": [
+        { "code": "SOX-404", "description": "Traceability, audit trail for changes." },
+        { "code": "ISO-9001-8.7", "description": "Control of nonconforming outputs (final acceptance)." }
+      ],
+      "linked_risks": [
+        { "id": "merge_conflict", "description": "Conflicts or errors during merging." },
+        { "id": "lost_audit", "description": "Audit trail or documentation not properly maintained." }
+      ],
+      "certificates": [
+        { "name": "SOX Compliance", "description": "Sarbanes-Oxley certification." },
+        { "name": "ISO 9001", "description": "Quality management." }
+      ]
+    }
+  ],
+  "need_project": true,
+  "need_client": false,
+  "need_payment": false
+}
