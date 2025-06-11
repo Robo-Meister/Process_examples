@@ -1,0 +1,59 @@
+{
+  "regulation_id": "vat_pl_2025",
+  "country": "PL",
+  "currency": "PLN",
+  "valid_from": "2025-01-01",
+  "valid_to": null,
+  "rates": [
+    {
+      "code": "vat_standard",
+      "name": "Standard VAT",
+      "rate": 0.23,
+      "category": "standard",
+      "applies_to": ["goods", "services"],
+      "product_categories": ["general", "electronics"],
+      "standard_groups": ["vat_output_sales"],
+      "workflow_step": "vat_monthly_report"
+    },
+    {
+      "code": "vat_reduced",
+      "name": "Reduced VAT",
+      "rate": 0.08,
+      "category": "reduced",
+      "applies_to": ["food", "medical"],
+      "product_categories": ["food", "medicine"],
+      "standard_groups": ["vat_output_sales_reduced"]
+    }
+  ],
+  "rules": [
+    {
+      "code": "rule_domestic_b2b",
+      "tax_code": "vat_standard",
+      "priority": 1,
+      "conditions": [
+        { "field": "transaction_type", "operator": "=", "value": "sale" },
+        { "field": "customer_type", "operator": "=", "value": "business" },
+        { "field": "country", "operator": "=", "value": "PL" }
+      ]
+    },
+    {
+      "code": "rule_domestic_b2c",
+      "tax_code": "vat_standard",
+      "priority": 2,
+      "conditions": [
+        { "field": "transaction_type", "operator": "=", "value": "sale" },
+        { "field": "customer_type", "operator": "=", "value": "individual" },
+        { "field": "country", "operator": "=", "value": "PL" }
+      ]
+    },
+    {
+      "code": "rule_zero_export",
+      "tax_code": "vat_zero",
+      "priority": 10,
+      "conditions": [
+        { "field": "transaction_type", "operator": "=", "value": "export" },
+        { "field": "country", "operator": "!=", "value": "PL" }
+      ]
+    }
+  ]
+}

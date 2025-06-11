@@ -3,7 +3,7 @@
   "name": "VAT and Sales Tax Rules",
   "version": "2025.05",
   "description": "Tax rates and rules for Poland and USA with related jurisdictions and actions.",
-  "tax_rates": [
+  "rates": [
     {
       "id": "vat_standard_pl",
       "name": "Standard VAT Poland",
@@ -27,7 +27,7 @@
       }
     }
   ],
-  "tax_rules": [
+  "rules": [
     {
       "id": "rule_1",
       "tax_rate_id": "vat_standard_pl",

@@ -1,0 +1,27 @@
+{
+  "regulation_id": "oss_eu_2025",
+  "country_scope": ["PL", "DE", "FR", "ES", "IT"],
+  "valid_from": "2025-01-01",
+  "rates": [
+    {
+      "code": "oss_vat_digital",
+      "rate": 0.23,
+      "product_categories": ["digital_services"],
+      "distribution": ["online", "auto"],
+      "customer_type": ["individual"],
+      "standard_groups": ["oss_sales"]
+    }
+  ],
+  "rules": [
+    {
+      "code": "rule_oss_cross_border",
+      "tax_code": "oss_vat_digital",
+      "priority": 1,
+      "conditions": [
+        { "field": "transaction_type", "operator": "=", "value": "sale" },
+        { "field": "customer_country", "operator": "!=", "value": "PL" },
+        { "field": "product_category", "operator": "IN", "value": ["digital_services"] }
+      ]
+    }
+  ]
+}

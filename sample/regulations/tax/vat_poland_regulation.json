@@ -1,0 +1,26 @@
+{
+  "id": "vat_pl_2025",
+  "title": "Poland VAT Act 2025",
+  "description": "Covers VAT obligations for domestic and international sales.",
+  "jurisdiction": {
+    "country": "Poland",
+    "region": "EU"
+  },
+  "version": "1.0",
+  "effective_date": "2025-01-01",
+  "obligations": {
+    "reporting_frequency": "monthly",
+    "payment_due_day": 25,
+    "audit_retention_days": 3650
+  },
+  "linked_tax_files": [
+    "vat_poland_2025.json"
+  ],
+  "required_workflows": [
+    "vat_monthly_report"
+  ],
+  "document_requirements": [
+    "invoice_vat_compliant",
+    "export_proof"
+  ]
+}
