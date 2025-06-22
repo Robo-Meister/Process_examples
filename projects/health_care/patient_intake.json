@@ -1,0 +1,64 @@
+{
+  "type": "workflow",
+  "name": "Patient Intake & Privacy Compliance",
+  "category": "Healthcare",
+  "description": "Streamlined patient intake with compliance and scheduling automation.",
+  "steps": [
+    {
+      "name": "Patient Pre-Registration",
+      "action": "Submit Medical History & Consent",
+      "group": "Front Desk / Online",
+      "input_fields": ["patient_id", "medical_history", "consent_forms"],
+      "output_fields": ["pre_registration_data"]
+    },
+    {
+      "name": "Validate Insurance Eligibility",
+      "action": "API Insurance Check",
+      "group": "Billing",
+      "input_fields": ["patient_id", "insurance_info"],
+      "output_fields": ["insurance_status"]
+    },
+    {
+      "name": "Auto-Assign Department or Doctor",
+      "action": "Route by Condition or Urgency",
+      "group": "Triage",
+      "input_fields": ["pre_registration_data"],
+      "output_fields": ["assigned_doctor", "triage_priority"]
+    },
+    {
+      "name": "Store Patient Data Securely",
+      "action": "Encrypt and Apply HIPAA Policies",
+      "group": "IT Compliance",
+      "input_fields": ["pre_registration_data", "insurance_status"],
+      "output_fields": ["secured_patient_record"]
+    },
+    {
+      "name": "Schedule Appointment",
+      "action": "Sync Calendar",
+      "group": "Scheduling",
+      "input_fields": ["assigned_doctor", "triage_priority"],
+      "output_fields": ["appointment_slot"]
+    },
+    {
+      "name": "Send Appointment Reminders",
+      "action": "Notify via Email/SMS",
+      "group": "Patient Communications",
+      "input_fields": ["appointment_slot"],
+      "output_fields": ["reminder_status"]
+    },
+    {
+      "name": "Generate Compliance Logs",
+      "action": "Log Access & Treatments",
+      "group": "Regulatory",
+      "input_fields": ["secured_patient_record", "appointment_slot"],
+      "output_fields": ["compliance_report"]
+    },
+    {
+      "name": "Follow-Up & Feedback",
+      "action": "Send Survey",
+      "group": "Patient Experience",
+      "input_fields": ["appointment_slot"],
+      "output_fields": ["feedback_response"]
+    }
+  ]
+}

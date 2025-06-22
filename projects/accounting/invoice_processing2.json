@@ -1,0 +1,64 @@
+{
+  "type": "workflow",
+  "name": "Automated Invoice Processing & Compliance Reporting",
+  "category": "Accounting",
+  "description": "Automates invoice processing using AI and ensures regulatory compliance.",
+  "steps": [
+    {
+      "name": "Receive Invoice",
+      "action": "Upload or Ingest Invoice",
+      "group": "Accounts Payable",
+      "input_fields": ["invoice_file", "source_type"],
+      "output_fields": ["raw_invoice_data"]
+    },
+    {
+      "name": "Extract & Validate Data",
+      "action": "AI Data Extraction",
+      "group": "AI Engine",
+      "input_fields": ["raw_invoice_data"],
+      "output_fields": ["validated_invoice_data"]
+    },
+    {
+      "name": "Cross-Check Against PO/Contracts",
+      "action": "Automated Matching",
+      "group": "Compliance",
+      "input_fields": ["validated_invoice_data"],
+      "output_fields": ["match_status", "discrepancy_report"]
+    },
+    {
+      "name": "Flag Anomalies",
+      "action": "Fraud & Error Detection",
+      "group": "AI Monitoring",
+      "input_fields": ["discrepancy_report"],
+      "output_fields": ["flagged_items"]
+    },
+    {
+      "name": "Generate Compliance Reports",
+      "action": "Report Generation",
+      "group": "Regulatory",
+      "input_fields": ["validated_invoice_data"],
+      "output_fields": ["vat_report", "jpk_file"]
+    },
+    {
+      "name": "Prepare Payment Schedule",
+      "action": "Schedule Payments",
+      "group": "Finance",
+      "input_fields": ["validated_invoice_data", "match_status"],
+      "output_fields": ["payment_schedule"]
+    },
+    {
+      "name": "Route for Approval",
+      "action": "Approval Workflow",
+      "group": "Management",
+      "input_fields": ["payment_schedule"],
+      "output_fields": ["approval_status"]
+    },
+    {
+      "name": "Archive with Audit Trail",
+      "action": "Secure Archiving",
+      "group": "Compliance",
+      "input_fields": ["validated_invoice_data", "approval_status"],
+      "output_fields": ["archive_id"]
+    }
+  ]
+}

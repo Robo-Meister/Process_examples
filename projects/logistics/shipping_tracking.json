@@ -1,0 +1,64 @@
+{
+  "type": "workflow",
+  "name": "End-to-End Shipment Tracking & Exception Handling",
+  "category": "Logistics",
+  "description": "Automates shipment processing, tracking, and exception handling using integrated systems and AI.",
+  "steps": [
+    {
+      "name": "Receive Order",
+      "action": "Order Entry",
+      "group": "Sales",
+      "input_fields": ["order_id", "items", "destination"],
+      "output_fields": ["shipment_request"]
+    },
+    {
+      "name": "Auto-Assign Warehouse & Carrier",
+      "action": "Assignment Logic",
+      "group": "Operations",
+      "input_fields": ["shipment_request"],
+      "output_fields": ["warehouse_id", "carrier_id"]
+    },
+    {
+      "name": "Generate Shipping Documents",
+      "action": "Label & Document Creation",
+      "group": "Logistics",
+      "input_fields": ["carrier_id", "items"],
+      "output_fields": ["shipping_labels", "customs_docs"]
+    },
+    {
+      "name": "Track Shipment in Real-Time",
+      "action": "Integrate Carrier APIs",
+      "group": "Tracking",
+      "input_fields": ["carrier_id", "order_id"],
+      "output_fields": ["shipment_status"]
+    },
+    {
+      "name": "Detect Exceptions",
+      "action": "AI Risk Detection",
+      "group": "Monitoring",
+      "input_fields": ["shipment_status"],
+      "output_fields": ["exceptions_detected"]
+    },
+    {
+      "name": "Notify Stakeholders",
+      "action": "Send Alerts",
+      "group": "Communication",
+      "input_fields": ["exceptions_detected"],
+      "output_fields": ["notifications_sent"]
+    },
+    {
+      "name": "Trigger Contingency Plan",
+      "action": "Fallback Workflow",
+      "group": "Operations",
+      "input_fields": ["exceptions_detected"],
+      "output_fields": ["rerouting_status"]
+    },
+    {
+      "name": "Confirm Delivery & Request Feedback",
+      "action": "Final Confirmation",
+      "group": "Customer Service",
+      "input_fields": ["shipment_status"],
+      "output_fields": ["delivery_confirmation", "feedback_request"]
+    }
+  ]
+}

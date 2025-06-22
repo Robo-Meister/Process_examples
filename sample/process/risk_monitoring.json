@@ -1,0 +1,50 @@
+{
+  "type": "workflow",
+  "name": "Risk Monitoring & Automated Escalation",
+  "category": "Compliance / Multi-Sector",
+  "description": "AI-driven risk monitoring and automatic escalation across sectors.",
+  "steps": [
+    {
+      "name": "Collect Risk Inputs",
+      "action": "Aggregate from Systems",
+      "group": "Monitoring",
+      "input_fields": ["sensor_data", "workflow_logs", "documents"],
+      "output_fields": ["raw_risk_data"]
+    },
+    {
+      "name": "Analyze Risks",
+      "action": "AI Risk Detection",
+      "group": "AI Engine",
+      "input_fields": ["raw_risk_data"],
+      "output_fields": ["risk_events"]
+    },
+    {
+      "name": "Assign Risk Owner & Actions",
+      "action": "Auto Routing",
+      "group": "Risk Coordination",
+      "input_fields": ["risk_events"],
+      "output_fields": ["risk_owner", "recommended_action"]
+    },
+    {
+      "name": "Generate Dashboards & Reports",
+      "action": "Compile Risk View",
+      "group": "Compliance",
+      "input_fields": ["risk_events", "risk_owner"],
+      "output_fields": ["risk_dashboard", "report_export"]
+    },
+    {
+      "name": "Trigger Alerts & Escalation",
+      "action": "Notify / Escalate",
+      "group": "Operations",
+      "input_fields": ["risk_events", "thresholds"],
+      "output_fields": ["alerts_sent"]
+    },
+    {
+      "name": "Track Resolution",
+      "action": "Close or Escalate Again",
+      "group": "Compliance",
+      "input_fields": ["alerts_sent", "recommended_action"],
+      "output_fields": ["resolution_status", "audit_trail"]
+    }
+  ]
+}
