@@ -1,0 +1,65 @@
+{
+  "type": "workflow",
+  "name": "Contract Analysis and Clause Review",
+  "description": "Mixed manual-AI workflow for reviewing contracts, identifying clauses, and flagging missing or risky terms.",
+  "category": "Legal",
+  "fields": [
+    "uploaded_contract",
+    "extracted_clauses",
+    "flagged_issues",
+    "lawyer_comments",
+    "final_approval"
+  ],
+  "steps": [
+    {
+      "name": "Upload Contract",
+      "action": "Upload File",
+      "level": 0,
+      "required_manual": true,
+      "possible_manual": true,
+      "possible_ai": false,
+      "input_fields": [],
+      "output_fields": ["uploaded_contract"]
+    },
+    {
+      "name": "Extract Clauses Using AI",
+      "action": "Parse Contract",
+      "level": 1,
+      "required_manual": false,
+      "possible_ai": true,
+      "possible_service": true,
+      "input_fields": ["uploaded_contract"],
+      "output_fields": ["extracted_clauses"]
+    },
+    {
+      "name": "AI Flagging of Risky or Missing Clauses",
+      "action": "Review Clauses with AI",
+      "level": 2,
+      "required_manual": false,
+      "possible_ai": true,
+      "possible_service": true,
+      "input_fields": ["extracted_clauses"],
+      "output_fields": ["flagged_issues"]
+    },
+    {
+      "name": "Manual Legal Review",
+      "action": "Add Legal Comments",
+      "level": 3,
+      "required_manual": true,
+      "possible_ai": false,
+      "possible_manual": true,
+      "input_fields": ["flagged_issues"],
+      "output_fields": ["lawyer_comments"]
+    },
+    {
+      "name": "Generate Final Review Summary",
+      "action": "Summarize Contract Review",
+      "level": 4,
+      "required_manual": false,
+      "possible_ai": true,
+      "possible_service": true,
+      "input_fields": ["extracted_clauses", "flagged_issues", "lawyer_comments"],
+      "output_fields": ["final_approval"]
+    }
+  ]
+}
