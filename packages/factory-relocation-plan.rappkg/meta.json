@@ -1,0 +1,14 @@
+{
+  "key": "factory-relocation-plan",
+  "name": "Set Up Factory Relocation Plan",
+  "version": "1.0.0",
+  "type": "workflow",
+  "description": "A full procedure for managing factory relocation, including execution planning.",
+  "workflows": [
+    "workflows/setup_factory_relocation_plan.json",
+    "workflows/relocation_execution_planning.json"
+  ],
+  "tags": ["manufacturing", "relocation", "logistics"],
+  "available": true,
+  "license": "standard"
+}

@@ -1,0 +1,132 @@
+{
+  "type": "workflow",
+  "name": "Set Up Factory Relocation Plan",
+  "description": "Plans and executes factory relocation with critical path dependencies, risk assessments, team coordination, and legal/regulatory compliance.",
+  "category": "Operations / Strategic Projects",
+  "fields": [
+    "location_from",
+    "location_to",
+    "relocation_reason",
+    "main_coordinator",
+    "relocation_scope",
+    "risk_flag",
+    "dependency_report_id",
+    "approval_status",
+    "estimated_cost",
+    "start_date",
+    "end_date"
+  ],
+  "steps": [
+    {
+      "name": "Define Relocation Objectives and Scope",
+      "action": "Outline reasons, benefits, departments involved, and general impact",
+      "group": "Preparation",
+      "level": 0,
+      "optional": false,
+      "input_fields": [],
+      "output_fields": ["relocation_reason", "relocation_scope"]
+    },
+    {
+      "name": "Assign Relocation Coordinator",
+      "action": "Nominate a person/team to manage the relocation process",
+      "group": "Preparation",
+      "level": 1,
+      "optional": false,
+      "input_fields": [],
+      "output_fields": ["main_coordinator"]
+    },
+    {
+      "name": "Map All Dependencies",
+      "action": "Identify all interdependent systems, processes, and production lines",
+      "group": "Dependency Planning",
+      "level": 2,
+      "optional": false,
+      "input_fields": ["relocation_scope"],
+      "output_fields": ["dependency_report_id"]
+    },
+    {
+      "name": "Optional: Risk Assessment",
+      "action": "Estimate downtime, financial, and legal risks; escalate if high risk",
+      "group": "Risk & Legal",
+      "level": 2,
+      "optional": true,
+      "input_fields": ["relocation_scope"],
+      "output_fields": ["risk_flag"]
+    },
+    {
+      "name": "Optional: Regulatory Compliance Check",
+      "action": "Verify relocation is in line with permits, tax, labor, and safety requirements",
+      "group": "Risk & Legal",
+      "level": 2,
+      "optional": true,
+      "input_fields": ["location_to"],
+      "output_fields": []
+    },
+    {
+      "name": "Define Budget and Timeline",
+      "action": "Estimate relocation costs and expected duration",
+      "group": "Planning",
+      "level": 3,
+      "optional": false,
+      "input_fields": [],
+      "output_fields": ["estimated_cost", "start_date", "end_date"]
+    },
+    {
+      "name": "Optional: Internal Approval",
+      "action": "Send to board or operations director for approval if needed",
+      "group": "Approval",
+      "level": 4,
+      "optional": true,
+      "input_fields": ["estimated_cost", "risk_flag"],
+      "output_fields": ["approval_status"]
+    },
+    {
+      "name": "Relocation Execution Plan",
+      "action": "Create detailed phased plan for relocation (equipment, data, teams)",
+      "group": "Execution Plan",
+      "level": 5,
+      "optional": false,
+      "input_fields": ["dependency_report_id"],
+      "output_fields": []
+    },
+    {
+      "name": "Notify Affected Departments",
+      "action": "Send notifications to HR, IT, logistics, suppliers, etc.",
+      "group": "Communication",
+      "level": 5,
+      "optional": false,
+      "input_fields": ["relocation_scope"],
+      "output_fields": []
+    },
+    {
+      "name": "Optional: Parallel Early Preparations",
+      "action": "Start prepping new site (wiring, security, permits) in parallel",
+      "group": "Pre-Relocation",
+      "level": 5,
+      "optional": true,
+      "input_fields": ["location_to"],
+      "output_fields": []
+    },
+    {
+      "name": "Begin Physical and Data Relocation",
+      "action": "Move infrastructure and backup production systems",
+      "group": "Execution",
+      "level": 6,
+      "optional": false,
+      "input_fields": ["start_date"],
+      "output_fields": []
+    },
+    {
+      "name": "Post-Relocation Checks and Go-Live",
+      "action": "Verify everything operational at new site; finalize changeover",
+      "group": "Finalization",
+      "level": 7,
+      "optional": false,
+      "input_fields": [],
+      "output_fields": []
+    }
+  ],
+  "need_project": true,
+  "need_client": false,
+  "need_payment": false
+}

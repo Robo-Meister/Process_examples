@@ -1,0 +1,17 @@
+{
+  "key": "parking-manager",
+  "name": "Parking Manager",
+  "version": "1.0.0",
+  "entry": "app.json",
+  "modules": ["Documents", "CRM", "WMS", "Calendar", "Organisation"],
+  "plans": ["Silver"],
+  "workflows": [
+    "workflows/finish_reservations.json",
+    "workflows/parking_reservation.json",
+    "workflows/realize_parking.json"
+  ],
+  "price": {
+    "credits": 50
+  },
+  "available": true
+}
