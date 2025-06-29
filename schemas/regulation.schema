@@ -1,0 +1,281 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Regulation Schema",
+  "type": "object",
+  "properties": {
+    "regulation_id": { "type": "string" },
+    "templateId": { "type": "string" },
+    "type": { "type": "string", "enum": ["regulation", "regulations"] },
+    "title": { "type": "string" },
+    "description": { "type": "string" },
+    "jurisdiction": {
+      "oneOf": [
+        { "type": "string" },
+        {
+          "type": "object",
+          "properties": {
+            "country": { "type": "string" },
+            "region": { "type": "string" }
+          },
+          "required": ["country"]
+        }
+      ]
+    },
+    "jurisdiction_match": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "sector_match": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "product_type_in": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "company_size": { "type": "string" },
+    "industry": { "type": "string" },
+    "version": { "type": "string" },
+    "effective_date": { "type": "string", "format": "date-time" },
+    "effective_from": { "type": "string", "format": "date" },
+    "updated_on": { "type": "string", "format": "date" },
+    "scope": {
+      "type": "object",
+      "properties": {
+        "sectors": { "type": "array", "items": { "type": "string" } },
+        "product_categories": { "type": "array", "items": { "type": "string" } },
+        "jurisdictions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "country": { "type": "string" },
+              "region": { "type": "string" }
+            },
+            "required": ["country"]
+          }
+        }
+      }
+    },
+    "autofillRules": {
+      "type": "object",
+      "additionalProperties": { "type": "string" }
+    },
+    "requirements": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "description": { "type": "string" },
+          "check": { "type": "string" },
+          "frequency": { "type": "string" }
+        },
+        "required": ["id", "description"]
+      }
+    },
+    "linkedCertificates": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "audit_rules": {
+      "type": "object",
+      "properties": {
+        "log_all_document_changes": { "type": "boolean" },
+        "log_all_workflow_step_changes": { "type": "boolean" },
+        "log_user_access": { "type": "boolean" },
+        "log_retention_period_days": { "type": "integer" },
+        "audit_review_frequency_days": { "type": "integer" },
+        "encryption_required": { "type": "boolean" },
+        "access_control": {
+          "type": "object",
+          "properties": {
+            "role_restrictions": { "type": "array", "items": { "type": "string" } },
+            "multi_factor_authentication": { "type": "boolean" }
+          }
+        }
+      }
+    },
+    "affected_components": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "component": { "type": "string" },
+          "impact": { "type": "string" }
+        }
+      }
+    },
+    "tasks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "task_id": { "type": "string" },
+          "description": { "type": "string" },
+          "title": { "type": "string" },
+          "status": { "type": "string" },
+          "assigned_to": { "type": "string" },
+          "priority": { "type": "string" },
+          "deadline": { "type": "string", "format": "date-time" },
+          "due_date": { "type": "string", "format": "date" },
+          "dependencies": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "flow": { "type": "string" },
+          "auto_assign": { "type": "string" },
+          "linked_risk": { "type": "string" },
+          "comments": {
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        },
+        "required": ["task_id", "status"]
+      }
+    },
+    "ai_adaptive_fields": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "field": { "type": "string" },
+          "required": { "type": "boolean" },
+          "required_if": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "dynamic_suggestion": { "type": "string" },
+          "context_dependencies": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "options": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "description": { "type": "string" },
+          "validation": { "type": "string" },
+          "type": { "type": "string" },
+          "fallback": { "type": ["number", "string"] },
+          "template_source": { "type": "string" },
+          "editable": { "type": "boolean" }
+        },
+        "required": ["field"]
+      }
+    },
+    "intelligent_flows": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "event": { "type": "string" },
+          "conditions": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "actions": {
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        },
+        "required": ["event", "actions"]
+      }
+    },
+    "recommended_tasks": {
+      "type": "array",
+      "items": { "$ref": "#/properties/tasks/items" }
+    },
+    "certificate_management": {
+      "type": "object",
+      "properties": {
+        "required_certificates": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "certificate_expiry_check_interval_days": { "type": "integer" },
+        "auto_block_on_expired": { "type": "boolean" }
+      }
+    },
+    "audit_trail": {
+      "type": "object",
+      "properties": {
+        "enabled": { "type": "boolean" },
+        "records": {
+          "type": "array",
+          "items": { "type": "object" }
+        }
+      }
+    },
+    "manual_override": {
+      "type": "object",
+      "properties": {
+        "enabled": { "type": "boolean" },
+        "override_checkbox": {
+          "type": "object",
+          "properties": {
+            "label": { "type": "string" },
+            "default": { "type": "boolean" },
+            "requires_comment": { "type": "boolean" }
+          }
+        }
+      }
+    },
+    "obligations": {
+      "type": "object",
+      "properties": {
+        "reporting_frequency": { "type": "string" },
+        "payment_due_day": { "type": "integer" },
+        "audit_retention_days": { "type": "integer" }
+      }
+    },
+    "linked_tax_files": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "required_workflows": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "document_requirements": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "risks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "type": { "type": "string" },
+          "severity": { "type": "string" },
+          "description": { "type": "string" },
+          "auto_block": { "type": "boolean" },
+          "mitigation_steps": {
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        }
+      }
+    },
+    "custom_flow": {
+      "type": "object",
+      "properties": {
+        "start_task": { "type": "string" },
+        "flow_steps": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "task_id": { "type": "string" },
+              "next_tasks": {
+                "type": "array",
+                "items": { "type": "string" }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
