@@ -1,0 +1,47 @@
+{
+  "name": "Onboarding Funnel",
+  "type": "funnel",
+  "description": "Funnel for onboarding new clients",
+  "stages": [
+    {
+      "name": "Initial Contact",
+      "position": 1,
+      "tasks": [
+        {
+          "name": "Intro Call",
+          "actionType": "booking",
+          "bookingRule": "rule_intro_call"
+        },
+        {
+          "name": "Send Welcome Email",
+          "actionType": "send_email"
+        }
+      ]
+    },
+    {
+      "name": "Demo Stage",
+      "position": 2,
+      "tasks": [
+        {
+          "name": "Book Demo",
+          "actionType": "booking",
+          "bookingRule": "rule_demo_call"
+        }
+      ]
+    },
+    {
+      "name": "Contract",
+      "position": 3,
+      "tasks": [
+        {
+          "name": "Send Proposal",
+          "actionType": "send_document"
+        },
+        {
+          "name": "Receive Signed Contract",
+          "actionType": "document_sign"
+        }
+      ]
+    }
+  ]
+}
