@@ -1,0 +1,105 @@
+{
+  "type": "workflow",
+  "name": "Intelligent Procurement & Supplier Assurance",
+  "description": "Workflow to automate and optimize procurement planning, supplier selection, purchase order creation, and risk mitigation using AI suggestions and finance/WMS integrations.",
+  "version": "1.0",
+  "category": "SCM",
+  "steps": [
+    {
+      "name": "Analyze Demand Signals",
+      "description": "Aggregate and analyze sales trends, forecasts, and seasonal data to estimate future demand.",
+      "possible_ai": true,
+      "possible_service": true,
+      "product_related": true,
+      "group": "Planning",
+      "output_fields": ["forecasted_demand"],
+      "actor": { "group": "supply_chain_analyst" },
+      "interaction": { "mode": "auto_suggest", "channels": ["dashboard"] }
+    },
+    {
+      "name": "Check Stock & Capacity",
+      "description": "Compare forecasted demand with current WMS stock and production capacity. Suggest safety stock levels.",
+      "possible_ai": true,
+      "possible_service": true,
+      "product_related": true,
+      "group": "Planning",
+      "input_fields": ["forecasted_demand"],
+      "output_fields": ["stock_gap", "suggested_reorder_qty"],
+      "actor": { "group": "inventory_manager" },
+      "interaction": { "mode": "auto_suggest", "channels": ["dashboard"] }
+    },
+    {
+      "name": "Suggest Supplier Options",
+      "description": "Select suitable suppliers based on compliance, lead times, and performance history.",
+      "possible_ai": true,
+      "possible_service": true,
+      "document_related": true,
+      "group": "Procurement",
+      "input_fields": ["suggested_reorder_qty"],
+      "output_fields": ["ranked_suppliers"],
+      "actor": { "group": "procurement_specialist" },
+      "interaction": { "mode": "review", "channels": ["dashboard", "email"] }
+    },
+    {
+      "name": "Draft Purchase Order",
+      "description": "Create a draft PO with pre-filled quantities and supplier details, ready for finance review.",
+      "possible_ai": true,
+      "possible_service": true,
+      "document_related": true,
+      "group": "Procurement",
+      "input_fields": ["ranked_suppliers"],
+      "output_fields": ["draft_po"],
+      "actor": { "group": "procurement_specialist" },
+      "interaction": { "mode": "review", "channels": ["dashboard"] }
+    },
+    {
+      "name": "Review Financial Impact",
+      "description": "Analyze cash flow and budget implications of draft PO before approval.",
+      "possible_ai": true,
+      "possible_service": true,
+      "project_related": true,
+      "group": "Finance",
+      "input_fields": ["draft_po"],
+      "output_fields": ["financial_impact_report"],
+      "actor": { "group": "finance_controller" },
+      "interaction": { "mode": "review", "channels": ["dashboard", "report"] }
+    },
+    {
+      "name": "Confirm & Dispatch Purchase Order",
+      "description": "Finalize and send the PO to the supplier.",
+      "possible_ai": false,
+      "document_related": true,
+      "group": "Procurement",
+      "input_fields": ["draft_po", "financial_impact_report"],
+      "output_fields": ["confirmed_po"],
+      "actor": { "group": "procurement_specialist" },
+      "interaction": { "mode": "manual_confirm", "channels": ["dashboard"] }
+    },
+    {
+      "name": "Prepare Logistics & Warehouse",
+      "description": "Plan warehouse space and inbound logistics for the incoming order.",
+      "possible_ai": true,
+      "possible_service": true,
+      "product_related": true,
+      "group": "Logistics",
+      "input_fields": ["confirmed_po"],
+      "output_fields": ["warehouse_prep_plan"],
+      "actor": { "group": "logistics_manager" },
+      "interaction": { "mode": "auto_suggest", "channels": ["dashboard"] }
+    },
+    {
+      "name": "Monitor Delivery & Trigger Alerts",
+      "description": "Track shipment progress and send alerts in case of delays or risks.",
+      "possible_ai": true,
+      "possible_service": true,
+      "group": "Logistics",
+      "input_fields": ["confirmed_po"],
+      "output_fields": ["delivery_alerts"],
+      "actor": { "group": "logistics_manager" },
+      "interaction": { "mode": "auto_monitor", "channels": ["dashboard", "email", "notifications"] }
+    }
+  ],
+  "need_project": true,
+  "need_client": true,
+  "need_payment": false
+}
