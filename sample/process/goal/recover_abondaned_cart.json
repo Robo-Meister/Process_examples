@@ -1,0 +1,34 @@
+{
+  "type": "workflow",
+  "code": "PLAY.RECOVER_ABANDONED_CART",
+  "title": "Recover Abandoned Carts",
+  "selector": {
+    "require": [
+      {"path": "apps.store.enabled", "op": "=", "value": true},
+      {"path": "kpi.abandon_rate", "op": ">=", "value": 0.05}
+    ],
+    "prefer": [
+      {"path": "apps.email.enabled", "op": "=", "value": true}
+    ],
+    "block_if": [
+      {"path": "regulations.emailConsentRequired", "op": "=", "value": true},
+      {"path": "audits.emailConsentCoverage", "op": "<", "value": 0.8}
+    ]
+  },
+  "scorer": {
+    "formula": "impact * readiness * (1 - risk)",
+    "variables": {
+      "impact": "min(1, kpi.abandon_rate / 0.2)",          // cap at 20%
+      "readiness": "bool(apps.email.enabled) ? 1 : 0.6",
+      "risk": "regulations.emailConsentRequired && audits.emailConsentCoverage < 0.95 ? 0.6 : 0.1"
+    }
+  },
+  "inputs": {
+    "segment": "cart_abandoned_last_14_days",
+    "messageTemplate": "tpl_ab_cart_recovery_default",
+    "discount": {"whenKpiWorseThan":"abandon_rate >= 0.12","value":"10%"}
+  },
+  "outputs": {
+    "metrics": ["emailsSent","clicks","recoveries","revenueRecovered"]
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "type": "workflow",
+  "code": "WF.offer_discount",
+  "name": "Offer Discount Campaign",
+  "description": "Send targeted discount offers",
+  "modules": ["CRM", "Store"],
+  "applications": ["Mail", "CRM"],
+  "steps": [
+    {
+      "code": "prepare-segmentation",
+      "name": "Prepare Segmentation",
+      "function": "build_audience",
+      "possible_ai": true,
+      "risks": ["MarginDrop", "BrandPerception"]
+    },
+    {
+      "code": "send-offers",
+      "name": "Send Offers",
+      "function": "send_offer_email",
+      "next": "measure-impact",
+      "ai": { "handoff": "CallAIAgent", "model": "gpt-4o-mini" }
+    },
+    {
+      "code": "measure-impact",
+      "name": "Measure Impact",
+      "function": "collect_kpis",
+      "report": true
+    }
+  ]
+}
