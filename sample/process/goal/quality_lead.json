@@ -1,0 +1,53 @@
+{
+  "type": "workflow",
+  "code": "WF.Sales.QualifyLead",
+  "name": "Qualify Lead",
+  "description": "Enrich and qualify a new lead; score fit; route to owner.",
+  "category": "Sales/Inbound",
+  "steps": [
+    {
+      "name": "Enrich Lead",
+      "level": 0,
+      "function": "Lead Enrichment",
+      "possible_ai": true,
+      "input_fields": {
+        "lead_email": null,
+        "lead_domain": null
+      },
+      "output_fields": {
+        "company_size": null,
+        "industry": null,
+        "tech_stack": null
+      },
+      "risks": ["Data Privacy"]
+    },
+    {
+      "name": "Score Fit",
+      "level": 1,
+      "function": "Lead Scoring",
+      "possible_service": true,
+      "input_fields": {
+        "company_size": null,
+        "industry": null,
+        "use_case_hint": null
+      },
+      "output_fields": {
+        "fit_score": null,
+        "score_reason": null
+      }
+    },
+    {
+      "name": "Assign Owner",
+      "level": 2,
+      "function": "CRM Assign Owner",
+      "possible_service": true,
+      "input_fields": {
+        "fit_score": null,
+        "territory": null
+      },
+      "output_fields": {
+        "owner_user_id": null
+      }
+    }
+  ]
+}

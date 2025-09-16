@@ -1,0 +1,50 @@
+{
+  "type": "goal",
+  "code": "GOAL.increase_sales",
+  "name": "Increase Sales",
+  "context_map": {
+    "project": "$.Project",
+    "client": "$.Client",
+    "initialMessage": "Boost sales for {{$.Client.name}} in {{$.Project.name}}"
+  },
+  "candidates": [
+    {
+      "ref": "WF.offer_discount",
+      "type": "workflow",
+      "inputs": { "discount": 10 },
+      "selector": { "if": { "ctx.margin_pct": { "gte": 25 } } },
+      "scorer":   { "weights": { "impact": 0.7, "risk": -0.3 } }
+    },
+    {
+      "ref": "WF.reactivate_leads",
+      "type": "workflow",
+      "selector": { "if": { "ctx.dormant_leads": { "gte": 50 } } },
+      "scorer":   { "weights": { "impact": 0.5, "effort": -0.2, "risk": -0.1 } }
+    },
+
+    {
+      "ref": "PLAY.RECOVER_ABANDONED_CART",
+      "type": "workflow"
+    },
+    {
+      "ref": "PLAY.LAUNCH_PAID_SEARCH_CA",
+      "type": "workflow"
+    },
+    {
+      "ref": "PLAY.PARTNER_OUTREACH_ELECTRONICS",
+      "type": "workflow"
+    },
+    {
+      "ref": "PLAY.EMAIL_WINBACK_SEGMENT_LOST90",
+      "type": "workflow"
+    },
+    {
+      "ref": "PLAY.SEO_FIX_TECH_ISSUES",
+      "type": "workflow"
+    }
+  ],
+  "plan": { "strategy": "portfolio" },
+  "success_metrics": [
+    { "key": "sales.revenue.weekly", "direction": "up", "target": "+15%", "window": "P4W" }
+  ]
+}

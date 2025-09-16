@@ -1,0 +1,28 @@
+{
+  "type": "regulations",
+  "regulation_id": "meal-sms-reminder",
+  "title": "Powiadomienie SMS dla rodziców o braku rejestracji",
+  "context_rules": {
+    "jurisdiction_match": ["PL"],
+    "sector_match": ["Education"],
+    "product_type_in": ["B2C"],
+    "company_size": "any"
+  },
+  "ai_adaptive_fields": [
+    {
+      "field": "sms_provider",
+      "dynamic_source": "integration_mapper",
+      "context_dependencies": ["organisation.location"]
+    }
+  ],
+  "intelligent_flows": [
+    {
+      "event": "meal_period_closed",
+      "conditions": ["meal_log_missing = true"],
+      "actions": [
+        "send_sms_to_parent",
+        "log_notification"
+      ]
+    }
+  ]
+}

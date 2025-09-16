@@ -1,0 +1,37 @@
+{
+  "type": "regulations",
+  "regulation_id": "meal-monthly-billing",
+  "title": "Automatyczne rozliczenie miesięczne posiłków",
+  "context_rules": {
+    "jurisdiction_match": ["PL", "EU"],
+    "sector_match": ["Education"],
+    "product_type_in": ["B2C"],
+    "company_size": "any"
+  },
+  "ai_adaptive_fields": [
+    {
+      "field": "billing_cycle_days",
+      "dynamic_source": "jurisdiction_billing_rules",
+      "fallback": 30
+    }
+  ],
+  "intelligent_flows": [
+    {
+      "event": "billing_cycle_end",
+      "actions": [
+        "count_registered_meals",
+        "generate_invoice_per_client",
+        "send_invoice_summary_to_parent",
+        "trigger_payment_reminder_if_unpaid"
+      ]
+    }
+  ],
+  "recommended_tasks": [
+    {
+      "task_id": "confirm_meal_log_integrity",
+      "auto_assign": "school_admin",
+      "flow": "meal_control",
+      "status": "pending"
+    }
+  ]
+}

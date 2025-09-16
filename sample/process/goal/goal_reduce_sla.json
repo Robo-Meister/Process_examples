@@ -1,0 +1,22 @@
+{
+  "type": "goal",
+  "code": "GOAL.Support.ReduceSLABreaches",
+  "name": "Reduce SLA Breaches",
+  "description": "Lower % of tickets that miss first response and resolution SLAs.",
+  "tags": ["support","sla"],
+  "context_map": {
+    "ticket": "$.ticket",
+    "client": "$.client"
+  },
+  "plan": { "strategy": "portfolio" },
+  "candidates": [
+    { "ref": "WF.Support.Triage" },
+    { "ref": "WF.Support.EscalateP1" },
+    { "ref": "WF.Support.CloseLoopCSAT" }
+  ],
+  "success_metrics": {
+    "first_response_sla_breach_rate": { "target": "<= 5%", "window": "month" },
+    "resolution_sla_breach_rate": { "target": "<= 8%", "window": "month" }
+  },
+  "active": true
+}

@@ -1,0 +1,56 @@
+{
+  "type": "workflow",
+  "code": "WF.Sales.GenerateOffer",
+  "name": "Generate Offer",
+  "description": "Compose price proposal with terms and send to the client.",
+  "category": "Sales/Proposal",
+  "steps": [
+    {
+      "name": "Draft Proposal",
+      "level": 0,
+      "function": "Proposal Compose",
+      "possible_ai": true,
+      "input_fields": {
+        "client_name": null,
+        "package": null,
+        "seat_count": null,
+        "currency": "USD"
+      },
+      "output_fields": {
+        "proposal_doc_id": null,
+        "net_price": null
+      },
+      "risks": ["Mispricing"]
+    },
+    {
+      "name": "Approval",
+      "level": 1,
+      "function": "Manager Approval",
+      "required_manual": true,
+      "possible_frontend": true,
+      "input_fields": {
+        "proposal_doc_id": null,
+        "net_price": null
+      },
+      "output_fields": {
+        "approved": null,
+        "comments": null
+      }
+    },
+    {
+      "name": "Send Proposal",
+      "level": 2,
+      "function": "Send Email With Attachment",
+      "possible_service": true,
+      "input_fields": {
+        "proposal_doc_id": null,
+        "to_email": null,
+        "subject": "Your proposal",
+        "message": "Hi, please find the proposal attached."
+      },
+      "output_fields": {
+        "email_message_id": null
+      }
+    }
+  ]
+}

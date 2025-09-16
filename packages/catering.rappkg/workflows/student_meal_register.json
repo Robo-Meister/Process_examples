@@ -1,0 +1,11 @@
+{
+  "key": "student_meal_register",
+  "name": "Rejestracja posiłków",
+  "description": "Rejestracja spożycia posiłków przez RFID, formularz lub papierową listę.",
+  "steps": [
+    { "name": "Odczyt RFID lub formularz", "type": "input", "fields": ["student_id", "timestamp", "method"] },
+    { "name": "Zapis do dziennika", "type": "process" },
+    { "name": "Sprawdzenie poprawności", "type": "check" }
+  ],
+  "category": "edu-food"
+}

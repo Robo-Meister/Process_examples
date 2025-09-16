@@ -1,0 +1,25 @@
+{
+  "type": "workflow",
+  "code": "WF.Sales.RetargetDormant",
+  "name": "Retarget Dormant Leads",
+  "description": "Find dormant leads and push to retargeting audience.",
+  "category": "Sales/Retention",
+  "steps": [
+    {
+      "name": "Find Dormant Leads",
+      "level": 0,
+      "function": "CRM Query",
+      "possible_service": true,
+      "input_fields": { "days_inactive_gt": 30 },
+      "output_fields": { "lead_ids": null }
+    },
+    {
+      "name": "Sync To Ads",
+      "level": 1,
+      "function": "Ads Audience Sync",
+      "possible_service": true,
+      "input_fields": { "lead_ids": null, "audience": "retarget_dormant" },
+      "output_fields": { "synced_count": null }
+    }
+  ]
+}

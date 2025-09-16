@@ -1,0 +1,26 @@
+{
+  "type": "workflow",
+  "code": "WF.Support.Triage",
+  "name": "Triage Ticket",
+  "description": "Auto-classify severity and route ticket.",
+  "category": "Support/SLA",
+  "steps": [
+    {
+      "name": "Classify Severity",
+      "level": 0,
+      "function": "Ticket NLP Classifier",
+      "possible_ai": true,
+      "input_fields": { "ticket_id": null, "title": null, "description": null },
+      "output_fields": { "severity": null, "category": null },
+      "risks": ["Incorrect Prioritization"]
+    },
+    {
+      "name": "Route To Queue",
+      "level": 1,
+      "function": "Assign Support Queue",
+      "possible_service": true,
+      "input_fields": { "ticket_id": null, "category": null, "severity": null },
+      "output_fields": { "queue_id": null }
+    }
+  ]
+}

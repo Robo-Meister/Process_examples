@@ -1,0 +1,10 @@
+{
+  "key": "sms_absence_reminder",
+  "name": "SMS: Brak rejestracji posiłku",
+  "description": "Wysyła przypomnienie rodzicowi, jeśli dziecko nie zarejestrowało się w systemie.",
+  "steps": [
+    { "name": "Sprawdź rejestrację", "type": "check" },
+    { "name": "Wyślij SMS", "type": "output", "fields": ["parent_phone", "student_name", "message"] }
+  ],
+  "category": "edu-communication"
+}

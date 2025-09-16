@@ -1,0 +1,33 @@
+{
+  "type": "workflow",
+  "code": "WF.Sales.FollowUpSeq",
+  "name": "Follow-up Sequence",
+  "description": "3-touch follow-up on open opportunities.",
+  "category": "Sales/Engagement",
+  "steps": [
+    {
+      "name": "Touch 1",
+      "level": 0,
+      "function": "Send Templated Email",
+      "possible_service": true,
+      "input_fields": { "to_email": null, "template_code": "sales_followup_1" },
+      "output_fields": { "msg_id": null }
+    },
+    {
+      "name": "Touch 2",
+      "level": 1,
+      "function": "Send Templated Email",
+      "possible_service": true,
+      "input_fields": { "to_email": null, "template_code": "sales_followup_2" },
+      "output_fields": { "msg_id": null }
+    },
+    {
+      "name": "Touch 3",
+      "level": 2,
+      "function": "Send Templated Email",
+      "possible_service": true,
+      "input_fields": { "to_email": null, "template_code": "sales_followup_3" },
+      "output_fields": { "msg_id": null }
+    }
+  ]
+}

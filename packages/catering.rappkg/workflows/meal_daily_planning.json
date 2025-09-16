@@ -1,0 +1,11 @@
+{
+  "key": "meal_daily_planning",
+  "name": "Dzienne planowanie posiłków",
+  "description": "Na podstawie zgłoszeń i obecności generuje plan produkcji.",
+  "steps": [
+    { "name": "Zbierz dane o zamówieniach", "type": "input", "fields": ["class_group", "meal_type", "quantity"] },
+    { "name": "Oblicz ilość porcji", "type": "process" },
+    { "name": "Zatwierdzenie planu przez kuchnię", "type": "manual" }
+  ],
+  "category": "edu-food"
+}

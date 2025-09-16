@@ -1,0 +1,36 @@
+{
+  "type": "regulations",
+  "regulation_id": "meal-log-required",
+  "title": "Rejestracja posiłków obowiązkowa",
+  "context_rules": {
+    "jurisdiction_match": ["PL", "EU"],
+    "sector_match": ["Education", "Public Catering"],
+    "product_type_in": ["B2C", "Subsidized Services"],
+    "company_size": "any"
+  },
+  "ai_adaptive_fields": [
+    {
+      "field": "student_meal_log_method",
+      "dynamic_source": "device_mapper",
+      "context_dependencies": ["organisation.has_rfid", "organisation.allows_manual_log"]
+    }
+  ],
+  "intelligent_flows": [
+    {
+      "event": "meal_period_opened",
+      "actions": [
+        "listen_for_rfid",
+        "mark_attendance_in_log",
+        "send_absence_alert_if_not_logged"
+      ]
+    }
+  ],
+  "recommended_tasks": [
+    {
+      "task_id": "setup_rfid_device",
+      "auto_assign": "facilities_team",
+      "flow": "device_onboarding",
+      "status": "pending"
+    }
+  ]
+}

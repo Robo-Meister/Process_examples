@@ -1,0 +1,28 @@
+{
+  "type": "regulations",
+  "regulation_id": "meal-haccp-certification",
+  "title": "Wymóg certyfikacji HACCP",
+  "context_rules": {
+    "jurisdiction_match": ["PL", "EU"],
+    "sector_match": ["Public Catering", "Education"],
+    "product_type_in": ["B2C", "B2B"],
+    "company_size": "any"
+  },
+  "ai_adaptive_fields": [],
+  "intelligent_flows": [],
+  "recommended_tasks": [
+    {
+      "task_id": "upload_haccp_certificate",
+      "auto_assign": "quality_officer",
+      "flow": "compliance_upload",
+      "status": "pending"
+    }
+  ],
+  "certificate_management": {
+    "required_certificates": [
+      "HACCP Certificate"
+    ],
+    "certificate_expiry_check_interval_days": 365,
+    "auto_block_on_expired": true
+  }
+}

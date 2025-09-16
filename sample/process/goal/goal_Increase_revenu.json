@@ -1,0 +1,25 @@
+{
+  "type": "goal",
+  "code": "GOAL.Sales.IncreaseRevenueQoq",
+  "name": "Increase Revenue QoQ",
+  "description": "Grow new revenue this quarter by combining qualification, offers, and follow-up.",
+  "tags": ["sales","revenue"],
+  "context_map": {
+    "client": "$.client",
+    "project": "$.project",
+    "currency": "$.currency ?? 'USD'",
+    "to_email": "$.client.primaryEmail ?? $.lead.email"
+  },
+  "plan": { "strategy": "topN-by-score", "N": 2 },
+  "candidates": [
+    { "ref": "WF.Sales.QualifyLead" },
+    { "ref": "WF.Sales.GenerateOffer" },
+    { "ref": "WF.Sales.FollowUpSeq" },
+    { "ref": "WF.Sales.RetargetDormant" }
+  ],
+  "success_metrics": {
+    "mrr_delta": { "target": ">= 10%", "window": "quarter" },
+    "lead_to_win_rate": { "target": ">= 20%", "window": "quarter" }
+  },
+  "active": true
+}

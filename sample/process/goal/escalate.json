@@ -1,0 +1,25 @@
+{
+  "type": "workflow",
+  "code": "WF.Support.EscalateP1",
+  "name": "Escalate P1",
+  "description": "Hard escalation path for P1 outages.",
+  "category": "Support/SLA",
+  "steps": [
+    {
+      "name": "Create War Room",
+      "level": 0,
+      "function": "Create Bridge/Channel",
+      "possible_service": true,
+      "input_fields": { "ticket_id": null },
+      "output_fields": { "room_link": null }
+    },
+    {
+      "name": "Page On-call",
+      "level": 1,
+      "function": "PagerDuty Trigger",
+      "possible_service": true,
+      "input_fields": { "severity": "P1", "ticket_id": null },
+      "output_fields": { "incident_id": null }
+    }
+  ]
+}

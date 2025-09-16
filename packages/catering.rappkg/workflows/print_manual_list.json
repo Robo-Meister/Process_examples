@@ -1,0 +1,10 @@
+{
+  "key": "print_manual_list",
+  "name": "Wydruk listy ręcznej do zaznaczenia",
+  "description": "Tworzy listę klasową z miejscem na odznaczenia ręczne.",
+  "steps": [
+    { "name": "Generuj listę obecności", "type": "process" },
+    { "name": "Wydrukuj z QR do skanu", "type": "output", "fields": ["class_name", "student_list", "qr_code"] }
+  ],
+  "category": "edu-tools"
+}

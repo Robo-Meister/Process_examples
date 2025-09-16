@@ -1,0 +1,24 @@
+{
+  "key": "edu-canteen-basic",
+  "name": "Pakiet Szkolna Stołówka",
+  "version": "1.0.0",
+  "type": "workflow",
+  "description": "Zestaw workflowów, regulacji i automatyzacji dla stołówek szkolnych i garmażerki.",
+  "workflows": [
+    "workflows/student_meal_register.json",
+    "workflows/meal_daily_planning.json",
+    "workflows/monthly_billing_generation.json",
+    "workflows/sms_absence_reminder.json",
+    "workflows/print_manual_list.json"
+  ],
+  "regulations": [
+    "meal-log-required",
+    "meal-cancellation-cutoff",
+    "meal-monthly-billing",
+    "meal-sms-reminder",
+    "meal-haccp-certification"
+  ],
+  "tags": ["education", "canteen", "compliance", "regulations"],
+  "available": true,
+  "license": "standard"
+}

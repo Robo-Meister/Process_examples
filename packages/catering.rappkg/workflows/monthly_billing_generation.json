@@ -1,0 +1,11 @@
+{
+  "key": "monthly_billing_generation",
+  "name": "Miesięczne rozliczenie posiłków",
+  "description": "Automatyczne podsumowanie zjedzonych posiłków i wystawienie sald dla rodziców.",
+  "steps": [
+    { "name": "Zlicz spożycia", "type": "process" },
+    { "name": "Oblicz należność", "type": "process" },
+    { "name": "Wygeneruj rozliczenie", "type": "output", "fields": ["client_id", "amount", "due_date"] }
+  ],
+  "category": "edu-finance"
+}

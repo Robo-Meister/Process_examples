@@ -1,0 +1,30 @@
+{
+  "defaultRoute": "student_meal_register_list",
+  "requiresInitialSetup": true,
+  "priority": 5,
+  "icon": "fa-utensils",
+  "color": "orange",
+  "description": "Zarządzanie posiłkami, rejestracją, planowaniem i rozliczeniami.",
+  "tags": ["education", "food", "compliance"],
+  "menu": {
+    "Rejestracja": {
+      "Rejestr posiłków": "student_meal_register_list",
+      "Zgłoszenia nauczycieli": "teacher_orders_list"
+    },
+    "Planowanie": {
+      "Dzienne plany": "meal_daily_plan_list",
+      "Wydruki list": "print_manual_list"
+    },
+    "Rozliczenia": {
+      "Podsumowania miesięczne": "meal_billing_summary",
+      "Faktury": "meal_invoice_list"
+    },
+    "Powiadomienia": {
+      "SMS przypomnienia": "sms_reminder_list"
+    },
+    "Ustawienia": {
+      "Konfiguracja klas": "class_group_config",
+      "Harmonogramy": "meal_schedule_config"
+    }
+  }
+}

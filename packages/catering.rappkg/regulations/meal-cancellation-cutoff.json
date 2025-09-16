@@ -1,0 +1,28 @@
+{
+  "type": "regulations",
+  "regulation_id": "meal-cancellation-cutoff",
+  "title": "Odwołania posiłków przed godziną graniczną",
+  "context_rules": {
+    "jurisdiction_match": ["PL"],
+    "sector_match": ["Education"],
+    "product_type_in": ["B2C"],
+    "company_size": "any"
+  },
+  "ai_adaptive_fields": [
+    {
+      "field": "cancellation_cutoff_time",
+      "dynamic_suggestion": "contextual_time_engine",
+      "context_dependencies": ["school_type", "region"]
+    }
+  ],
+  "intelligent_flows": [
+    {
+      "event": "cancellation_requested",
+      "conditions": ["request_time > cutoff"],
+      "actions": [
+        "deny_request",
+        "mark_as_full_charge"
+      ]
+    }
+  ]
+}
