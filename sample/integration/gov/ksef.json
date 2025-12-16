@@ -8,8 +8,7 @@
   "requirements": [
     "API_BASE",
     "ACCESS_TOKEN",
-    "REFRESH_TOKEN",
-    "CONTEXT_IDENTIFIER_NIP"
+    "REFRESH_TOKEN"
   ],
   "profileRequirements": ["CONTEXT_IDENTIFIER_NIP"],
   "front_requirements": ["API_BASE", "ACCESS_TOKEN"],
