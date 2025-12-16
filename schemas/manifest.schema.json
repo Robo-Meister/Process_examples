@@ -1,0 +1,119 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://example.com/schemas/manifest.schema.json",
+  "title": "Robo package manifest",
+  "type": "object",
+  "required": ["type", "name", "icon", "entry_url"],
+  "properties": {
+    "type": {
+      "const": "web-app"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "description": {
+      "type": "string"
+    },
+    "icon": {
+      "type": "string",
+      "minLength": 1
+    },
+    "entry_url": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^/"
+    },
+    "controllers": {
+      "type": "object",
+      "description": "Optional mapping between logical actions and Symfony controller services.",
+      "patternProperties": {
+        "^[A-Za-z0-9_.-]+$": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": false
+    },
+    "bootstrap": {
+      "type": "object",
+      "description": "Declarative runtime bootstrap instructions for ancillary services and shells.",
+      "properties": {
+        "services": {
+          "type": "array",
+          "description": "Processes that should be launched alongside the web application.",
+          "items": {
+            "type": "object",
+            "required": ["id", "type", "command"],
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^[A-Za-z0-9_.-]+$"
+              },
+              "type": {
+                "type": "string",
+                "enum": ["node-service", "electron-shell", "native-shell"]
+              },
+              "description": {
+                "type": "string"
+              },
+              "command": {
+                "type": "string",
+                "minLength": 1
+              },
+              "args": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "cwd": {
+                "type": "string"
+              },
+              "env": {
+                "type": "object",
+                "description": "Static environment variable assignments for the launched process.",
+                "patternProperties": {
+                  "^[A-Z_][A-Z0-9_]*$": {
+                    "type": "string"
+                  }
+                },
+                "additionalProperties": false
+              },
+              "ready_when": {
+                "type": "string",
+                "description": "Optional log message or condition signalling that the process is ready."
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "environment": {
+          "type": "object",
+          "description": "Documentation for environment variables that must be provided at runtime.",
+          "patternProperties": {
+            "^[A-Z_][A-Z0-9_]*$": {
+              "type": "object",
+              "required": ["description"],
+              "properties": {
+                "description": {
+                  "type": "string"
+                },
+                "required": {
+                  "type": "boolean"
+                },
+                "default": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,35 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "required": ["type", "name"],
+  "properties": {
+    "type": {"const": "integration"},
+    "name": {"type": "string"},
+    "scope": {"type": "string"},
+    "support_url": {"type": "string"},
+    "auth_url": {"type": "string"},
+    "requirements": {"type": "array", "items": {"type": "string"}},
+    "front_requirements": {"type": "array", "items": {"type": "string"}},
+    "ai": {"type": "boolean"},
+    "front": {"type": "boolean"},
+    "payment": {"type": "boolean"},
+    "need_oauth": {"type": "boolean"},
+    "hooks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "method", "hook"],
+        "properties": {
+          "name": {"type": "string"},
+          "description": {"type": "string"},
+          "method": {"type": "string"},
+          "hook": {"type": "string"},
+          "content": {},
+          "action": {}
+        },
+        "additionalProperties": true
+      }
+    }
+  },
+  "additionalProperties": true
+}
