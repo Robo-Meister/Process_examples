@@ -1,0 +1,188 @@
+{
+  "type": "integration",
+  "name": "KSeF (Poland) – e-Faktury",
+  "code": "ksef_pl",
+  "scope": ["accounting", "e_invoicing", "tax_compliance", "ksef"],
+  "support_url": "https://ksef-test.mf.gov.pl/docs",
+  "auth_url": null,
+  "requirements": [
+    "API_BASE",
+    "ACCESS_TOKEN",
+    "REFRESH_TOKEN",
+    "CONTEXT_IDENTIFIER_NIP"
+  ],
+  "profileRequirements": ["CONTEXT_IDENTIFIER_NIP"],
+  "front_requirements": ["API_BASE", "ACCESS_TOKEN"],
+  "custom_provider_key": null,
+  "auth_method": 5,
+  "ai": false,
+  "front": true,
+  "payment": false,
+  "need_oauth": false,
+  "description": "Integracja z KSeF API v2 (MF): sesje wysyłki, statusy/UPO, pobieranie metadanych faktur, tokeny KSeF, odświeżanie tokenów.",
+  "defaults": {
+    "API_BASE": "https://api-test.ksef.mf.gov.pl/v2"
+  },
+  "hooks": [
+    {
+      "name": "Open Interactive Session",
+      "description": "Otwiera sesję do wysyłki pojedynczych faktur (interaktywna).",
+      "method": "POST",
+      "testable": true,
+      "hook": "%%API_BASE%%/sessions/online",
+      "content": null,
+      "auth_source": "ACCESS_TOKEN",
+      "scope": [],
+      "mapper": [
+        { "field": "session_reference_number", "parse": "referenceNumber", "type": 0 }
+      ],
+      "categories": ["KSeF", "E-Invoicing"],
+      "action": [{ "field": null, "action": "Open Session", "type": 2 }]
+    },
+    {
+      "name": "Send Invoice (Interactive Session)",
+      "description": "Wysyła fakturę w ramach otwartej sesji (payload faktury jako XML).",
+      "method": "POST",
+      "testable": false,
+      "hook": "%%API_BASE%%/sessions/online/%%session_reference_number%%/invoices",
+      "content": "%%invoice_xml%%",
+      "auth_source": "ACCESS_TOKEN",
+      "scope": [],
+      "mapper": [
+        { "field": "invoice_reference_number", "parse": "referenceNumber", "type": 0 }
+      ],
+      "categories": ["KSeF", "E-Invoicing"],
+      "action": [{ "field": null, "action": "Send Invoice", "type": 2 }]
+    },
+    {
+      "name": "Close Interactive Session",
+      "description": "Zamyka sesję interaktywną.",
+      "method": "POST",
+      "testable": true,
+      "hook": "%%API_BASE%%/sessions/online/%%session_reference_number%%/close",
+      "content": null,
+      "auth_source": "ACCESS_TOKEN",
+      "scope": [],
+      "mapper": [],
+      "categories": ["KSeF"],
+      "action": [{ "field": null, "action": "Close Session", "type": 2 }]
+    },
+    {
+      "name": "List Session Invoices",
+      "description": "Zwraca listę faktur wysłanych w danej sesji.",
+      "method": "GET",
+      "testable": true,
+      "hook": "%%API_BASE%%/sessions/%%session_reference_number%%/invoices",
+      "content": null,
+      "auth_source": "ACCESS_TOKEN",
+      "scope": [],
+      "mapper": [
+        { "field": "session_invoices", "parse": "invoices", "type": 1 }
+      ],
+      "categories": ["KSeF", "Status"],
+      "action": [{ "field": null, "action": "Fetch Session Invoices", "type": 6 }]
+    },
+    {
+      "name": "Get Invoice UPO from Session",
+      "description": "Pobiera UPO dla faktury z sesji (po numerze referencyjnym faktury).",
+      "method": "GET",
+      "testable": true,
+      "hook": "%%API_BASE%%/sessions/%%session_reference_number%%/invoices/%%invoice_reference_number%%/upo",
+      "content": null,
+      "auth_source": "ACCESS_TOKEN",
+      "scope": [],
+      "mapper": [
+        { "field": "upo_xml", "parse": "raw", "type": 0 }
+      ],
+      "categories": ["KSeF", "UPO"],
+      "action": [{ "field": null, "action": "Download UPO", "type": 6 }]
+    },
+    {
+      "name": "Query Invoices Metadata",
+      "description": "Pobiera metadane faktur wg filtrów (paginacja/inkrementacja po PermanentStorage).",
+      "method": "POST",
+      "testable": true,
+      "hook": "%%API_BASE%%/invoices/query/metadata?sortOrder=Asc&pageOffset=%%page_offset%%&pageSize=%%page_size%%",
+      "content": {
+        "subjectType": "%%subject_type%%",
+        "dateRange": {
+          "dateType": "PermanentStorage",
+          "from": "%%from_date%%",
+          "to": "%%to_date%%"
+        },
+        "currencyCodes": ["%%currency_code%%"]
+      },
+      "auth_source": "ACCESS_TOKEN",
+      "scope": [],
+      "mapper": [
+        { "field": "has_more", "parse": "hasMore", "type": 0 },
+        { "field": "is_truncated", "parse": "isTruncated", "type": 0 },
+        { "field": "invoices", "parse": "invoices", "type": 1 },
+        { "field": "permanent_storage_hwm_date", "parse": "permanentStorageHwmDate", "type": 0 }
+      ],
+      "categories": ["KSeF", "Invoice Read"],
+      "action": [{ "field": null, "action": "Query Invoice Metadata", "type": 6 }]
+    },
+    {
+      "name": "List KSeF Tokens",
+      "description": "Pobiera listę wygenerowanych tokenów KSeF (filtry + kontynuacja).",
+      "method": "GET",
+      "testable": true,
+      "hook": "%%API_BASE%%/tokens?pageSize=%%page_size%%",
+      "content": null,
+      "auth_source": "ACCESS_TOKEN",
+      "scope": [],
+      "mapper": [
+        { "field": "continuation_token", "parse": "continuationToken", "type": 0 },
+        { "field": "tokens", "parse": "tokens", "type": 1 }
+      ],
+      "categories": ["KSeF", "Tokens"],
+      "action": [{ "field": null, "action": "List Tokens", "type": 6 }]
+    },
+    {
+      "name": "Get KSeF Token Status",
+      "description": "Pobiera status tokena KSeF.",
+      "method": "GET",
+      "testable": true,
+      "hook": "%%API_BASE%%/tokens/%%token_reference_number%%",
+      "content": null,
+      "auth_source": "ACCESS_TOKEN",
+      "scope": [],
+      "mapper": [
+        { "field": "token_status", "parse": "status", "type": 0 },
+        { "field": "token_status_details", "parse": "statusDetails", "type": 1 }
+      ],
+      "categories": ["KSeF", "Tokens"],
+      "action": [{ "field": null, "action": "Get Token Status", "type": 6 }]
+    },
+    {
+      "name": "Revoke KSeF Token",
+      "description": "Unieważnia token KSeF (operacja nieodwracalna).",
+      "method": "DELETE",
+      "testable": true,
+      "hook": "%%API_BASE%%/tokens/%%token_reference_number%%",
+      "content": null,
+      "auth_source": "ACCESS_TOKEN",
+      "scope": [],
+      "mapper": [],
+      "categories": ["KSeF", "Tokens"],
+      "action": [{ "field": null, "action": "Revoke Token", "type": 2 }]
+    },
+    {
+      "name": "Refresh Access Token",
+      "description": "Odświeża access token na podstawie refresh tokena (Authorization powinno użyć REFRESH_TOKEN).",
+      "method": "POST",
+      "testable": true,
+      "hook": "%%API_BASE%%/auth/token/refresh",
+      "content": null,
+      "auth_source": "REFRESH_TOKEN",
+      "scope": [],
+      "mapper": [
+        { "field": "access_token", "parse": "accessToken.token", "type": 0 },
+        { "field": "access_token_valid_until", "parse": "accessToken.validUntil", "type": 0 }
+      ],
+      "categories": ["KSeF", "Auth"],
+      "action": [{ "field": null, "action": "Refresh Token", "type": 2 }]
+    }
+  ]
+}
